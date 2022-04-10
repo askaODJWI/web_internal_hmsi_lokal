@@ -34,7 +34,7 @@ class Presensi extends BaseController
             ->join("departemen","acara.id_departemen = departemen.id_departemen")
             ->first();
 
-        return view("presensi/acara",["data" => $query1]);
+        return ($query1 !== null) ? view("presensi/acara",["data" => $query1]) : view("errors/404");
     }
 
     public function hadir()
@@ -122,7 +122,8 @@ class Presensi extends BaseController
         $nrp = session()->get("nrp");
         $kode_acara = session()->get("kode_acara");
 
-        $query1 = $hadir->where("hadir.nrp",$nrp)
+        $query1 = $hadir->select(["hadir.nrp","mhs.nama","hadir.waktu","acara.nama_acara","departemen.nama_departemen","acara.lokasi","pengurus.nama_panggilan","pengurus.id_line","pengurus.no_wa"])
+            ->where("hadir.nrp",$nrp)
             ->where("hadir.kode_acara",$kode_acara)
             ->join("mhs","mhs.nrp = hadir.nrp")
             ->join("acara","acara.kode_acara = hadir.kode_acara")

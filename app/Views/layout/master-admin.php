@@ -11,6 +11,7 @@
     <link href="<?= base_url("main/lib/@fortawesome/fontawesome-free/css/all.min.css") ?>" rel="stylesheet">
 
     <link href="<?= base_url("main/lib/datatables.net-dt/css/jquery.dataTables.min.css") ?>" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.bootstrap4.min.css"/>
     <link href="<?= base_url("main/lib/select2/css/select2.min.css") ?>" rel="stylesheet">
 
     <link href="<?= base_url("main/lib/ionicons/css/ionicons.min.css") ?>" rel="stylesheet">
@@ -25,13 +26,13 @@
 
 <aside class="aside aside-fixed">
     <div class="aside-header">
-        <div class="d-flex ml-xl-auto mr-xl-auto">
+        <div class="d-flex">
             <a href="<?= base_url("/admin/beranda") ?>" class="aside-logo">
-                <img src="<?= base_url("pic/hmsi-mini.jpg") ?>" height="50" alt="" class="aside-logo">
-                <img src="<?= base_url("pic/saturasi-mini.jpg") ?>" height="50" alt="" class="aside-logo">
+                <img src="<?= base_url("pic/hmsi-mini.jpg") ?>" height="45" alt="" class="aside-logo">
+                <img src="<?= base_url("pic/saturasi-mini.jpg") ?>" height="45" alt="" class="aside-logo">
             </a>
         </div>
-        <a href="" class="aside-menu-link d-xl-none">
+        <a href="" class="aside-menu-link">
             <i data-feather="menu"></i>
             <i data-feather="x"></i>
         </a>
@@ -97,15 +98,6 @@
                     <i data-feather="log-out"></i> <span>Keluar</span></a>
             </li>
         </ul>
-
-        <div class="aside-loggedin">
-            <div class="aside-loggedin-user">
-                <div>
-                    <span class="tx-semibold mg-b-0">Hak Akses:</span><br>
-                    <span class="tx-color-03 tx-12 mg-b-0" id="nama_departemen"></span>
-                </div>
-            </div>
-        </div>
     </div>
 </aside>
 
@@ -114,7 +106,22 @@
         <div class="content-search">
         </div>
         <nav class="nav">
-            <span class="nav-link tx-bold" id="nama_user"><i data-feather="user"></i></span>
+            <div class="dropdown dropdown-profile">
+                <a href="" class="dropdown-link" data-toggle="dropdown" data-display="static">
+                    <img src="<?= base_url("pic/avatar.png") ?>" class="avatar avatar-sm rounded-circle" alt="">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" style="width:250px;">
+                    <span class="tx-10">Nama Admin:</span>
+                    <h5 class="tx-bold" id="nama_user"></h5>
+                    <span class="tx-10">Jabatan:</span><br>
+                    <span class="" id="jabatan"></span> - <span class="" id="nama_departemen"></span>
+                    <hr>
+                    <p class="tx-12 tx-color-03 text-center mg-b-0 mt-3"></p>
+                    <a href="<?= base_url("admin/logout") ?>" class="dropdown-item">
+                        <i data-feather="log-out"></i>Keluar
+                    </a>
+                </div>
+            </div>
         </nav>
     </div>
 
@@ -186,8 +193,12 @@
 <script src="<?= base_url("main/lib/perfect-scrollbar/perfect-scrollbar.min.js") ?>"></script>
 <script src="<?= base_url("main/lib/prismjs/prism.js") ?>"></script>
 <script src="<?= base_url("main/lib/datatables.net-dt/js/dataTables.dataTables.min.js") ?>"></script>
-<script src="<?= base_url("main/lib/datatables.net/js/jquery.dataTables.min.js") ?>"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap4.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
 <script src="<?= base_url("main/lib/select2/js/select2.min.js") ?>"></script>
+<script src="<?= base_url("main/lib/chart.js/Chart.bundle.min.js") ?>"></script>
 
 <script src="<?= base_url("main/assets/js/dashforge.js") ?>"></script>
 <script src="<?= base_url("main/assets/js/dashforge.aside.js") ?>"></script>
@@ -207,7 +218,8 @@
         {
             console.log(data);
             $("#nama_user").append(data.nama);
-            $("#nama_departemen").append(data.jabatan + " " + data.nama_departemen);
+            $("#nama_departemen").append(data.nama_departemen);
+            $("#jabatan").append(data.jabatan);
             if (data.nama_panggilan === "" || data.id_line === "" || data.no_wa === "") return $("#profil_lengkap").append("baru");
         }
     });

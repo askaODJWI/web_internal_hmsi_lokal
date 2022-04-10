@@ -22,7 +22,9 @@ $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('BaseController');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
-$routes->set404Override();
+$routes->set404Override(function(){
+    return view("errors/404");
+});
 $routes->setAutoRoute(true);
 
 /*
@@ -79,10 +81,6 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
         $routes->post("ubah_pass","Admin::akun_ubah_pass");
     });
 
-});
-
-$routes->set404Override(function(){
-    return view("errors/404");
 });
 /*
  * --------------------------------------------------------------------

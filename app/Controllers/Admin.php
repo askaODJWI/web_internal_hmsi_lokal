@@ -41,7 +41,21 @@ class Admin extends BaseController
 
     public function beranda()
     {
-        return view("admin/index");
+        $acara = new Acara();
+        $query1 = $acara->select(["nama_acara","tanggal","nama_departemen"])
+            ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
+            ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+            ->orderBy("tanggal")
+            ->limit(5)
+            ->get()
+            ->getResult();
+        $query2 = $acara->select(["nama_departemen","COUNT(acara.id_departemen) as jumlah"])
+            ->join("departemen","acara.id_departemen = departemen.id_departemen")
+            ->groupBy("acara.id_departemen")
+            ->get()
+            ->getResult();
+
+        return view("admin/index",["data" => $query1, "data1" => $query2]);
     }
 
     public function hadir_dashboard()
@@ -174,20 +188,27 @@ class Admin extends BaseController
             ->first();
 
         $acara = new Acara();
+        $hadir = new Hadir();
+
         if($id_pengurus <= 2000)
         {
-            $query2 = $acara
+            $query2 = $acara->select(["nama","jabatan","nama_departemen","nama_acara","acara.kode_acara","tanggal","COUNT(hadir.kode_acara) as peserta"])
+                ->join("hadir","acara.kode_acara = hadir.kode_acara")
                 ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
                 ->join("mhs","pengurus.nrp = mhs.nrp")
                 ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+                ->groupBy("acara.kode_acara")
                 ->get()
                 ->getResult();
             return view("admin/hadir/rekap",["data" => $query2]);
         }
-        $query3 = $acara->where("acara.id_departemen",$query1->id_departemen)
+        $query3 = $acara->select(["nama","jabatan","nama_departemen","nama_acara","acara.kode_acara","tanggal","COUNT(hadir.kode_acara) as peserta"])
+            ->where("acara.id_departemen",$query1->id_departemen)
+            ->join("hadir","acara.kode_acara = hadir.kode_acara")
             ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
             ->join("mhs","pengurus.nrp = mhs.nrp")
             ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+            ->groupBy("acara.kode_acara")
             ->get()
             ->getResult();
         return view("admin/hadir/rekap",["data" => $query3]);
@@ -211,6 +232,22 @@ class Admin extends BaseController
             ->first();
 
         return view("admin/hadir/rekap_detail",["data" => $query1, "data1" => $query2]);
+    }
+
+    public function hadir_hapus($kode_acara)
+    {
+        $hadir = new Hadir();
+        $query1 = $hadir->where("kode_acara",$kode_acara)
+            ->countAllResults();
+
+        if($query1 === 0)
+        {
+            $acara = new Acara();
+            $query2 = $acara->where("kode_acara", $kode_acara)
+                ->delete();
+            return redirect()->to(base_url("admin/hadir/dashboard"))->with('berhasil',"Acara berhasil dibatalkan");
+        }
+        return redirect()->to(base_url("admin/hadir/dashboard"))->with("error","Maaf, acara ini sedang berjalan sehingga tidak dapat dihapus");
     }
 
     public function akun_ubah()
@@ -241,7 +278,7 @@ class Admin extends BaseController
             ->where("id_pengurus",$id_pengurus)
             ->update();
 
-        return redirect()->to("admin/akun/ubah")->with("berhasil","Kata Sandi berhasil diperbarui");
+        return redirect()->to("admin/akun/ubah")->with("berhasil","Kontak untuk narahubung berhasil diperbarui");
     }
 
     public function akun_ubah_pass()

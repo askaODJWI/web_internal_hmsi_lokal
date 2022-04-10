@@ -14,10 +14,10 @@
     <thead>
     <tr class="tx-center">
         <th class="wd-10p">Kode</th>
-        <th class="wd-15p">Nama</th>
+        <th class="wd-20p">Nama</th>
         <th class="wd-15p">Tanggal</th>
-        <th class="wd-20p">Lokasi</th>
         <th class="wd-20p">Pembuat / Pengubah</th>
+        <th class="wd-15p">Jumlah Peserta</th>
         <th class="wd-20p">Aksi</th>
     </tr>
     </thead>
@@ -28,10 +28,10 @@
             <td class="align-middle"><?= $d->nama_acara ?></td>
             <td class="align-middle"><?php setlocale(LC_ALL,'id_ID.utf8', 'id-ID'); echo strftime("%A, %d %B %Y",strtotime($d->tanggal)) .
                     "<br>pukul " . date_format(date_create($d->tanggal),"H.i") . " WIB"?></td>
-            <td class="align-middle"><?= (strlen($d->lokasi) <= 30) ? $d->lokasi : substr($d->lokasi,0,30) . " ..." ?></td>
             <td class="align-middle">
                 <?= $d->nama . "<br><i>" . $d->jabatan . " " . $d->nama_departemen . "</i>" ?><br>
             </td>
+            <td class="align-middle"><?= $d->peserta ?> Orang</td>
             <td class="align-middle tx-center">
                 <form action="<?= base_url("admin/hadir/rekap/detail") ?>" method="post">
                     <input type="hidden" name="kode_acara" id="kode_acara" value="<?= $d->kode_acara ?>">

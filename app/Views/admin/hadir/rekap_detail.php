@@ -10,6 +10,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>
+
 <table id="rekap-detail" class="table table-hover">
     <thead>
     <tr class="tx-center">
@@ -31,7 +32,7 @@
             <td class="align-middle"><?= $d->nrp ?></td>
             <td class="align-middle tx-center"><?= "20".substr($d->nrp,4,2) ?></td>
             <td class="align-middle"><?= $d->jabatan ?? "Bukan Fungsionaris" ?></td>
-            <td class="align-middle"><?= $d->nama_departemen ?? "-" ?></td>
+            <td class="align-middle"><?= $d->nama_departemen ?? "Bukan Fungsionaris" ?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>
@@ -43,10 +44,44 @@
 
 <script>
     $('#rekap-detail').DataTable({
+        lengthMenu: [
+            [ 10, 25, 50, 100, 200, -1 ],
+            [ 10, 25, 50, 100, 200, "Semua" ]
+        ],
+        dom: "Bfrtip",
+        buttons: {
+            buttons: [
+                {
+                    extend: "print",
+                    text: "<i data-feather='printer'></i> Cetak Halaman Ini",
+                    title: "",
+                    messageTop: "<center><h3>Rekap Kehadiran Acara <?= $data1->nama_acara ?></h3></center><br>",
+                    messageBottom:  "<br><center>Dokumen ini dicetak pada hari <b>" +
+                        (new Date()).toLocaleString('id-ID',{dateStyle: 'full'}) + "</b> pukul <b>" +
+                        (new Date()).toLocaleString('id-ID',{timeStyle: 'full'}) + "</b></center>",
+                    autoPrint: true,
+                    className: "btn btn-primary bg-primary",
+                    customize: function (win) {
+                        $(win.document.body).find("table")
+                            .addClass("compact")
+                            .css("font-size","12px");
+                    },
+                },
+                {
+                    extend: "pageLength",
+                    className: "btn btn-outline-primary bg-white"
+                },
+            ],
+        },
         language: {
             searchPlaceholder: "Cari...",
             search: "",
-            lengthMenu: "Lihat _MENU_ data per halaman",
+            buttons: {
+                pageLength: {
+                    _: "Tampilkan <b>%d</b> data per halaman",
+                    '-1': "Tampilkan <b>semua</b> data dalam satu halaman"
+                }
+            },
             paginate: {
                 next: "Berikutnya",
                 previous: "Sebelumnya"
@@ -55,7 +90,7 @@
             infoEmpty: "Menampilkan 0 data",
             infoFiltered: "(Disaring dari _MAX_ data)",
             emptyTable: "Tidak ada data yang ditemukan",
-            zeroRecords:  "Tidak ada data yang ditemukan",
+            zeroRecords: "Tidak ada data yang ditemukan",
         },
     });
 
