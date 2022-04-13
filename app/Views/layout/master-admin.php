@@ -19,10 +19,10 @@
     <link href="<?= base_url("main/lib/prismjs/themes/prism-vs.css") ?>" rel="stylesheet">
     <link href="<?= base_url("main/lib/animate.css/animate.min.css") ?>" rel="stylesheet">
 
-    <link href="<?= base_url("main/assets/css/dashforge.css") ?>" rel="stylesheet">
+    <link href="<?= base_url("main/assets/css/dashforge.min.css") ?>" rel="stylesheet">
     <link href="<?= base_url("main/assets/css/dashforge.demo.css") ?>" rel="stylesheet">
 </head>
-<body class="page-profile">
+<body class="page-profile tx-lexend">
 
 <aside class="aside aside-fixed">
     <div class="aside-header">

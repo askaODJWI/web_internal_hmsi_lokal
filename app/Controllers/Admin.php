@@ -43,6 +43,7 @@ class Admin extends BaseController
     {
         $acara = new Acara();
         $query1 = $acara->select(["nama_acara","tanggal","nama_departemen"])
+            ->where("tanggal >=", date_format(date_create(),"Y-m-d"))
             ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
             ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
             ->orderBy("tanggal")
@@ -50,12 +51,27 @@ class Admin extends BaseController
             ->get()
             ->getResult();
         $query2 = $acara->select(["nama_departemen","COUNT(acara.id_departemen) as jumlah"])
-            ->join("departemen","acara.id_departemen = departemen.id_departemen")
-            ->groupBy("acara.id_departemen")
+            ->join("departemen","acara.id_departemen = departemen.id_departemen","right")
+            ->groupBy("departemen.id_departemen")
+            ->orderBy("departemen.id_departemen")
             ->get()
             ->getResult();
-
-        return view("admin/index",["data" => $query1, "data1" => $query2]);
+        $data2 = [
+            0 => "#FFC5D9",
+            1 => "#FF8BB3",
+            2 => "#FF3178",
+            3 => "#B52F5D",
+            4 => "#E4E378",
+            5 => "#87A2E8",
+            6 => "#45BCA8",
+            7 => "#5C86F2",
+            8 => "#45BCA8",
+            9 => "#2052D3",
+            10 => "#359388",
+            11 => "#0A5950",
+            12 => "#2C427A"
+        ];
+        return view("admin/index",["data" => $query1, "data1" => $query2, "data2" => $data2]);
     }
 
     public function hadir_dashboard()

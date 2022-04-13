@@ -10,43 +10,32 @@ Selamat Datang
 
 <?= $this->section("konten") ?>
 
-<style>
-    .chart-thirteen {
-        height: 220px; }
-    @media (min-width: 768px) and (max-width: 991.98px) {
-        .chart-thirteen {
-            height: 143px; } }
-    @media (min-width: 992px) and (max-width: 1199.98px) {
-        .chart-thirteen {
-            height: 160px; } }
-</style>
-
 <div class="row">
-    <div class="col-sm-12 col-lg-5">
+    <div class="col-sm-12 col-lg-8">
         <div class="card">
             <div class="card-header">
-                <span class="tx-bold">Persentase Departemen Pelaksana Acara</span>
+                <span class="tx-bold">Jumlah Acara per Departemen</span>
             </div>
             <div class="card-body pd-y-25">
                 <div class="row">
-                    <div class="col-12">
-                        <div class="chart-thirteen"><canvas id="chartDonut"></canvas></div>
+                    <div class="col-sm-12 col-lg-5">
+                        <div class="chart-thirteen" style="height:250px"><canvas id="chartDonut"></canvas></div>
                     </div>
-                </div>
-                <div class="row mt-5">
-                    <div class="col-12">
-                        <table class="table table-hover">
+                    <div class="col-sm-12 col-lg-7 tx-10">
+                        <table class="table table-striped table-hover table-borderless">
                             <thead>
                             <tr class="tx-center">
-                                <th class="wd-70p">Nama Departemen</th>
-                                <th class="wd-30p">Jumlah Acara</th>
+                                <th>#</th>
+                                <th class="wd-90p">Nama Departemen</th>
+                                <th class="wd-10p">Jumlah</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($data1 as $i): ?>
+                            <?php foreach ($data1 as $i=>$d): ?>
                                 <tr>
-                                    <td class="align-middle"><?= $i->nama_departemen ?></td>
-                                    <td class="align-middle tx-center"><?= $i->jumlah ?> acara</td>
+                                    <td><span style="background-color:<?= $data2[$i] ?>; color:<?= $data2[$i] ?>;font-size:10px;">⠀⠀</span></td>
+                                    <td class="align-middle"><?= $d->nama_departemen ?></td>
+                                    <td class="align-middle tx-center"><?= $d->jumlah ?></td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
@@ -64,19 +53,25 @@ Selamat Datang
             </div>
             <div class="card-body">
                 <ul class="list-unstyled media-list mg-b-0">
-                    <?php foreach($data as $d): ?>
+                    <?php if(array_key_last($data) === null): ?>
                         <li class="media">
-                            <div class="media-left">
-                                <label><?php setlocale(LC_ALL,'id_ID.utf8', 'id-ID');echo substr(strftime("%A",strtotime($d->tanggal)),0,3) ?></label>
-                                <p><?php setlocale(LC_ALL,'id_ID.utf8', 'id-ID'); echo strftime("%d",strtotime($d->tanggal)) ?></p>
-                            </div>
-                            <div class="media-body event-panel-primary">
-                                <span class="event-desc"><?= date_format(date_create($d->tanggal),"H.i") . " WIB" ?></span><br>
-                                <span class="event-title tx-bold"><?= $d->nama_acara ?></span><br>
-                                <span class="event-desc tx-medium"><?= $d->nama_departemen ?></span>
-                            </div>
+                            <span class="tx-bold tx-danger">Belum ada kegiatan yang tercatat</span>
                         </li>
-                    <?php endforeach; ?>
+                    <?php else: ?>
+                        <?php foreach($data as $d): ?>
+                            <li class="media">
+                                <div class="media-left">
+                                    <label><?php setlocale(LC_ALL,'id_ID.utf8', 'id-ID');echo substr(strftime("%A",strtotime($d->tanggal)),0,3) ?></label>
+                                    <p><?php setlocale(LC_ALL,'id_ID.utf8', 'id-ID'); echo strftime("%d",strtotime($d->tanggal)) ?></p>
+                                </div>
+                                <div class="media-body event-panel-primary">
+                                    <span class="event-desc"><?= date_format(date_create($d->tanggal),"H.i") . " WIB" ?></span><br>
+                                    <span class="event-title tx-bold"><?= $d->nama_acara ?></span><br>
+                                    <span class="event-desc tx-medium"><?= $d->nama_departemen ?></span>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
@@ -90,18 +85,14 @@ Selamat Datang
 <script>
 $(function(){
     var datapie = {
-        labels: [
-            <?php foreach($data1 as $i){
-                echo "'" . $i->nama_departemen . "',";
-            }?>
-        ],
+        labels: ["Head of HMSI","Vice Head","General Secretary","General Treasury","Entrepreneurship","External Affairs","Human Resource Development","Information Media","Internal Affairs","Research and Technology Applications","Social Development","Student Welfare","Technology Development"],
         datasets: [{
             data: [
                 <?php foreach($data1 as $i){
                 echo "'" . $i->jumlah . "',";
             }?>
             ],
-            backgroundColor: ['#66a4fb', '#4cebb5','#fec85e','#ff7c8f','#a4e063','#a5d7fd','#b2bece']
+            backgroundColor: ["#FFC5D9","#FF8BB3","#FF3178","#B52F5D","#E4E378","#87A2E8","#45BCA8","#5C86F2","#45BCA8","#2052D3","#359388","#0A5950","#2C427A"]
         }]
     };
 

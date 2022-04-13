@@ -10,14 +10,14 @@
 
     <link href="<?= base_url("main/lib/@fortawesome/fontawesome-free/css/all.min.css") ?>" rel="stylesheet">
 
-    <link href="<?= base_url("main/assets/css/dashforge.css") ?>" rel="stylesheet">
+    <link href="<?= base_url("main/assets/css/dashforge.min.css") ?>" rel="stylesheet">
     <link href="<?= base_url("main/assets/css/dashforge.demo.css") ?>" rel="stylesheet">
 </head>
-<body>
+<body class="tx-lexend">
 
 <div class="container mt-3 col-md-6 col-lg-4 col-xl-3">
     <h3>Kehadiran Acara HMSI</h3>
-    <p class="tx-gray-700 tx-12">Silakan melakukan registrasi sebelum mengikuti acara hari ini</p>
+    <p class="tx-gray-700 tx-12">Silakan melakukan registrasi acara hari ini</p>
 
     <?php $this->renderSection("konten") ?>
 

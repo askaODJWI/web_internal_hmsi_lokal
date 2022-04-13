@@ -55,16 +55,16 @@
                     extend: "print",
                     text: "<i data-feather='printer'></i> Cetak Halaman Ini",
                     title: "",
-                    messageTop: "<center><h3>Rekap Kehadiran Acara <?= $data1->nama_acara ?></h3></center><br>",
+                    messageTop: "<center><h4>Rekap Kehadiran Acara <?= $data1->nama_acara ?></h4></center><br>",
                     messageBottom:  "<br><center>Dokumen ini dicetak pada hari <b>" +
                         (new Date()).toLocaleString('id-ID',{dateStyle: 'full'}) + "</b> pukul <b>" +
                         (new Date()).toLocaleString('id-ID',{timeStyle: 'full'}) + "</b></center>",
-                    autoPrint: true,
+                    autoPrint: false,
                     className: "btn btn-primary bg-primary",
                     customize: function (win) {
                         $(win.document.body).find("table")
                             .addClass("compact")
-                            .css("font-size","12px");
+                            .css("font-size","10px");
                     },
                 },
                 {
