@@ -9,9 +9,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url("pic/saturasi-logo.png") ?>">
 
     <link href="<?= base_url("main/lib/@fortawesome/fontawesome-free/css/all.min.css") ?>" rel="stylesheet">
+    <link href="<?= base_url("main/lib/animate.css/animate.min.css") ?>" rel="stylesheet">
 
     <link href="<?= base_url("main/assets/css/dashforge.min.css") ?>" rel="stylesheet">
-    <link href="<?= base_url("main/assets/css/dashforge.demo.css") ?>" rel="stylesheet">
 </head>
 <body class="tx-lexend">
 
@@ -22,11 +22,11 @@
     <?php $this->renderSection("konten") ?>
 
     <footer class="content-footer tx-9 mb-3">
-        <div class="order-sm-1 order-lg-1">
-            <span>Copyright &copy; 2022 by <a href="https://arek.its.ac.id/hmsi" target="_blank">HMSI ITS</a></span>
+        <div>
+            <span>Copyright &copy; 2022 by <a href="https://arek.its.ac.id/hmsi" target="_blank"><b>HMSI ITS</b></a></span>
         </div>
-        <div class="order-sm-2 order-lg-2">
-            <span>Support by <a href="https://www.tekan.id" target="_blank">Tekan.ID</a></span><br>
+        <div>
+            <span>Support by <a href="https://www.tekan.id" target="_blank"><b>Tekan.ID</b></a></span><br>
         </div>
     </footer>
 </div>

@@ -42,7 +42,7 @@ class Admin extends BaseController
     public function beranda()
     {
         $acara = new Acara();
-        $query1 = $acara->select(["nama_acara","tanggal","nama_departemen"])
+        $query1 = $acara->select(["nama_acara","tanggal","nama_departemen","acara.id_departemen"])
             ->where("tanggal >=", date_format(date_create(),"Y-m-d"))
             ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
             ->join("departemen","pengurus.id_departemen = departemen.id_departemen")

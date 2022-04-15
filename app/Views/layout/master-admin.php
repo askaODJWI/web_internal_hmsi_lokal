@@ -95,7 +95,7 @@
             </li>
             <li class="nav-item">
                 <a href="<?= base_url("/admin/logout") ?>" class="nav-link">
-                    <i data-feather="log-out"></i> <span>Keluar</span></a>
+                    <i data-feather="log-out" class="tx-danger"></i> <span>Keluar</span></a>
             </li>
         </ul>
     </div>
@@ -197,7 +197,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap4.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
-<script src="<?= base_url("main/lib/select2/js/select2.min.js") ?>"></script>
+<script src="<?= base_url("main/lib/select2/js/select2.full.min.js") ?>"></script>
 <script src="<?= base_url("main/lib/chart.js/Chart.bundle.min.js") ?>"></script>
 
 <script src="<?= base_url("main/assets/js/dashforge.js") ?>"></script>
@@ -220,7 +220,11 @@
             $("#nama_user").append(data.nama);
             $("#nama_departemen").append(data.nama_departemen);
             $("#jabatan").append(data.jabatan);
-            if (data.nama_panggilan === "" || data.id_line === "" || data.no_wa === "") return $("#profil_lengkap").append("baru");
+            if (data.nama_panggilan === "" || data.id_line === "" || data.no_wa === "")
+            {
+                $("#profil_lengkap").append("baru");
+                $("#profil_lengkap").addClass("animated flash infinite");
+            }
         }
     });
 </script>

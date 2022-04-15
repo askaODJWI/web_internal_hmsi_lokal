@@ -21,7 +21,7 @@ Selamat Datang
                     <div class="col-sm-12 col-lg-5">
                         <div class="chart-thirteen" style="height:250px"><canvas id="chartDonut"></canvas></div>
                     </div>
-                    <div class="col-sm-12 col-lg-7 tx-10">
+                    <div class="col-sm-12 col-lg-7 tx-10 animated fadeInRight delay-2s">
                         <table class="table table-striped table-hover table-borderless">
                             <thead>
                             <tr class="tx-center">
@@ -54,17 +54,21 @@ Selamat Datang
             <div class="card-body">
                 <ul class="list-unstyled media-list mg-b-0">
                     <?php if(array_key_last($data) === null): ?>
-                        <li class="media">
+                        <li class="media animated fadeInDown delay-3s">
                             <span class="tx-bold tx-danger">Belum ada kegiatan yang tercatat</span>
                         </li>
                     <?php else: ?>
-                        <?php foreach($data as $d): ?>
-                            <li class="media">
+                        <?php foreach($data as $i=>$d): ?>
+                            <li class="media animated fadeInDown delay-<?= $i+3 ?>s">
                                 <div class="media-left">
                                     <label><?php setlocale(LC_ALL,'id_ID.utf8', 'id-ID');echo substr(strftime("%A",strtotime($d->tanggal)),0,3) ?></label>
                                     <p><?php setlocale(LC_ALL,'id_ID.utf8', 'id-ID'); echo strftime("%d",strtotime($d->tanggal)) ?></p>
                                 </div>
-                                <div class="media-body event-panel-primary">
+                                <div class="media-body event-panel-<?php switch($d->id_departemen){
+                                    case(1):case(2):case(3):case(4): echo "pink"; break;
+                                    case(5):case(7):case(9):case(13): echo "primary"; break;
+                                    default: echo "green";break;
+                                }?>">
                                     <span class="event-desc"><?= date_format(date_create($d->tanggal),"H.i") . " WIB" ?></span><br>
                                     <span class="event-title tx-bold"><?= $d->nama_acara ?></span><br>
                                     <span class="event-desc tx-medium"><?= $d->nama_departemen ?></span>

@@ -6,7 +6,7 @@ Kehadiran Acara HMSI
 
 <?= $this->section("konten") ?>
 
-<div class="card card-body shadow-none bd-primary">
+<div class="card card-body shadow-none bd-primary animated fadeInDown">
     <div class="marker marker-ribbon marker-primary pos-absolute t-10 l-0">Kode Acara: <?= $data->kode_acara ?><br></div>
     <p class="mg-t-30">
         <span class="tx-gray-700">Kamu sedang menghadiri acara:</span><br><b><?= $data->nama_acara ?></b><br>
@@ -18,7 +18,7 @@ Kehadiran Acara HMSI
     </p>
 </div>
 
-<div class="form-group mt-3">
+<div class="form-group mt-3 animated zoomIn fast delay-1s">
     <label for="nrp" class="tx-bold">NRP <span class="tx-danger">*</span></label>
     <div class="input-group mg-b-10">
         <input id="nrp" name="nrp" type="text" class="form-control wd-200" placeholder="Masukkan NRP kamu">
@@ -51,7 +51,7 @@ Kehadiran Acara HMSI
         <form action="<?= base_url("/hadir") ?>" method="post">
             <input type="hidden" id="form_kode" name="form_kode" value="<?= $data->kode_acara ?>">
             <input type="hidden" id="form_nrp" name="form_nrp">
-            <button type="submit" class="mt-2 btn btn-primary btn-block btn-xs"><i data-feather="check-circle"></i> Hadir</button>
+            <button type="submit" class="mt-2 btn btn-primary btn-block btn-xs"><i data-feather="check-circle"></i> Klik untuk Hadir</button>
         </form>
     </div>
 </div>
@@ -74,7 +74,7 @@ Kehadiran Acara HMSI
                 <input type="checkbox" class="custom-control-input" id="data_benar_2" required>
                 <label class="custom-control-label" for="data_benar_2">Saya menyatakan bahwa data di atas sudah benar</label>
             </div>
-            <button type="submit" class="mt-2 btn btn-primary btn-block btn-xs"><i data-feather="check-circle"></i> Hadir</button>
+            <button type="submit" class="mt-2 btn btn-primary btn-block btn-xs"><i data-feather="check-circle"></i> Klik untuk Hadir</button>
         </form>
     </div>
 </div>
@@ -119,18 +119,20 @@ Kehadiran Acara HMSI
                 success: function (data)
                 {
                     console.log(data);
-                    div.show();
                     cek_nrp.append(data.nrp);
                     cek_nama.append(data.nama);
                     cek_prodi.append(data.prodi);
                     cek_angkatan.append(data.angkatan);
                     form_nrp.prop('value',data.nrp);
+                    div.show();
+                    div.addClass('animated fadeInDown fast');
                 },
                 error: function ()
                 {
-                    error.show();
                     nrp_salah.append(nrp);
                     form2_nrp.prop('value',nrp);
+                    error.show();
+                    error.addClass('animated fadeInDown fast');
                 }
             });
         }

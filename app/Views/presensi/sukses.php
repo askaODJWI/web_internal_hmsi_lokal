@@ -6,7 +6,7 @@ Kehadiran Acara HMSI
 
 <?= $this->section("konten") ?>
 
-<div class="card card-body tx-white bd-success ht-100p overflow-hidden">
+<div class="card card-body tx-white bd-success ht-100p overflow-hidden animated headShake">
     <div class="marker bg-success tx-white pos-absolute t-10 l-10">Registrasi Acara Telah Berhasil</div>
     <p class="mg-t-25">
         <span class="tx-gray-700">Kamu sedang menghadiri acara:</span>
@@ -40,7 +40,7 @@ Kehadiran Acara HMSI
     <p>
         <span class="tx-gray-700">Lokasi:</span>
         <br>
-        <b class="tx-black">
+        <b class="tx-black animated flash delay-2s">
             <?php
             if(!filter_var($data->lokasi, FILTER_VALIDATE_URL) === false) {
                 echo "<a href='$data->lokasi' target='_blank'><u>$data->lokasi</u>

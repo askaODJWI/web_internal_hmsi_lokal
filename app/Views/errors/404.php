@@ -8,7 +8,7 @@
 
     <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url("pic/saturasi-logo.png") ?>">
 
-    <link href="<?= base_url("main/assets/css/dashforge.css") ?>" rel="stylesheet">
+    <link href="<?= base_url("main/assets/css/dashforge.min.css") ?>" rel="stylesheet">
 </head>
 <body>
 
