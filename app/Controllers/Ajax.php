@@ -52,4 +52,15 @@ class Ajax extends BaseController
 
         return ($query1 !== null) ? json_encode($query1) : "error";
     }
+
+    public function cek_password($id_pengurus)
+    {
+        $pengurus = new Pengurus();
+        $query1 = $pengurus->select(["password"])
+            ->where("id_pengurus",$id_pengurus)
+            ->first();
+
+        return ($query1->password === '$2y$10$VMP7SX97IwLIkP2lOTIs6etJ8uJHLiiDIQaE6Weh8VCrAuNukNVsa') ?
+            json_encode("ganti") : json_encode("aman");
+    }
 }

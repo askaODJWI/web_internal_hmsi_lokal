@@ -1,0 +1,86 @@
+<?= $this->extend("layout/master-admin") ?>
+
+<?= $this->section("title") ?>
+Admin HMSI | Rapor | Isi
+<?= $this->endSection() ?>
+
+<?= $this->section("halaman") ?>
+Isi Nilai Rapor Fungsionaris
+<?= $this->endSection() ?>
+
+<?= $this->section("konten") ?>
+
+<table id="daftar-isi-rapor" class="table table-hover">
+    <thead>
+    <tr class="tx-center">
+        <th class="wd-5p">No.</th>
+        <th class="wd-30p">Nama</th>
+        <th class="wd-30p">Departemen</th>
+        <th class="wd-5p">April</th>
+        <th class="wd-5p">Juli</th>
+        <th class="wd-5p">Oktober</th>
+        <th class="wd-20p">Aksi</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php $total = array_key_last($data); ?>
+    <?php for($i = 0 ; $i <= $total ; $i+=15): ?>
+        <tr>
+            <td class="align-middle tx-center"><?= $i / 15 + 1 ?></td>
+            <td class="align-middle"><?= $data[$i]->nama ?></td>
+            <td class="align-middle"><?= $data[$i]->nama_departemen ?></td>
+            <td class="align-middle tx-center">
+                <?= ($data[$i]->nilai === "0" || $data[$i+1]->nilai === "0" || $data[$i+2]->nilai === "0" || $data[$i+3]->nilai === "0" || $data[$i+4]->nilai === "0") ?
+                    "❌" : "✅" ?><br>
+            </td>
+            <td class="align-middle tx-center">
+                <?= ($data[$i+5]->nilai === "0" || $data[$i+6]->nilai === "0" || $data[$i+7]->nilai === "0" || $data[$i+8]->nilai === "0" || $data[$i+9]->nilai === "0") ?
+                    "❌" : "✅" ?><br>
+            </td>
+            <td class="align-middle tx-center">
+                <?= ($data[$i+10]->nilai === "0" || $data[$i+11]->nilai === "0" || $data[$i+12]->nilai === "0" || $data[$i+13]->nilai === "0" || $data[$i+14]->nilai === "0") ?
+                    "❌" : "✅" ?><br>
+            </td>
+            <td class="align-middle tx-center">
+                <form action="<?= base_url("admin/rapor/isi/detail") ?>" method="post">
+                    <input type="hidden" name="id_pengurus" id="id_pengurus" value="<?= $data[$i]->id_pengurus ?>">
+                    <button type="submit" class="btn btn-primary btn-xs"><i data-feather="edit-2"></i> Isi Nilai Rapor</button>
+                </form>
+            </td>
+        </tr>
+    <?php endfor; ?>
+    </tbody>
+</table>
+
+<?= $this->endSection() ?>
+
+<?= $this->section("js") ?>
+
+<script>
+    $('#daftar-isi-rapor').DataTable({
+        language: {
+            searchPlaceholder: "Cari...",
+            search: "",
+            lengthMenu: "Lihat _MENU_ data per halaman",
+            paginate: {
+                next: "Berikutnya",
+                previous: "Sebelumnya"
+            },
+            info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+            infoEmpty: "Menampilkan 0 data",
+            infoFiltered: "(Disaring dari _MAX_ data)",
+            emptyTable: "Tidak ada data yang ditemukan",
+            zeroRecords:  "Tidak ada data yang ditemukan",
+        },
+        drawCallback: function() {
+            feather.replace();
+        }
+    });
+
+    $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+    $(".select2-container").addClass("tx-12");
+</script>
+
+<?= $this->endSection() ?>
+
+

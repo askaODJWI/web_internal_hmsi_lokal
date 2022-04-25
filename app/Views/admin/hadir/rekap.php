@@ -63,6 +63,9 @@
             emptyTable: "Tidak ada data yang ditemukan",
             zeroRecords:  "Tidak ada data yang ditemukan",
         },
+        drawCallback: function() {
+            feather.replace();
+        }
     });
 
     $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });

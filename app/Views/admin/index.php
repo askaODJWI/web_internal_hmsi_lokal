@@ -5,23 +5,26 @@ Admin HMSI | Beranda
 <?= $this->endSection() ?>
 
 <?= $this->section("halaman") ?>
-Selamat Datang
+Selamat Datang <span class="tx-primary">Generasi Pionir ✨</span>
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>
 
 <div class="row">
-    <div class="col-sm-12 col-lg-8">
+    <div class="col-12 col-lg-8">
         <div class="card">
-            <div class="card-header">
-                <span class="tx-bold">Jumlah Acara per Departemen</span>
+            <div class="card-header bd-b-0 pd-t-20 pd-lg-t-25 pd-l-20 pd-lg-l-25 d-flex flex-column flex-sm-row align-items-sm-start justify-content-sm-between">
+                <div>
+                    <h6 class="mg-b-5">Jumlah Penyelenggaraan Acara per Departemen</h6>
+                    <p class="tx-12 tx-color-03 mg-b-0">Dihitung berdasarkan jumlah total pranala yang ada di web Admin HMSI</p>
+                </div>
             </div>
             <div class="card-body pd-y-25">
                 <div class="row">
                     <div class="col-sm-12 col-lg-5">
                         <div class="chart-thirteen" style="height:250px"><canvas id="chartDonut"></canvas></div>
                     </div>
-                    <div class="col-sm-12 col-lg-7 tx-10 animated fadeInRight delay-2s">
+                    <div class="col-sm-12 col-lg-7 tx-10 animated fadeInLeft delay-2s">
                         <table class="table table-striped table-hover table-borderless">
                             <thead>
                             <tr class="tx-center">
@@ -82,11 +85,45 @@ Selamat Datang
     </div>
 </div>
 
+<div class="modal fade" id="ganti_pass" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog wd-sm-400" role="document">
+        <div class="modal-content bg-white">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold">Ubah Kata Sandi Default</h5>
+            </div>
+            <form action="<?= base_url("admin/akun/ubah_pass") ?>" method="post" id="form_pass" data-parsley-validate>
+                <div class="modal-body">
+                    <p class="font-weight-bold tx-12 tx-danger">Ups! kamu harus mengganti password default demi keamanan akunmu!</p>
+                    <div id="alert_pass" style="display: none">
+                        <div class="alert alert-danger alert-dismissible fade show mt-3 mb-3" role="alert">
+                            Kata Sandi yang dimasukkan tidak cocok atau sama dengan password default
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                    </div>
+                    <input type="hidden" name="pass_lama" value="1234">
+                    <div class="form-group">
+                        <label for="pass_baru1" class="tx-bold">Kata Sandi Baru <span class="tx-danger">*</span></label>
+                        <input id="pass_baru1" name="pass_baru1" type="password" class="form-control" placeholder="Masukkan kata sandi baru" required  data-parsley-required-message="Kata sandi Baru wajib diisi!">
+                    </div>
+                    <div class="form-group">
+                        <label for="pass_baru2" class="tx-bold">Ketik Ulang Kata Sandi Baru <span class="tx-danger">*</span></label>
+                        <input id="pass_baru2" name="pass_baru2" type="password" class="form-control" placeholder="Masukkan kata sandi baru" required  data-parsley-required-message="Kata sandi Baru wajib diisi!">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary btn-xs" href="#" id="tombol_pass">Ubah Kata Sandi</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <?= $this->endSection() ?>
 
 <?= $this->section("js") ?>
 
-<script>
+<script type="text/javascript">
 $(function(){
     var datapie = {
         labels: ["Head of HMSI","Vice Head","General Secretary","General Treasury","Entrepreneurship","External Affairs","Human Resource Development","Information Media","Internal Affairs","Research and Technology Applications","Social Development","Student Welfare","Technology Development"],
@@ -120,6 +157,30 @@ $(function(){
         options: optionpie
     });
 });
+</script>
+
+<script type="text/javascript">
+    $("#tombol_pass").on("click", function()
+    {
+        let pass1 = $("#pass_baru1").val();
+        let pass2 = $("#pass_baru2").val();
+        return ((pass1 === pass2) && (pass1 !== "1234")) ? document.getElementById('form_pass').submit() : $("#alert_pass").show();
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "/ajax/cek_password/" + <?= session()->get("id_pengurus") ?>,
+        dataType: "json",
+
+        success: function (data)
+        {
+            console.log(data);
+            if(data === "ganti")
+            {
+                $('#ganti_pass').modal();
+            }
+        }
+    });
 </script>
 
 <?= $this->endSection() ?>

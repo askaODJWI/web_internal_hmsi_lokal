@@ -10,7 +10,8 @@ Ubah Data Akun
 
 <?= $this->section("konten") ?>
 
-<div data-label="Ubah Data Narahubung" class="df-example">
+<fieldset class="form-fieldset">
+    <legend>Ubah Informasi Narahubung</legend>
     <form action="<?= base_url("admin/akun/ubah") ?>" method="post" data-parsley-validate>
         <div class="row">
             <div class="col-lg-3">
@@ -40,9 +41,10 @@ Ubah Data Akun
             </div>
         </div>
     </form>
-</div>
+</fieldset>
 
-<div data-label="Ubah Kata Sandi" class="df-example mt-5">
+<fieldset class="form-fieldset mt-5">
+    <legend>Ubah Kata Sandi</legend>
     <form action="<?= base_url("admin/akun/ubah_pass") ?>" method="post" data-parsley-validate>
         <div class="row">
             <div class="col-lg-3">
@@ -72,7 +74,7 @@ Ubah Data Akun
             </div>
         </div>
     </form>
-</div>
+</fieldset>
 
 <?= $this->endSection() ?>
 

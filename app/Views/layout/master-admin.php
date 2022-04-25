@@ -21,6 +21,19 @@
 
     <link href="<?= base_url("main/assets/css/dashforge.min.css") ?>" rel="stylesheet">
     <link href="<?= base_url("main/assets/css/dashforge.demo.css") ?>" rel="stylesheet">
+
+    <style>
+        @media only print {
+            .aside, .content-header {
+                display: none !important;
+            }
+            .content-body {
+                width: auto;
+                height: auto;
+                overflow: visible;
+            }
+        }
+    </style>
 </head>
 <body class="page-profile tx-lexend">
 

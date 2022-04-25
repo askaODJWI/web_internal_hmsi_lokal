@@ -5,7 +5,9 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\Acara;
 use App\Models\Hadir;
+use App\Models\Nilai;
 use App\Models\Pengurus;
+use App\Models\Rapor;
 
 class Admin extends BaseController
 {
@@ -42,6 +44,7 @@ class Admin extends BaseController
     public function beranda()
     {
         $acara = new Acara();
+        $nilai = new Nilai();
         $query1 = $acara->select(["nama_acara","tanggal","nama_departemen","acara.id_departemen"])
             ->where("tanggal >=", date_format(date_create(),"Y-m-d"))
             ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
@@ -83,7 +86,7 @@ class Admin extends BaseController
             ->first();
 
         $acara = new Acara();
-        if($id_pengurus <= 2000)
+        if($id_pengurus < 2000)
         {
             $query2 = $acara
                 ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
@@ -204,9 +207,8 @@ class Admin extends BaseController
             ->first();
 
         $acara = new Acara();
-        $hadir = new Hadir();
 
-        if($id_pengurus <= 2000)
+        if($id_pengurus < 2000)
         {
             $query2 = $acara->select(["nama","jabatan","nama_departemen","nama_acara","acara.kode_acara","tanggal","COUNT(hadir.kode_acara) as peserta"])
                 ->join("hadir","acara.kode_acara = hadir.kode_acara")
@@ -266,6 +268,362 @@ class Admin extends BaseController
         return redirect()->to(base_url("admin/hadir/dashboard"))->with("error","Maaf, acara ini sedang berjalan sehingga tidak dapat dihapus");
     }
 
+    public function rapor_dashboard()
+    {
+        $id_pengurus = session()->get("id_pengurus");
+
+        $pengurus = new Pengurus();
+        $query1 = $pengurus->where("id_pengurus",$id_pengurus)
+            ->first();
+
+        $nilai = new Nilai();
+
+        if($id_pengurus < 2000)
+        {
+
+            $query2 = $nilai->select(["nilai.id_pengurus","nama","jabatan","nama_departemen","nilai.id_bulan","jenis","CAST(AVG(nilai) AS DOUBLE) AS nilai"])
+                ->join("indikator","nilai.id_indikator = indikator.id_indikator")
+                ->join("pengurus","nilai.id_pengurus = pengurus.id_pengurus")
+                ->join("mhs","pengurus.nrp = mhs.nrp")
+                ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+                ->groupBy("jenis")
+                ->groupBy("nilai.id_pengurus")
+                ->groupBy("nilai.id_bulan")
+                ->orderBy("pengurus.id_departemen")
+                ->orderBy("nama")
+                ->orderBy("nilai.id_bulan")
+                ->orderBy("jenis")
+                ->get()
+                ->getResult();
+            return view("admin/rapor/dashboard",["data" => $query2]);
+        }
+
+        if($id_pengurus < 4000)
+        {
+            $query3 = $nilai->select(["nilai.id_pengurus","nama","jabatan","nama_departemen","nilai.id_bulan","jenis","CAST(AVG(nilai) AS DOUBLE) AS nilai"])
+                ->where("pengurus.id_departemen",$query1->id_departemen)
+                ->join("indikator","nilai.id_indikator = indikator.id_indikator")
+                ->join("pengurus","nilai.id_pengurus = pengurus.id_pengurus")
+                ->join("mhs","pengurus.nrp = mhs.nrp")
+                ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+                ->groupBy("jenis")
+                ->groupBy("nilai.id_pengurus")
+                ->groupBy("nilai.id_bulan")
+                ->orderBy("pengurus.id_departemen")
+                ->orderBy("nama")
+                ->orderBy("nilai.id_bulan")
+                ->orderBy("jenis")
+                ->get()
+                ->getResult();
+            return view("admin/rapor/dashboard",["data" => $query3]);
+        }
+
+        return view("errors/404");
+    }
+
+    public function rapor_isi()
+    {
+        $id_pengurus = session()->get("id_pengurus");
+
+        $pengurus = new Pengurus();
+        $query1 = $pengurus->where("id_pengurus",$id_pengurus)
+            ->first();
+
+        $nilai = new Nilai();
+        if($id_pengurus < 2000)
+        {
+            $query2 = $nilai->select(["nama", "nilai.id_pengurus", "nama_departemen", "nilai.id_indikator", "nilai.id_bulan", "nilai"])
+                ->join("indikator", "nilai.id_indikator = indikator.id_indikator")
+                ->join("pengurus", "nilai.id_pengurus = pengurus.id_pengurus")
+                ->join("departemen", "pengurus.id_departemen = departemen.id_departemen")
+                ->join("mhs", "pengurus.nrp = mhs.nrp")
+                ->orderBy("pengurus.id_departemen")
+                ->orderBy("nama")
+                ->orderBy("nilai.id_bulan")
+                ->orderBy("id_indikator")
+                ->get()
+                ->getResult();
+
+            return view("admin/rapor/isi", ["data" => $query2]);
+        }
+        
+        if($id_pengurus < 4000)
+        {
+            $query3 = $nilai->select(["nama", "nilai.id_pengurus", "nama_departemen", "nilai.id_indikator", "nilai.id_bulan", "nilai"])
+                ->where("pengurus.id_departemen",$query1->id_departemen)
+                ->join("indikator", "nilai.id_indikator = indikator.id_indikator")
+                ->join("pengurus", "nilai.id_pengurus = pengurus.id_pengurus")
+                ->join("departemen", "pengurus.id_departemen = departemen.id_departemen")
+                ->join("mhs", "pengurus.nrp = mhs.nrp")
+                ->orderBy("pengurus.id_departemen")
+                ->orderBy("nama")
+                ->orderBy("nilai.id_bulan")
+                ->orderBy("id_indikator")
+                ->get()
+                ->getResult();
+
+            return view("admin/rapor/isi", ["data" => $query3]);
+        }
+
+        return view("errors/404");
+    }
+
+    public function rapor_isi_detail()
+    {
+        $id_pengurus = $this->request->getPost("id_pengurus");
+
+        $nilai = new Nilai();
+        $rapor = new Rapor();
+
+        $query1 = $nilai->select(["nama","nilai.id_pengurus","nilai.id_indikator","nilai.id_bulan","nilai","nilai_a","nilai_b","deskripsi","nama_departemen"])
+            ->where("nilai.id_pengurus",$id_pengurus)
+            ->join("indikator","nilai.id_indikator = indikator.id_indikator")
+            ->join("pengurus","nilai.id_pengurus = pengurus.id_pengurus")
+            ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+            ->join("mhs","pengurus.nrp = mhs.nrp")
+            ->orderBy("pengurus.id_departemen")
+            ->orderBy("nama")
+            ->orderBy("nilai.id_bulan")
+            ->orderBy("id_indikator")
+            ->get()
+            ->getResult();
+        $query2 = $rapor->where("id_pengurus",$id_pengurus)
+            ->get()
+            ->getResult();
+
+        return view("admin/rapor/isi_detail",["data" => $query1, "data2" => $query2]);
+    }
+
+    public function rapor_isi_kirim()
+    {
+        $id_bulan = $this->request->getPost("id_bulan");
+        $id_pengurus = $this->request->getPost("id_pengurus");
+        $indikator1a = $this->request->getPost("indikator1a");
+        $indikator1b = $this->request->getPost("indikator1b");
+        $indikator2a = $this->request->getPost("indikator2a");
+        $indikator2b = $this->request->getPost("indikator2b");
+        $indikator3a = $this->request->getPost("indikator3a");
+        $indikator3b = $this->request->getPost("indikator3b");
+        $indikator4a = $this->request->getPost("indikator4a");
+        $indikator4b = $this->request->getPost("indikator4b");
+        $indikator5a = $this->request->getPost("indikator5a");
+        $indikator5b = $this->request->getPost("indikator5b");
+        $umpan_balik = $this->request->getPost("umpan_balik");
+
+        switch($indikator1a)
+        {
+            case(0):
+                $nilai1 = 50; break;
+            case(1):
+                $nilai1 = 75; break;
+            default:
+                $nilai1 = 100; break;
+        }
+        switch($indikator2a)
+        {
+            case(0):
+                $nilai2 = 50; break;
+            case(1):
+                $nilai2 = 67; break;
+            case(2):
+                $nilai2 = 84; break;
+            default:
+                $nilai2 = 100; break;
+        }
+        $nilai3 = max((ceil(($indikator3a / $indikator3b) * 100)),50);
+        switch($indikator4a)
+        {
+            case(0):
+                $nilai4 = 100; break;
+            case(1):
+                $nilai4 = 90; break;
+            case(2):
+                $nilai4 = 80; break;
+            case(3):
+                $nilai4 = 70; break;
+            case(4):
+                $nilai4 = 60; break;
+            default:
+                $nilai4 = 50; break;
+        }
+        switch($indikator5a)
+        {
+            case(0):
+                $nilai5 = 50; break;
+            case(1):
+                $nilai5 = 60; break;
+            case(2):
+                $nilai5 = 70; break;
+            case(3):
+                $nilai5 = 80; break;
+            case(4):
+                $nilai5 = 90; break;
+            default:
+                $nilai5 = 100; break;
+        }
+
+        $nilai = new Nilai();
+        $data1 = [
+            "nilai" => $nilai1,
+            "nilai_a" => $indikator1a,
+            "nilai_b" => $indikator1b,
+        ];
+        $query1 = $nilai->set($data1)
+            ->where("id_bulan",$id_bulan)
+            ->where("id_pengurus",$id_pengurus)
+            ->where("id_indikator",1)
+            ->update();
+        $data2 = [
+            "nilai" => $nilai2,
+            "nilai_a" => $indikator2a,
+            "nilai_b" => $indikator2b,
+        ];
+        $query2 = $nilai->set($data2)
+            ->where("id_bulan",$id_bulan)
+            ->where("id_pengurus",$id_pengurus)
+            ->where("id_indikator",2)
+            ->update();
+        $data3 = [
+            "nilai" => $nilai3,
+            "nilai_a" => $indikator3a,
+            "nilai_b" => $indikator3b,
+        ];
+        $query3 = $nilai->set($data3)
+            ->where("id_bulan",$id_bulan)
+            ->where("id_pengurus",$id_pengurus)
+            ->where("id_indikator",3)
+            ->update();
+        $data4 = [
+            "nilai" => $nilai4,
+            "nilai_a" => $indikator4a,
+            "nilai_b" => $indikator4b,
+        ];
+        $query4 = $nilai->set($data4)
+            ->where("id_bulan",$id_bulan)
+            ->where("id_pengurus",$id_pengurus)
+            ->where("id_indikator",4)
+            ->update();
+        $data5 = [
+            "nilai" => $nilai5,
+            "nilai_a" => $indikator5a,
+            "nilai_b" => $indikator5b,
+        ];
+        $query5 = $nilai->set($data5)
+            ->where("id_bulan",$id_bulan)
+            ->where("id_pengurus",$id_pengurus)
+            ->where("id_indikator",5)
+            ->update();
+
+        $rapor = new Rapor();
+        $query6 = $rapor->set(["umpan_balik" => $umpan_balik])
+            ->where("id_pengurus",$id_pengurus)
+            ->where("id_bulan",$id_bulan)
+            ->update();
+
+        if($query1 > 0 && $query2 > 0 && $query3 > 0 && $query4 > 0 && $query5 > 0 && $query6 > 0)
+            return redirect()->to(base_url("admin/rapor/isi"))->with("berhasil","Pengisian nilai rapor berhasil disimpan");
+
+        return redirect()->to(base_url("admin/rapor/isi"))->with("error","Pengisian nilai rapor gagal disimpan");
+    }
+
+    public function rapor_hasil()
+    {
+        $id_pengurus = session()->get("id_pengurus");
+
+        $nilai = new Nilai();
+        $rapor = new Rapor();
+        $query1 = $nilai->where("nilai.id_pengurus",$id_pengurus)
+            ->where("nilai <>",0)
+            ->get()
+            ->getResult();
+
+        $query2 = $rapor->where("id_pengurus",$id_pengurus)
+            ->get()
+            ->getResult();
+
+        switch(array_key_last($query1))
+        {
+            case(4):case(5):case(6):case(7):case(8):
+                $query3 = $nilai->select(["nama","nilai.id_pengurus","nilai.id_indikator","nilai.id_bulan","nilai","deskripsi","nama_departemen","jabatan"])
+                    ->where("nilai.id_pengurus",$id_pengurus)
+                    ->where("nilai.id_bulan",1)
+                    ->join("indikator","nilai.id_indikator = indikator.id_indikator")
+                    ->join("pengurus","nilai.id_pengurus = pengurus.id_pengurus")
+                    ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+                    ->join("mhs","pengurus.nrp = mhs.nrp")
+                    ->orderBy("pengurus.id_departemen")
+                    ->orderBy("nama")
+                    ->orderBy("nilai.id_bulan")
+                    ->orderBy("id_indikator")
+                    ->get()
+                    ->getResult();
+                return view("admin/rapor/hasil",["data" => $query3, "data2" => $query2]);
+            case(9):case(10):case(11):case(12):case(13):
+                $query3 = $nilai->select(["nama","nilai.id_pengurus","nilai.id_indikator","nilai.id_bulan","nilai","deskripsi","nama_departemen","jabatan"])
+                    ->where("nilai.id_pengurus",$id_pengurus)
+                    ->where("nilai.id_bulan <>",3)
+                    ->join("indikator","nilai.id_indikator = indikator.id_indikator")
+                    ->join("pengurus","nilai.id_pengurus = pengurus.id_pengurus")
+                    ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+                    ->join("mhs","pengurus.nrp = mhs.nrp")
+                    ->orderBy("pengurus.id_departemen")
+                    ->orderBy("nama")
+                    ->orderBy("nilai.id_bulan")
+                    ->orderBy("id_indikator")
+                    ->get()
+                    ->getResult();
+                return view("admin/rapor/hasil",["data" => $query3, "data2" => $query2]);
+            case(14):
+                $query3 = $nilai->select(["nama","nilai.id_pengurus","nilai.id_indikator","nilai.id_bulan","nilai","deskripsi","nama_departemen","jabatan"])
+                    ->where("nilai.id_pengurus",$id_pengurus)
+                    ->join("indikator","nilai.id_indikator = indikator.id_indikator")
+                    ->join("pengurus","nilai.id_pengurus = pengurus.id_pengurus")
+                    ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+                    ->join("mhs","pengurus.nrp = mhs.nrp")
+                    ->orderBy("pengurus.id_departemen")
+                    ->orderBy("nama")
+                    ->orderBy("nilai.id_bulan")
+                    ->orderBy("id_indikator")
+                    ->get()
+                    ->getResult();
+                return view("admin/rapor/hasil",["data" => $query3, "data2" => $query2]);
+            default:
+                break;
+        }
+
+        return redirect()->to(base_url("admin/beranda"))
+            ->with("error","Maaf, Rapor Fungsionaris milikmu belum siap. Hubungi Kepala Departemen untuk <b>simpan permanen</b> nilai!");
+    }
+
+    public function rapor_hasil_post()
+    {
+        $id_pengurus = $this->request->getPost("id_pengurus");
+        $id_bulan = $this->request->getPost("id_bulan");
+
+        $nilai = new Nilai();
+        $rapor = new Rapor();
+
+        $query1 = $rapor->where("id_pengurus",$id_pengurus)
+            ->where("id_bulan",$id_bulan)
+            ->get()
+            ->getResult();
+        $query2 = $nilai->select(["nama","nilai.id_pengurus","nilai.id_indikator","nilai.id_bulan","nilai","deskripsi","nama_departemen","jabatan"])
+            ->where("nilai.id_pengurus",$id_pengurus)
+            ->where("nilai.id_bulan",$id_bulan)
+            ->join("indikator","nilai.id_indikator = indikator.id_indikator")
+            ->join("pengurus","nilai.id_pengurus = pengurus.id_pengurus")
+            ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+            ->join("mhs","pengurus.nrp = mhs.nrp")
+            ->orderBy("pengurus.id_departemen")
+            ->orderBy("nama")
+            ->orderBy("nilai.id_bulan")
+            ->orderBy("id_indikator")
+            ->get()
+            ->getResult();
+        return view("admin/rapor/hasil",["data" => $query2, "data2" => $query1]);
+    }
+
+
     public function akun_ubah()
     {
         $id_pengurus = session()->get("id_pengurus");
@@ -318,7 +676,7 @@ class Admin extends BaseController
                     ->where("id_pengurus",$id_pengurus)
                     ->update();
 
-                if($query2 > 0) return redirect()->to(base_url("admin/akun/ubah"))->with("berhasil","Kata Sandi berhasil diperbarui");
+                if($query2 > 0) return redirect()->to(base_url("admin/beranda"))->with("berhasil","Kata Sandi berhasil diperbarui");
             }
             return redirect()->to(base_url("admin/akun/ubah"))->with("error","Kata Sandi yang dimasukkan <b>SALAH</b>");
         }

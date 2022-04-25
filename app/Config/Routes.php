@@ -50,6 +50,7 @@ $routes->group("ajax", function ($routes)
 {
     $routes->get("cek_nrp/(:num)","Ajax::cek_nrp/$1");
     $routes->get("cek_pengurus/(:num)","Ajax::cek_pengurus/$1");
+    $routes->get("cek_password/(:num)","Ajax::cek_password/$1");
 });
 
 $routes->get("admin/login","Admin::login");
@@ -79,6 +80,16 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
         $routes->get("ubah","Admin::akun_ubah");
         $routes->post("ubah","Admin::akun_ubah_kirim");
         $routes->post("ubah_pass","Admin::akun_ubah_pass");
+    });
+
+    $routes->group("rapor", function ($routes){
+        $routes->get("dashboard","Admin::rapor_dashboard");
+
+        $routes->get("isi","Admin::rapor_isi");
+        $routes->post("isi/detail","Admin::rapor_isi_detail");
+        $routes->post("isi/kirim","Admin::rapor_isi_kirim");
+        $routes->get("hasil","Admin::rapor_hasil");
+        $routes->post("hasil","Admin::rapor_hasil_post");
     });
 
 });
