@@ -13,6 +13,7 @@
 <table id="rekap-acara" class="table table-hover">
     <thead>
     <tr class="tx-center">
+        <th>No.</th>
         <th class="wd-10p">Kode</th>
         <th class="wd-20p">Nama</th>
         <th class="wd-15p">Tanggal</th>
@@ -22,8 +23,9 @@
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($data as $d): ?>
+    <?php foreach ($data as $i=>$d): ?>
         <tr>
+            <td class="align-middle tx-center"><?= $i+1 ?></td>
             <td class="align-middle tx-center tx-bold"><?= $d->kode_acara ?></td>
             <td class="align-middle"><?= $d->nama_acara ?></td>
             <td class="align-middle"><?php setlocale(LC_ALL,'id_ID.utf8', 'id-ID'); echo strftime("%A, %d %B %Y",strtotime($d->tanggal)) .

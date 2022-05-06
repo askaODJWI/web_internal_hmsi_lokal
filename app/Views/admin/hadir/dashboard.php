@@ -13,6 +13,7 @@
 <table id="daftar-link-acara" class="table table-hover">
     <thead>
     <tr class="tx-center">
+        <th>No.</th>
         <th class="wd-10p">Kode</th>
         <th class="wd-15p">Nama</th>
         <th class="wd-15p">Tanggal</th>
@@ -22,8 +23,9 @@
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($data as $d): ?>
+    <?php foreach ($data as $i=>$d): ?>
     <tr>
+        <td class="align-middle tx-center"><?= $i+1 ?></td>
         <td class="align-middle tx-center tx-bold"><?= $d->kode_acara ?></td>
         <td class="align-middle"><?= $d->nama_acara ?></td>
         <td class="align-middle"><?php setlocale(LC_ALL,'id_ID.utf8', 'id-ID'); echo strftime("%A, %d %B %Y",strtotime($d->tanggal)) .
@@ -33,8 +35,9 @@
             <?= $d->nama . "<br><i>" . $d->jabatan . " " . $d->nama_departemen . "</i>" ?><br>
         </td>
         <td class="align-middle tx-center">
-            <a href="<?= base_url("/$d->kode_acara") ?>" class="btn btn-primary btn-xs" target="_blank">
-                <i data-feather="link-2"></i> Salin</a>
+            <a onclick="navigator.clipboard.writeText('<?= base_url("/$d->kode_acara") ?>')"
+               class="btn btn-primary btn-xs" target="_blank">
+                <span class="tx-white"><i data-feather="link-2"></i> Salin</a></span>
             <a href="<?= base_url("admin/hadir/ubah/$d->kode_acara") ?>" class="btn btn-warning btn-xs">
                 <i data-feather="edit-2"></i> Ubah</a>
             <a onclick="deleteConfirm('<?= base_url('admin/hadir/hapus/'.$d->kode_acara) ?>')" href="#"

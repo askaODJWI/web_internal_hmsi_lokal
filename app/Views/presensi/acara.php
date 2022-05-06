@@ -79,6 +79,28 @@ Kehadiran Acara HMSI
     </div>
 </div>
 
+<div class="mg-t-20 card card-body animated fadeInUp delay-2s">
+    <span class="tx-gray-700">Narahubung: <span class="tx-bold"><?= $data->nama_panggilan ?></span></span>
+    <table class="tx-black tx-bold">
+        <tr>
+            <td style="min-width: 50px">LINE</td>
+            <td>:</td>
+            <td>
+                <a href="https://line.me/ti/p/~<?= $data->id_line ?>" target="_blank"><u><?= $data->id_line ?></u>
+                    <i data-feather="external-link" class="tx-gray-600" style="height: 10px"></i></a>
+            </td>
+        </tr>
+        <tr>
+            <td>WhatsApp</td>
+            <td>:</td>
+            <td>
+                <a href="https://wa.me/62<?= substr($data->no_wa,1) ?>" target="_blank"><u><?= $data->no_wa ?></u>
+                    <i data-feather="external-link" class="tx-gray-600 tx-primary" style="height: 10px"></i></a>
+            </td>
+        </tr>
+    </table>
+</div>
+
 <?= $this->endSection() ?>
 
 <?= $this->section("js") ?>

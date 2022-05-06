@@ -32,6 +32,7 @@ class Presensi extends BaseController
         $acara = new Acara();
         $query1 = $acara->where("kode_acara",$kode_acara)
             ->join("departemen","acara.id_departemen = departemen.id_departemen")
+            ->join("pengurus","acara.narahubung = pengurus.id_pengurus")
             ->first();
 
         return ($query1 !== null) ? view("presensi/acara",["data" => $query1]) : view("errors/404");

@@ -64,17 +64,38 @@ class Admin extends BaseController
             1 => "#FF8BB3",
             2 => "#FF3178",
             3 => "#B52F5D",
-            4 => "#E4E378",
-            5 => "#87A2E8",
-            6 => "#45BCA8",
-            7 => "#5C86F2",
-            8 => "#45BCA8",
-            9 => "#2052D3",
+            4 => "#87A2E8",
+            5 => "#E4E378",
+            6 => "#5C86F2",
+            7 => "#75E0CF",
+            8 => "#2052D3",
+            9 => "#45BCA8",
             10 => "#359388",
-            11 => "#0A5950",
+            11 => "#095950",
             12 => "#2C427A"
         ];
-        return view("admin/index",["data" => $query1, "data1" => $query2, "data2" => $data2]);
+        $query3 = $nilai->select(["pengurus.id_departemen","CAST(SUM(nilai.nilai) / (COUNT(nilai.id_pengurus) / 2) AS INT) AS rerata"])
+            ->where("nilai.id_indikator <=",2)
+            ->where("nilai.id_bulan",1)
+            ->join("pengurus","nilai.id_pengurus = pengurus.id_pengurus")
+            ->groupBy("pengurus.id_departemen")
+            ->orderBy("pengurus.id_departemen")
+            ->get()
+            ->getResult();
+        $query4 = $nilai->select(["pengurus.id_departemen","CAST(SUM(nilai.nilai) / (COUNT(nilai.id_pengurus) / 3) AS INT) AS rerata"])
+            ->where("nilai.id_indikator >=",3)
+            ->where("nilai.id_bulan",1)
+            ->join("pengurus","nilai.id_pengurus = pengurus.id_pengurus")
+            ->groupBy("pengurus.id_departemen")
+            ->orderBy("pengurus.id_departemen")
+            ->get()
+            ->getResult();
+        $query5 = $nilai->select("id_pengurus")
+            ->where("id_bulan",1)
+            ->where("nilai >",0)
+            ->get()
+            ->getResult();
+        return view("admin/index",["data" => $query1, "data1" => $query2, "data2" => $data2, "data3" => $query3, "data4" => $query4, "data5" => $query5]);
     }
 
     public function hadir_dashboard()
@@ -92,6 +113,7 @@ class Admin extends BaseController
                 ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
                 ->join("mhs","pengurus.nrp = mhs.nrp")
                 ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+                ->orderBy("tanggal","desc")
                 ->get()
                 ->getResult();
             return view("admin/hadir/dashboard",["data" => $query2]);
@@ -100,6 +122,7 @@ class Admin extends BaseController
             ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
             ->join("mhs","pengurus.nrp = mhs.nrp")
             ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+            ->orderBy("tanggal","desc")
             ->get()
             ->getResult();
         return view("admin/hadir/dashboard",["data" => $query3]);
@@ -216,6 +239,7 @@ class Admin extends BaseController
                 ->join("mhs","pengurus.nrp = mhs.nrp")
                 ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
                 ->groupBy("acara.kode_acara")
+                ->orderBy("tanggal","desc")
                 ->get()
                 ->getResult();
             return view("admin/hadir/rekap",["data" => $query2]);
@@ -227,6 +251,7 @@ class Admin extends BaseController
             ->join("mhs","pengurus.nrp = mhs.nrp")
             ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
             ->groupBy("acara.kode_acara")
+            ->orderBy("tanggal","desc")
             ->get()
             ->getResult();
         return view("admin/hadir/rekap",["data" => $query3]);
@@ -623,6 +648,15 @@ class Admin extends BaseController
         return view("admin/rapor/hasil",["data" => $query2, "data2" => $query1]);
     }
 
+    public function tautan_dashboard()
+    {
+        return view("admin/tautan/dashboard");
+    }
+
+    public function tautan_buat()
+    {
+        return view("admin/tautan/buat");
+    }
 
     public function akun_ubah()
     {

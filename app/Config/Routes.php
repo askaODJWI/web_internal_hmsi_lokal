@@ -92,6 +92,12 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
         $routes->post("hasil","Admin::rapor_hasil_post");
     });
 
+    $routes->group("tautan", function ($routes){
+        $routes->get("dashboard","Admin::tautan_dashboard");
+
+        $routes->get("buat","Admin::tautan_buat");
+    });
+
 });
 /*
  * --------------------------------------------------------------------

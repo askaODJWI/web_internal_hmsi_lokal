@@ -98,6 +98,18 @@
             </li>
             <?php endif; ?>
 
+            <li class="nav-label mg-t-25">Peringkas Tautan</li>
+            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "tautan") &&
+            ((current_url(true)->getSegment(4)) === "daashboard") ? "active" : "" ?>">
+                <a href="<?= base_url("/admin/tautan/dashboard") ?>" class="nav-link">
+                    <i data-feather="globe"></i> <span>Daftar Tautan</span></a>
+            </li>
+            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "tautan") &&
+            ((current_url(true)->getSegment(4)) === "buat") ? "active" : "" ?>">
+                <a href="<?= base_url("/admin/tautan/buat") ?>" class="nav-link">
+                    <i data-feather="link"></i> <span>Buat Tautan</span></a>
+            </li>
+
             <li class="nav-label mg-t-25">Akun</li>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "akun") &&
             ((current_url(true)->getSegment(4)) === "ubah") ? "active" : "" ?>">

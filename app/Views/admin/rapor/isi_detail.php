@@ -13,32 +13,39 @@
 
 <?php $total = array_key_last($data); ?>
 <?php for($i = 0 ; $i <= $total ; $i+=5 ): ?>
-    <form action="<?= base_url("admin/rapor/isi/kirim/") ?>" method="post" data-parsley-validate>
-        <fieldset class="form-fieldset mt-3">
-            <legend>
-                Rapor Bulan <?php switch($data[$i]->id_bulan){
-                    case(1): echo "April"; break;
-                    case(2): echo "Juli"; break;
-                    case(3): echo "Oktober"; break;}
-                ?>
-            </legend>
+    <fieldset class="form-fieldset mt-3">
+        <legend>
+            Rapor Bulan <?php switch($data[$i]->id_bulan){
+                case(1): echo "April"; break;
+                case(2): echo "Juli"; break;
+                case(3): echo "Oktober"; break;}
+            ?>
+        </legend>
 
-            <p class="tx-16 tx-bold tx-primary">Hasil Penilaian:</p>
-            <div class="row">
-                <?php for($j = $i ; $j < $i+5 ; $j++): ?>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="form-group">
-                            <label for="indikator<?= $j % 5 + 1 ?>" class="tx-bold">Indikator <?= $j % 5 + 1 ?></label>
-                            <input id="indikator<?= $j % 5 + 1 ?>" name="indikator<?= $j % 5 + 1 ?>" type="text" value="<?= $data[$j]->nilai ?>" class="form-control" readonly>
-                            <label for="kode_acara" class="tx-10 tx-gray-600"><?= $data[$j]->deskripsi ?></label>
-                        </div>
+        <p class="tx-16 tx-bold tx-primary">Hasil Penilaian:</p>
+        <div class="row">
+            <?php for($j = $i ; $j < $i+5 ; $j++): ?>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="form-group">
+                        <label for="indikator<?= $j % 5 + 1 ?>" class="tx-bold">Indikator <?= $j % 5 + 1 ?></label>
+                        <input id="indikator<?= $j % 5 + 1 ?>" name="indikator<?= $j % 5 + 1 ?>" type="text" value="<?= $data[$j]->nilai ?>" class="form-control" readonly>
+                        <label for="kode_acara" class="tx-10 tx-gray-600"><?= $data[$j]->deskripsi ?></label>
                     </div>
-                <?php endfor; ?>
+                </div>
+            <?php endfor; ?>
+            <div class="col-6 col-md-4 col-lg-2">
+                <label class="tx-bold">Auto-Grading</label>
+                <button class="btn btn-primary"><i data-feather="play"></i> Jalankan</button>
+                <label class="tx-10 tx-danger">Tekan tombol ini sebelum melakukan pengisian nilai!</label>
             </div>
+        </div>
 
-            <hr>
+        <hr>
 
-            <p class="tx-16 tx-bold tx-primary">Kolom Penilaian:</p><br>
+        <form action="<?= base_url("admin/rapor/isi/kirim/") ?>" method="post" data-parsley-validate>
+            <span class="tx-16 tx-bold tx-primary">Kolom Penilaian:</span><br>
+            <p class="tx-danger">Pastikan kamu telah menekan tombol <b>Auto-Grading</b> sebelum melakukan penilaian!</p>
+
             <div class="row">
                 <input type="hidden" id="id_bulan" name="id_bulan" value="<?= $data[$i]->id_bulan ?>">
                 <input type="hidden" id="id_pengurus" name="id_pengurus" value="<?= $data[$i]->id_pengurus ?>">
@@ -151,8 +158,8 @@
                     </table>
                 </div>
             </div>
-        </fieldset>
-    </form>
+        </form>
+    </fieldset>
 <?php endfor; ?>
 
 <?= $this->endSection() ?>
