@@ -12,30 +12,34 @@ Tambah Pranala Kehadiran Acara
 
 <form action="<?= base_url("admin/hadir/tambah") ?>" method="post" data-parsley-validate>
     <div class="row">
-        <div class="col-lg-3">
-            <div class="form-group">
-                <label for="kode_acara" class="tx-bold">Kode <span class="tx-danger">*</span></label>
-                <input id="kode_acara" name="kode_acara" type="text" inputmode="numeric" class="form-control" placeholder="Masukkan kode acara (hanya angka)" maxlength="10" required data-parsley-required-message="Kode Acara wajib diisi!">
-            </div>
-        </div>
-        <div class="col-lg-9">
+        <div class="col-lg-8">
             <div class="form-group">
                 <label for="nama_acara" class="tx-bold">Nama Acara <span class="tx-danger">*</span></label>
                 <input id="nama_acara" name="nama_acara" type="text" class="form-control" placeholder="Masukkan nama acara" required data-parsley-required-message="Nama Acara wajib diisi!">
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="form-group">
                 <label for="tanggal" class="tx-bold">Tanggal <span class="tx-danger">*</span></label>
                 <input id="tanggal" name="tanggal" type="datetime-local" class="form-control" placeholder="Masukkan tanggal acara" required data-parsley-required-message="Tanggal Acara wajib diisi!">
             </div>
         </div>
-        <div class="col-lg-9">
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
             <div class="form-group">
                 <label for="lokasi" class="tx-bold">Lokasi <span class="tx-danger">*</span></label>
                 <input id="lokasi" name="lokasi" type="text" class="form-control" placeholder="Masukkan lokasi acara (dapat berupa link online meet atau lokasi offline)" required data-parsley-required-message="Lokasi Acara wajib diisi!">
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label for="tipe" class="tx-bold">Tipe Acara <span class="tx-danger">*</span></label>
+                <select id="tipe" name="tipe" type="text" class="form-control" required data-parsley-required-message="Tipe Acara wajib diisi!">
+                    <option value="0">0 - WAJIB diikuti fungsionaris</option>
+                    <option value="1" selected>1 - TIDAK WAJIB diikuti fungsionaris</option>
+                    <option value="2">2 - Hanya diikuti fungsionaris TERTENTU</option>
+                </select>
             </div>
         </div>
     </div>
@@ -64,6 +68,7 @@ Tambah Pranala Kehadiran Acara
             <label class="tx-italic tx-danger tx-bold">Catatan Penting: </label>
             <label class="tx-italic tx-danger">1. Jika Nomor WA dan ID Line tidak muncul setelah memasukkan nama, berarti narahubung tersebut belum melengkapi profilnya. Silakan melengkapi profil terlebih dahulu.</label>
             <label class="tx-italic tx-danger">2. Narahubung yang tercantum hanya bisa satu orang saja.</label>
+            <label class="tx-italic tx-danger">3. Tipe acara secara umum adalah acara tidak wajib. Konfirmasi kepada Vice Head jika mengajukan acara menjadi wajib.</label>
         </div>
         <div class="col-lg-3 mt-auto">
             <div class="form-group">
@@ -80,8 +85,9 @@ Tambah Pranala Kehadiran Acara
 <?= $this->section("js") ?>
 
 <script>
-    let narahubung1 = $("#narahubung1");
+    $('#tipe').select2();
 
+    let narahubung1 = $("#narahubung1");
     narahubung1.select2({
         placeholder: "Masukkan nama narahubung",
         ajax: {

@@ -35,7 +35,9 @@
             <?php endfor; ?>
             <div class="col-6 col-md-4 col-lg-2">
                 <label class="tx-bold">Auto-Grading</label>
-                <button class="btn btn-primary"><i data-feather="play"></i> Jalankan</button>
+                <a class="btn btn-primary"
+                   href="<?= base_url("admin/rapor/isi/auto/" . $data[$i]->id_pengurus . "/" . $data[$i]->id_bulan) ?>">
+                    <i data-feather="play"></i> Jalankan</a>
                 <label class="tx-10 tx-danger">Tekan tombol ini sebelum melakukan pengisian nilai!</label>
             </div>
         </div>
@@ -68,8 +70,8 @@
                     <table class="table table-borderless table-sm">
                         <tr>
                             <td class="wd-20p"></td>
-                            <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah mengikuti acara tidak wajib (dalam kali)</td>
-                            <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah acara tidak wajib sudah terlaksana (dalam kali)</td>
+                            <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah mengikuti acara departemen lain (dalam kali)</td>
+                            <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah acara departemen lain sudah terlaksana (dalam kali)</td>
                         </tr>
                         <tr>
                             <td class="align-middle"><label for="indikator2" class="tx-bold">Indikator 2 <span class="tx-danger">*</span></label></td>

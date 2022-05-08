@@ -14,8 +14,8 @@
     <div class="row">
         <div class="col-12">
             <div class="form-group">
-                <label for="asli" class="tx-bold">Tautan Asli <span class="tx-danger">*</span></label>
-                <input id="asli" name="asli" type="text" class="form-control" placeholder="Masukkan tautan asli" required data-parsley-required-message="Tautan asli wajib diisi!">
+                <label for="panjang" class="tx-bold">Tautan Asli <span class="tx-danger">*</span></label>
+                <input id="panjang" name="panjang" type="text" class="form-control" placeholder="Masukkan tautan asli" required data-parsley-required-message="Tautan asli wajib diisi!">
             </div>
         </div>
         <div class="col-lg-4">

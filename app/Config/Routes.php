@@ -44,6 +44,7 @@ $routes->group("/", function ($routes)
     $routes->get("sukses","Presensi::sukses");
 
     $routes->get("/(:num)","Presensi::acara/$1");
+    $routes->get("/(:alphanum)","Admin::tautan_alih/$1");
 });
 
 $routes->group("ajax", function ($routes)
@@ -86,8 +87,10 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
         $routes->get("dashboard","Admin::rapor_dashboard");
 
         $routes->get("isi","Admin::rapor_isi");
+        $routes->get("isi/auto/(:num)/(:num)","Admin::rapor_isi_auto/$1/$2");
         $routes->post("isi/detail","Admin::rapor_isi_detail");
         $routes->post("isi/kirim","Admin::rapor_isi_kirim");
+
         $routes->get("hasil","Admin::rapor_hasil");
         $routes->post("hasil","Admin::rapor_hasil_post");
     });
@@ -96,6 +99,7 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
         $routes->get("dashboard","Admin::tautan_dashboard");
 
         $routes->get("buat","Admin::tautan_buat");
+        $routes->post("buat","Admin::tautan_buat_kirim");
     });
 
 });

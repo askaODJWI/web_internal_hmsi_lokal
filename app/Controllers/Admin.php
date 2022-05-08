@@ -8,6 +8,7 @@ use App\Models\Hadir;
 use App\Models\Nilai;
 use App\Models\Pengurus;
 use App\Models\Rapor;
+use App\Models\Tautan;
 
 class Admin extends BaseController
 {
@@ -135,13 +136,13 @@ class Admin extends BaseController
 
     public function hadir_tambah_kirim()
     {
-        $kode_acara = $this->request->getPost("kode_acara");
         $nama_acara = $this->request->getPost("nama_acara");
         $tanggal = $this->request->getPost("tanggal");
         $lokasi = $this->request->getPost("lokasi");
         $narahubung1 = $this->request->getPost("narahubung1");
         $no_wa1 = $this->request->getPost("no_wa1");
         $id_line1 = $this->request->getPost("id_line1");
+        $tipe = $this->request->getPost("tipe");
 
         $pengurus = new Pengurus();
         $pembuat = session()->get("id_pengurus");
@@ -155,6 +156,12 @@ class Admin extends BaseController
         }
 
         $acara = new Acara();
+        $query2 = $acara->where("id_departemen",$id_departemen)
+            ->orderBy("kode_acara","DESC")
+            ->first();
+        $nomor = (int)substr($query2->kode_acara, 2, 2);
+        $kode_acara = (($id_departemen <= 9) ? "0" . $id_departemen : $id_departemen) . (($nomor + 1 <= 9) ? "0" . ($nomor + 1) : ($nomor + 1));
+
         $data = [
             "kode_acara" => $kode_acara,
             "nama_acara" => $nama_acara,
@@ -162,11 +169,12 @@ class Admin extends BaseController
             "tanggal" => $tanggal,
             "lokasi" => $lokasi,
             "pembuat" => $pembuat,
-            "narahubung" => $narahubung1
+            "narahubung" => $narahubung1,
+            "tipe" => $tipe
         ];
-        $query2 = $acara->insert($data);
+        $query3 = $acara->insert($data);
 
-        if($query2 > 0) return redirect()->to(base_url("admin/hadir/dashboard"))->with("berhasil","Data berhasil disimpan");
+        if($query3 > 0) return redirect()->to(base_url("admin/hadir/dashboard"))->with("berhasil","Data berhasil disimpan");
 
         return redirect()->to(base_url("admin/hadir/tambah"))->with("error","Data gagal disimpan ke Database");
     }
@@ -191,6 +199,7 @@ class Admin extends BaseController
         $narahubung1 = $this->request->getPost("narahubung1");
         $no_wa1 = $this->request->getPost("no_wa1");
         $id_line1 = $this->request->getPost("id_line1");
+        $tipe = $this->request->getPost("tipe");
 
         $pengurus = new Pengurus();
         $pembuat = session()->get("id_pengurus");
@@ -210,7 +219,8 @@ class Admin extends BaseController
             "tanggal" => $tanggal,
             "lokasi" => $lokasi,
             "pembuat" => $pembuat,
-            "narahubung" => $narahubung1
+            "narahubung" => $narahubung1,
+            "tipe" => $tipe
         ];
         $query2 = $acara->set($data)
             ->where("kode_acara",$kode_acara)
@@ -371,7 +381,7 @@ class Admin extends BaseController
 
             return view("admin/rapor/isi", ["data" => $query2]);
         }
-        
+
         if($id_pengurus < 4000)
         {
             $query3 = $nilai->select(["nama", "nilai.id_pengurus", "nama_departemen", "nilai.id_indikator", "nilai.id_bulan", "nilai"])
@@ -391,6 +401,84 @@ class Admin extends BaseController
         }
 
         return view("errors/404");
+    }
+
+    public function rapor_isi_auto($id_pengurus,$id_bulan)
+    {
+        $pengurus = new Pengurus();
+        $acara = new Acara();
+        $hadir = new Hadir();
+        $nilai = new Nilai();
+
+        $query1 = $pengurus->select(["id_departemen","nama","mhs.nrp"])
+            ->where("id_pengurus",$id_pengurus)
+            ->join("mhs","pengurus.nrp = mhs.nrp")
+            ->first();
+
+        $nilai2a = $hadir->where("nrp",$query1->nrp)
+            ->where("tipe","1")
+            ->join("acara","hadir.kode_acara = acara.kode_acara")
+            ->countAllResults();
+        $nilai2b = $acara->where("id_departemen !=",$query1->id_departemen)
+            ->where("tipe","1")
+            ->countAllResults();
+
+        $total_hadir = $hadir->where("nrp",$query1->nrp)
+            ->where("tipe","1")
+            ->join("acara","hadir.kode_acara = acara.kode_acara")
+            ->get()
+            ->getResult();
+
+        $nilai4a = 0;
+        foreach($total_hadir as $h)
+        {
+            $waktu_telat = date("H:i", strtotime('+15 minutes', strtotime($h->tanggal)));
+            $waktu_asli = date("H:i", strtotime($h->waktu));
+            if($waktu_asli > $waktu_telat) ++$nilai4a;
+        }
+        $nilai4b = array_key_last($total_hadir) + 1;
+
+        $nilai5a = $hadir->where("nrp",$query1->nrp)
+            ->where("tipe","0")
+            ->join("acara","hadir.kode_acara = acara.kode_acara")
+            ->countAllResults();
+        $nilai5b = $acara->where("tipe","0")
+            ->countAllResults();
+
+        $data2 = [
+            "nilai_a" => $nilai2a,
+            "nilai_b" => $nilai2b,
+        ];
+        $query2 = $nilai->set($data2)
+            ->where("id_indikator",2)
+            ->where("id_bulan",$id_bulan)
+            ->where("id_pengurus",$id_pengurus)
+            ->update();
+
+        $data4 = [
+            "nilai_a" => $nilai4a,
+            "nilai_b" => $nilai4b,
+        ];
+        $query4 = $nilai->set($data4)
+            ->where("id_indikator",4)
+            ->where("id_bulan",$id_bulan)
+            ->where("id_pengurus",$id_pengurus)
+            ->update();
+
+        $data5 = [
+            "nilai_a" => $nilai5a,
+            "nilai_b" => $nilai5b,
+        ];
+        $query5 = $nilai->set($data5)
+            ->where("id_indikator",5)
+            ->where("id_bulan",$id_bulan)
+            ->where("id_pengurus",$id_pengurus)
+            ->update();
+
+        if($query2 > 0 && $query4 > 0 && $query5 > 0) return redirect()->to(base_url("admin/rapor/isi"))
+            ->with("berhasil","Penilaian secara auto-grading berhasil dilakukan");
+        return redirect()->to(base_url("admin/rapor/isi"))
+            ->with("error","Penilaian secara auto-grading gagal dilakukan. Ulangi lagi proses auto-grading!");
     }
 
     public function rapor_isi_detail()
@@ -455,7 +543,7 @@ class Admin extends BaseController
             default:
                 $nilai2 = 100; break;
         }
-        $nilai3 = max((ceil(($indikator3a / $indikator3b) * 100)),50);
+        $nilai3 = ($indikator3b === "0") ?  50 : max((ceil(($indikator3a / $indikator3b) * 100)),50);
         switch($indikator4a)
         {
             case(0):
@@ -650,12 +738,72 @@ class Admin extends BaseController
 
     public function tautan_dashboard()
     {
-        return view("admin/tautan/dashboard");
+        $id_pengurus = session()->get("id_pengurus");
+
+        $tautan = new Tautan();
+        if($id_pengurus < 2000)
+        {
+            $query1 = $tautan->join("pengurus","tautan.pembuat = pengurus.id_pengurus")
+                ->join("mhs","pengurus.nrp = mhs.nrp")
+                ->get()
+                ->getResult();
+            return view("admin/tautan/dashboard",["data" => $query1]);
+        }
+        $query2 = $tautan->where("id_pengurus",$id_pengurus)
+            ->join("pengurus","tautan.pembuat = pengurus.id_pengurus")
+            ->join("mhs","pengurus.nrp = mhs.nrp")
+            ->get()
+            ->getResult();
+        return view("admin/tautan/dashboard",["data" => $query2]);
     }
 
     public function tautan_buat()
     {
         return view("admin/tautan/buat");
+    }
+
+    public function tautan_buat_kirim()
+    {
+        $id_pengurus = session()->get("id_pengurus");
+        $panjang = $this->request->getPost("panjang");
+        $pendek = $this->request->getPost("pendek");
+        $waktu = (new \DateTime('now'))
+            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+            ->format('Y-m-d H:i:s');
+
+        $tautan = new Tautan();
+        $query1 = $tautan->where("pendek",$pendek)
+            ->countAllResults();
+
+        if($query1 === 0)
+        {
+            if(strpos($panjang, "http") !== 0 || strpos($panjang, "www") !== 0) $panjang = "https://" . $panjang;
+            $data = [
+                "panjang" => $panjang,
+                "pendek" => $pendek,
+                "pembuat" => $id_pengurus,
+                "waktu" => $waktu,
+            ];
+            $query2 = $tautan->insert($data);
+
+            if($query2 > 0) return redirect()->to(base_url("admin/tautan/dashboard"))
+                ->with("berhasil","Pembuatan peringkas tautan baru telah berhasil");
+            return redirect()->to(base_url("admin/tautan/buat"))
+                ->with("error","Pembuatan peringkas tautan baru gagal disimpan");
+        }
+        return redirect()->to(base_url("admin/tautan/buat"))
+            ->with("error","Tautan ini sudah dipakai oleh orang lain. Silakan gunakan tautan lainnya.");
+    }
+
+    public function tautan_alih($pendek)
+    {
+        $tautan = new Tautan();
+        $query1 = $tautan->select("panjang")
+            ->where("pendek",$pendek)
+            ->first();
+
+        if($query1 !== null) return redirect()->to($query1->panjang);
+        return view("errors/404");
     }
 
     public function akun_ubah()

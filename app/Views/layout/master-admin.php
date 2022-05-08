@@ -33,6 +33,9 @@
                 overflow: visible;
             }
         }
+        .select2-results__option {
+            font-size: 12px;
+        }
     </style>
 </head>
 <body class="page-profile tx-lexend">
@@ -100,7 +103,7 @@
 
             <li class="nav-label mg-t-25">Peringkas Tautan</li>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "tautan") &&
-            ((current_url(true)->getSegment(4)) === "daashboard") ? "active" : "" ?>">
+            ((current_url(true)->getSegment(4)) === "dashboard") ? "active" : "" ?>">
                 <a href="<?= base_url("/admin/tautan/dashboard") ?>" class="nav-link">
                     <i data-feather="globe"></i> <span>Daftar Tautan</span></a>
             </li>
