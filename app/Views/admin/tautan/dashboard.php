@@ -19,7 +19,7 @@ Daftar Peringkas Tautan
     <div class="col-12 col-md-6 col-lg-4 mg-t-20 mg-t-lg-0">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title"><u><a href="https://tekan.id/<?= $data[$i]->pendek ?>"><?= $data[$i]->pendek ?></a></u></h5>
+                <h5 class="card-title"><u><a href="https://hmsi.tekan.id/<?= $data[$i]->pendek ?>"><?= $data[$i]->pendek ?></a></u></h5>
                 <h6 class="card-subtitle mb-2 text-muted"><?= $data[$i]->panjang ?></h6>
                 <p class="card-text">
                     Dibuat oleh <?= $data[$i]->nama ?><br>

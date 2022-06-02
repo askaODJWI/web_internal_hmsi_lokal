@@ -34,7 +34,7 @@
                 </div>
             <?php endfor; ?>
             <div class="col-6 col-md-4 col-lg-2">
-                <label class="tx-bold">Auto-Grading</label>
+                <label class="tx-bold tx-danger">Auto-Grading</label>
                 <a class="btn btn-primary"
                    href="<?= base_url("admin/rapor/isi/auto/" . $data[$i]->id_pengurus . "/" . $data[$i]->id_bulan) ?>">
                     <i data-feather="play"></i> Jalankan</a>
@@ -74,7 +74,8 @@
                             <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah acara departemen lain sudah terlaksana (dalam kali)</td>
                         </tr>
                         <tr>
-                            <td class="align-middle"><label for="indikator2" class="tx-bold">Indikator 2 <span class="tx-danger">*</span></label></td>
+                            <td class="align-middle"><label for="indikator2" class="tx-bold">Indikator 2 <span class="tx-danger">*</span>
+                                    <span class="tx-10 tx-normal tx-gray-600">Auto-graded</span></label></td>
                             <td><input id="indikator2a" name="indikator2a" type="number" value="<?= $data[$i+1]->nilai_a ?>" class="form-control form-control-sm" placeholder="Masukkan nilai" maxlength="3" required data-parsley-required-message="Bagian ini wajib diisi!"></td>
                             <td><input id="indikator2b" name="indikator2b" type="number" value="<?= $data[$i+1]->nilai_b ?>" class="form-control form-control-sm" placeholder="Masukkan nilai" maxlength="3" required data-parsley-required-message="Bagian ini wajib diisi!"></td>
                         </tr>
@@ -104,7 +105,8 @@
                             <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah acara sudah terlaksana (dalam kali)</td>
                         </tr>
                         <tr>
-                            <td class="align-middle"><label for="indikator4" class="tx-bold">Indikator 4 <span class="tx-danger">*</span></label></td>
+                            <td class="align-middle"><label for="indikator4" class="tx-bold">Indikator 4 <span class="tx-danger">*</span>
+                                    <span class="tx-10 tx-normal tx-gray-600">Auto-graded</span></label></td>
                             <td><input id="indikator4a" name="indikator4a" type="number" value="<?= $data[$i+3]->nilai_a ?>" class="form-control form-control-sm" placeholder="Masukkan nilai" maxlength="3" required data-parsley-required-message="Bagian ini wajib diisi!"></td>
                             <td><input id="indikator4b" name="indikator4b" type="number" value="<?= $data[$i+3]->nilai_b ?>" class="form-control form-control-sm" placeholder="Masukkan nilai" maxlength="3" required data-parsley-required-message="Bagian ini wajib diisi!"></td>
                         </tr>
@@ -119,7 +121,8 @@
                             <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah acara wajib sudah terlaksana (dalam kali)</td>
                         </tr>
                         <tr>
-                            <td class="align-middle"><label for="indikator5" class="tx-bold">Indikator 5 <span class="tx-danger">*</span></label></td>
+                            <td class="align-middle"><label for="indikator5" class="tx-bold">Indikator 5 <span class="tx-danger">*</span>
+                                    <span class="tx-10 tx-normal tx-gray-600">Auto-graded</span></label></td>
                             <td><input id="indikator5a" name="indikator5a" type="number" value="<?= $data[$i+4]->nilai_a ?>" class="form-control form-control-sm" placeholder="Masukkan nilai" maxlength="3" required data-parsley-required-message="Bagian ini wajib diisi!"></td>
                             <td><input id="indikator5b" name="indikator5b" type="number" value="<?= $data[$i+4]->nilai_b ?>" class="form-control form-control-sm" placeholder="Masukkan nilai" maxlength="3" required data-parsley-required-message="Bagian ini wajib diisi!"></td>
                         </tr>
@@ -133,7 +136,7 @@
                             <td class="wd-80p"></td>
                         </tr>
                         <tr>
-                            <td><label for="umpan_balik" class="tx-bold">Umpan Balik <span class="tx-danger">*</span></label></td>
+                            <td><label for="umpan_balik" class="tx-bold">Pesan <span class="tx-danger">*</span></label></td>
                             <td><textarea id="umpan_balik" name="umpan_balik" type="text" rows="3" class="form-control form-control-sm" placeholder="Masukkan umpan balik untuk perkembangan staf" required data-parsley-required-message="Bagian ini wajib diisi!"><?= $data2[$i / 5]->umpan_balik ?></textarea></td>
                         </tr>
                     </table>

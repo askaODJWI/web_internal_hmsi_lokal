@@ -23,7 +23,7 @@
                 <label for="pendek" class="tx-bold">Tautan Pendek <span class="tx-danger">*</span></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">tekan.id/</span>
+                        <span class="input-group-text">hmsi.tekan.id/</span>
                     </div>
                     <input id="pendek" name="pendek" type="text" class="form-control" placeholder="Masukkan tautan pendek" required data-parsley-required-message="Tautan pendek wajib diisi!">
                 </div>

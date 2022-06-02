@@ -75,7 +75,7 @@ class Admin extends BaseController
             11 => "#095950",
             12 => "#2C427A"
         ];
-        $query3 = $nilai->select(["pengurus.id_departemen","CAST(SUM(nilai.nilai) / (COUNT(nilai.id_pengurus) / 2) AS INT) AS rerata"])
+        $query3 = $nilai->select(["pengurus.id_departemen","CAST((CAST(SUM(nilai.nilai) / (COUNT(nilai.id_pengurus) / 2) AS INT) / 2) AS INT) AS rerata"])
             ->where("nilai.id_indikator <=",2)
             ->where("nilai.id_bulan",1)
             ->join("pengurus","nilai.id_pengurus = pengurus.id_pengurus")
@@ -83,7 +83,7 @@ class Admin extends BaseController
             ->orderBy("pengurus.id_departemen")
             ->get()
             ->getResult();
-        $query4 = $nilai->select(["pengurus.id_departemen","CAST(SUM(nilai.nilai) / (COUNT(nilai.id_pengurus) / 3) AS INT) AS rerata"])
+        $query4 = $nilai->select(["pengurus.id_departemen","CAST((CAST(SUM(nilai.nilai) / (COUNT(nilai.id_pengurus) / 3) AS INT) / 3) AS INT) AS rerata"])
             ->where("nilai.id_indikator >=",3)
             ->where("nilai.id_bulan",1)
             ->join("pengurus","nilai.id_pengurus = pengurus.id_pengurus")
@@ -432,8 +432,13 @@ class Admin extends BaseController
         $nilai4a = 0;
         foreach($total_hadir as $h)
         {
-            $waktu_telat = date("H:i", strtotime('+15 minutes', strtotime($h->tanggal)));
+            $pertama = $hadir->where("kode_acara",$h->kode_acara)
+                ->orderBy("waktu","asc")
+                ->first();
+
+            $waktu_telat = date("H:i", strtotime('+15 minutes', strtotime($pertama->waktu)));
             $waktu_asli = date("H:i", strtotime($h->waktu));
+
             if($waktu_asli > $waktu_telat) ++$nilai4a;
         }
         $nilai4b = array_key_last($total_hadir) + 1;
@@ -777,7 +782,7 @@ class Admin extends BaseController
 
         if($query1 === 0)
         {
-            if(strpos($panjang, "http") !== 0 || strpos($panjang, "www") !== 0) $panjang = "https://" . $panjang;
+            if(filter_var($panjang, FILTER_VALIDATE_URL) === false) $panjang = "https://" . $panjang;
             $data = [
                 "panjang" => $panjang,
                 "pendek" => $pendek,
