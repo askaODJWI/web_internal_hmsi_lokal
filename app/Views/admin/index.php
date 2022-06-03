@@ -110,7 +110,7 @@ Selamat Datang <span class="tx-primary">Generasi Pionir ✨</span>
                                     <span class="tx-10 tx-color-03"><?= ceil((array_key_last($data5) + 1) / 5 / 68 * 100) ?>% selesai</span>
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between mg-b-5">
-                                    <h5 class="tx-normal tx-rubik lh-2 mg-b-0"><?= (array_key_last($data5) + 1) / 5?> Orang</h5>
+                                    <h5 class="tx-normal tx-rubik lh-2 mg-b-0"><?= round((array_key_last($data5) + 1) / 5) ?> Orang</h5>
                                     <h6 class="tx-normal tx-rubik tx-color-03 lh-2 mg-b-0">68</h6>
                                 </div>
                                 <div class="progress ht-4 mg-b-0 op-5">

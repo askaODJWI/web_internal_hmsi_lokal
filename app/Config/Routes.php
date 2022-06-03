@@ -102,6 +102,13 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
         $routes->post("buat","Admin::tautan_buat_kirim");
     });
 
+    $routes->group("hima",function ($routes){
+        $routes->get("jadwal","Admin::hima_jadwal");
+        $routes->post("jadwal/buat","Admin::hima_jadwal_buat");
+
+        $routes->get("titip","Admin::hima_titip");
+    });
+
 });
 /*
  * --------------------------------------------------------------------

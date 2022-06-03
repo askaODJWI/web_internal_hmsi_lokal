@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\Acara;
 use App\Models\Hadir;
+use App\Models\Jadwal;
 use App\Models\Nilai;
 use App\Models\Pengurus;
 use App\Models\Rapor;
@@ -739,6 +740,57 @@ class Admin extends BaseController
             ->get()
             ->getResult();
         return view("admin/rapor/hasil",["data" => $query2, "data2" => $query1]);
+    }
+
+    public function hima_jadwal()
+    {
+        $jadwal = new Jadwal();
+        $query1 = $jadwal->select(["nama_kegiatan","waktu_mulai","waktu_selesai","nama","nama_departemen","jabatan"])
+            ->whereIn("pengurus.id_departemen",[1,2,3,4])
+            ->join("pengurus","jadwal.pembuat = pengurus.id_pengurus")
+            ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+            ->join("mhs","pengurus.nrp = mhs.nrp")
+            ->get()
+            ->getResult();
+        $query2 = $jadwal->select(["nama_kegiatan","waktu_mulai","waktu_selesai","nama","nama_departemen","jabatan"])
+            ->whereIn("pengurus.id_departemen",[5,7,9,13])
+            ->join("pengurus","jadwal.pembuat = pengurus.id_pengurus")
+            ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+            ->join("mhs","pengurus.nrp = mhs.nrp")
+            ->get()
+            ->getResult();
+        $query3 = $jadwal->select(["nama_kegiatan","waktu_mulai","waktu_selesai","nama","nama_departemen","jabatan"])
+            ->whereIn("pengurus.id_departemen",[6,8,10,11,12])
+            ->join("pengurus","jadwal.pembuat = pengurus.id_pengurus")
+            ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+            ->join("mhs","pengurus.nrp = mhs.nrp")
+            ->get()
+            ->getResult();
+        return view("admin/hima/jadwal",["data1" => $query1, "data2" => $query2, "data3" => $query3]);
+    }
+
+    public function hima_jadwal_buat()
+    {
+        $id_pengurus = session()->get("id_pengurus");
+        $nama_kegiatan = $this->request->getPost("nama_kegiatan");
+        $waktu_mulai = $this->request->getPost("waktu_mulai");
+        $waktu_selesai = $this->request->getPost("waktu_selesai");
+
+        $jadwal = new Jadwal();
+        $data1 = [
+            "pembuat" => $id_pengurus,
+            "nama_kegiatan" => $nama_kegiatan,
+            "waktu_mulai" => $waktu_mulai,
+            "waktu_selesai" => $waktu_selesai
+        ];
+        $query1 = $jadwal->insert($data1);
+
+        return redirect()->to(base_url("admin/hima/jadwal"));
+    }
+
+    public function hima_titip()
+    {
+        return view("admin/hima/titip");
     }
 
     public function tautan_dashboard()
