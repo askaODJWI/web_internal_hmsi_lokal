@@ -9,12 +9,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>
-<div id="copy_link" class="alert alert-success alert-dismissible fade show mt-3 mb-3 d-none" role="alert">
-    Tautan akses presensi berhasil disalin ke clipboard
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">×</span>
-    </button>
-</div>
+<div id="copy_link"></div>
 
 <table id="daftar-link-acara" class="table table-hover">
     <thead>
@@ -78,7 +73,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary btn-xs" type="button" data-dismiss="modal">Batal</button>
-                <a class="btn btn-danger btn-xs" id="btn-delete" href="#">Tutup</a>
+                <a class="btn btn-danger btn-xs" id="btn-tutup" href="#">Tutup</a>
             </div>
         </div>
     </div>
@@ -91,15 +86,18 @@
 <script>
     function tutupConfirm(url)
     {
-        $("#btn-delete").attr("href", url);
+        $("#btn-tutup").attr("href", url);
         $("#modal_tutup").modal();
     }
 
     function copyLink(url)
     {
         navigator.clipboard.writeText(url);
-        document.getElementById("copy_link").classList.remove('d-none');
-        document.getElementById("copy_link").classList.add('d-block');
+        $("#copy_link").append(
+            '<div class="alert alert-success alert-dismissible fade show mt-3 mb-3" role="alert">' +
+            'Tautan akses presensi berhasil disalin ke clipboard <button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+            '<span aria-hidden="true">×</span></button></div>'
+        );
     }
 
     $('#daftar-link-acara').DataTable({

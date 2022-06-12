@@ -34,7 +34,8 @@ class Admin extends BaseController
 
             return redirect()->to(base_url("/admin/beranda"));
         }
-        return redirect()->to(base_url("admin/login"))->with("error","Nama Pengguna atau Kata Sandi <b>SALAH</b>");
+        return redirect()->to(base_url("admin/login"))
+            ->with("error","Nama Pengguna atau Kata Sandi <b>SALAH</b>");
     }
 
     public function logout()
@@ -180,9 +181,13 @@ class Admin extends BaseController
         ];
         $query3 = $acara->insert($data);
 
-        if($query3 > 0) return redirect()->to(base_url("admin/hadir/dashboard"))->with("berhasil","Data berhasil disimpan");
-
-        return redirect()->to(base_url("admin/hadir/tambah"))->with("error","Data gagal disimpan ke Database");
+        if($query3 > 0)
+        {
+            return redirect()->to(base_url("admin/hadir/dashboard"))
+                ->with("berhasil", "Data berhasil disimpan");
+        }
+        return redirect()->to(base_url("admin/hadir/tambah"))
+            ->with("error","Data gagal disimpan ke Database");
     }
 
     public function hadir_ubah($kode_acara)
@@ -232,9 +237,13 @@ class Admin extends BaseController
             ->where("kode_acara",$kode_acara)
             ->update();
 
-        if($query2 > 0) return redirect()->to(base_url("admin/hadir/dashboard"))->with("berhasil","Data berhasil diperbarui");
-
-        return redirect()->to(base_url("admin/hadir/tambah"))->with("error","Data gagal disimpan ke Database");
+        if($query2 > 0)
+        {
+            return redirect()->to(base_url("admin/hadir/dashboard"))
+                ->with("berhasil","Data berhasil diperbarui");
+        }
+        return redirect()->to(base_url("admin/hadir/tambah"))
+            ->with("error","Data gagal disimpan ke Database");
     }
 
     public function hadir_rekap()
@@ -276,8 +285,9 @@ class Admin extends BaseController
     public function hadir_rekap_detail()
     {
         $kode_acara = $this->request->getPost("kode_acara");
-        $hadir = new Hadir();
+        $id_pengurus = session()->get("id_pengurus");
 
+        $hadir = new Hadir();
         $query1 = $hadir->select(["mhs.nama","mhs.nrp","waktu","departemen.nama_departemen","pengurus.jabatan"])
             ->where("kode_acara", $kode_acara)
             ->join("mhs","hadir.nrp = mhs.nrp")
@@ -290,7 +300,13 @@ class Admin extends BaseController
         $query2 = $acara->where("kode_acara", $kode_acara)
             ->first();
 
-        return view("admin/hadir/rekap_detail",["data" => $query1, "data1" => $query2]);
+        $pengurus = new Pengurus();
+        $query3 = $pengurus->select(["nama","mhs.nrp"])
+            ->where("id_pengurus",$id_pengurus)
+            ->join("mhs","pengurus.nrp = mhs.nrp")
+            ->first();
+
+        return view("admin/hadir/rekap_detail",["data" => $query1, "data1" => $query2, "data2" => $query3]);
     }
 
     public function hadir_hapus($kode_acara)
@@ -304,9 +320,11 @@ class Admin extends BaseController
             $acara = new Acara();
             $query2 = $acara->where("kode_acara", $kode_acara)
                 ->delete();
-            return redirect()->to(base_url("admin/hadir/dashboard"))->with('berhasil',"Acara berhasil dibatalkan");
+            return redirect()->to(base_url("admin/hadir/dashboard"))
+                ->with('berhasil',"Acara berhasil dibatalkan");
         }
-        return redirect()->to(base_url("admin/hadir/dashboard"))->with("error","Maaf, acara ini sedang berjalan sehingga tidak dapat dihapus");
+        return redirect()->to(base_url("admin/hadir/dashboard"))
+            ->with("error","Maaf, acara ini sedang berjalan sehingga tidak dapat dihapus");
     }
 
     public function hadir_tutup($kode_acara)
@@ -315,7 +333,8 @@ class Admin extends BaseController
         $query1 = $acara->set(["status" => 1])
             ->where("kode_acara", $kode_acara)
             ->update();
-        return redirect()->to(base_url("admin/hadir/dashboard"))->with("berhasil","Akses Acara berhasil ditutup");
+        return redirect()->to(base_url("admin/hadir/dashboard"))
+            ->with("berhasil","Akses Acara berhasil ditutup");
     }
 
     public function hadir_buka($kode_acara)
@@ -324,7 +343,8 @@ class Admin extends BaseController
         $query1 = $acara->set(["status" => 0])
             ->where("kode_acara", $kode_acara)
             ->update();
-        return redirect()->to(base_url("admin/hadir/dashboard"))->with("berhasil","Akses Acara berhasil dibuka kembali");
+        return redirect()->to(base_url("admin/hadir/dashboard"))
+            ->with("berhasil","Akses Acara berhasil dibuka kembali");
     }
 
     public function rapor_dashboard()
@@ -402,7 +422,6 @@ class Admin extends BaseController
                 ->orderBy("id_indikator")
                 ->get()
                 ->getResult();
-
             return view("admin/rapor/isi", ["data" => $query2]);
         }
 
@@ -420,10 +439,8 @@ class Admin extends BaseController
                 ->orderBy("id_indikator")
                 ->get()
                 ->getResult();
-
             return view("admin/rapor/isi", ["data" => $query3]);
         }
-
         return view("errors/404");
     }
 
@@ -504,8 +521,11 @@ class Admin extends BaseController
             ->where("id_pengurus",$id_pengurus)
             ->update();
 
-        if($query2 > 0 && $query4 > 0 && $query5 > 0) return redirect()->to(base_url("admin/rapor/isi"))
-            ->with("berhasil","Penilaian secara auto-grading berhasil dilakukan");
+        if($query2 > 0 && $query4 > 0 && $query5 > 0)
+        {
+            return redirect()->to(base_url("admin/rapor/isi"))
+                ->with("berhasil","Penilaian secara auto-grading berhasil dilakukan");
+        }
         return redirect()->to(base_url("admin/rapor/isi"))
             ->with("error","Penilaian secara auto-grading gagal dilakukan. Ulangi lagi proses auto-grading!");
     }
@@ -663,9 +683,12 @@ class Admin extends BaseController
             ->update();
 
         if($query1 > 0 && $query2 > 0 && $query3 > 0 && $query4 > 0 && $query5 > 0 && $query6 > 0)
-            return redirect()->to(base_url("admin/rapor/isi"))->with("berhasil","Pengisian nilai rapor berhasil disimpan");
-
-        return redirect()->to(base_url("admin/rapor/isi"))->with("error","Pengisian nilai rapor gagal disimpan");
+        {
+            return redirect()->to(base_url("admin/rapor/isi"))
+                ->with("berhasil","Pengisian nilai rapor berhasil disimpan");
+        }
+        return redirect()->to(base_url("admin/rapor/isi"))
+            ->with("error","Pengisian nilai rapor gagal disimpan");
     }
 
     public function rapor_hasil()
@@ -732,7 +755,6 @@ class Admin extends BaseController
             default:
                 break;
         }
-
         return redirect()->to(base_url("admin/beranda"))
             ->with("error","Maaf, Rapor Fungsionaris milikmu belum siap. Hubungi Kepala Departemen untuk <b>simpan permanen</b> nilai!");
     }
@@ -866,8 +888,11 @@ class Admin extends BaseController
             ];
             $query2 = $tautan->insert($data);
 
-            if($query2 > 0) return redirect()->to(base_url("admin/tautan/dashboard"))
-                ->with("berhasil","Pembuatan peringkas tautan baru telah berhasil");
+            if($query2 > 0)
+            {
+                return redirect()->to(base_url("admin/tautan/dashboard"))
+                    ->with("berhasil","Pembuatan peringkas tautan baru telah berhasil");
+            }
             return redirect()->to(base_url("admin/tautan/buat"))
                 ->with("error","Pembuatan peringkas tautan baru gagal disimpan");
         }
@@ -882,7 +907,10 @@ class Admin extends BaseController
             ->where("pendek",$pendek)
             ->first();
 
-        if($query1 !== null) return redirect()->to($query1->panjang);
+        if($query1 !== null)
+        {
+            return redirect()->to($query1->panjang);
+        }
         return view("errors/404");
     }
 
@@ -914,7 +942,8 @@ class Admin extends BaseController
             ->where("id_pengurus",$id_pengurus)
             ->update();
 
-        return redirect()->to("admin/akun/ubah")->with("berhasil","Kontak untuk narahubung berhasil diperbarui");
+        return redirect()->to("admin/akun/ubah")
+            ->with("berhasil","Kontak untuk narahubung berhasil diperbarui");
     }
 
     public function akun_ubah_pass()
@@ -938,10 +967,16 @@ class Admin extends BaseController
                     ->where("id_pengurus",$id_pengurus)
                     ->update();
 
-                if($query2 > 0) return redirect()->to(base_url("admin/beranda"))->with("berhasil","Kata Sandi berhasil diperbarui");
+                if($query2 > 0)
+                {
+                    return redirect()->to(base_url("admin/beranda"))
+                        ->with("berhasil","Kata Sandi berhasil diperbarui");
+                }
             }
-            return redirect()->to(base_url("admin/akun/ubah"))->with("error","Kata Sandi yang dimasukkan <b>SALAH</b>");
+            return redirect()->to(base_url("admin/akun/ubah"))
+                ->with("error","Kata Sandi yang dimasukkan <b>SALAH</b>");
         }
-        return redirect()->to(base_url("admin/akun/ubah"))->with("error","Kata Sandi baru <b>TIDAK COCOK</b>");
+        return redirect()->to(base_url("admin/akun/ubah"))
+            ->with("error","Kata Sandi baru <b>TIDAK COCOK</b>");
     }
 }

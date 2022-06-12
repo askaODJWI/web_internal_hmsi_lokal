@@ -44,7 +44,7 @@ $routes->group("/", function ($routes)
     $routes->get("sukses","Presensi::sukses");
 
     $routes->get("/(:num)","Presensi::acara/$1");
-    $routes->get("/(:alphanum)","Admin::tautan_alih/$1");
+    $routes->get("/(:segment)","Admin::tautan_alih/$1");
 });
 
 $routes->group("ajax", function ($routes)
