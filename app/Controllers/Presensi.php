@@ -23,19 +23,28 @@ class Presensi extends BaseController
         $query1 = $acara->where("kode_acara",$kode_acara)
             ->first();
 
-        return ($query1 !== null) ? redirect()->to(base_url("/$kode_acara")) :
-            redirect()->to(base_url("/"))->with("error","Maaf, kode acara <b>tidak ditemukan!</b>");
+        return ($query1 !== null) ?
+            redirect()->to(base_url("/$kode_acara")) :
+            redirect()->to(base_url("/"))
+                ->with("error","Maaf, kode acara <b>tidak ditemukan!</b>");
     }
 
     public function acara($kode_acara)
     {
-        $acara = new Acara();
-        $query1 = $acara->where("kode_acara",$kode_acara)
-            ->join("departemen","acara.id_departemen = departemen.id_departemen")
-            ->join("pengurus","acara.narahubung = pengurus.id_pengurus")
-            ->first();
+        if($this->cek_status($kode_acara) === 0)
+        {
+            $acara = new Acara();
+            $query1 = $acara->where("kode_acara",$kode_acara)
+                ->join("departemen","acara.id_departemen = departemen.id_departemen")
+                ->join("pengurus","acara.narahubung = pengurus.id_pengurus")
+                ->first();
 
-        return ($query1 !== null) ? view("presensi/acara",["data" => $query1]) : view("errors/404");
+            return ($query1 !== null) ?
+                view("presensi/acara",["data" => $query1]) :
+                view("errors/404");
+        }
+        return redirect()->to(base_url("/"))
+            ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b>");
     }
 
     public function hadir()
@@ -46,23 +55,30 @@ class Presensi extends BaseController
             ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
             ->format('Y-m-d H:i:s');
 
-        if($this->cek_ganda($kode_acara, $nrp) === 0)
+        if($this->cek_status($kode_acara) === 0)
         {
-            $hadir = new Hadir();
-            $data1 = [
-                "waktu" => $waktu,
-                "kode_acara" => $kode_acara,
-                "nrp" => $nrp
-            ];
-            $query1 = $hadir->insert($data1);
+            if($this->cek_ganda($kode_acara, $nrp) === 0)
+            {
+                $hadir = new Hadir();
+                $data1 = [
+                    "waktu" => $waktu,
+                    "kode_acara" => $kode_acara,
+                    "nrp" => $nrp
+                ];
+                $query1 = $hadir->insert($data1);
 
+                $this->input_session($kode_acara, $nrp);
+
+                return ($query1 > 0) ?
+                    redirect()->to(base_url("/sukses")) :
+                    redirect()->to(base_url("/$kode_acara"))
+                        ->with("error","Data gagal disimpan ke Database");
+            }
             $this->input_session($kode_acara, $nrp);
-
-            return ($query1 > 0) ? redirect()->to(base_url("/sukses")) :
-                redirect()->to(base_url("/$kode_acara"))->with("error","Data gagal disimpan ke Database");
+            return redirect()->to(base_url("/sukses"));
         }
-        $this->input_session($kode_acara, $nrp);
-        return redirect()->to(base_url("/sukses"));
+        return redirect()->to(base_url("/"))
+            ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b>");
     }
 
     public function hadir_manual()
@@ -75,29 +91,35 @@ class Presensi extends BaseController
             ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
             ->format('Y-m-d H:i:s');
 
-        $mhs = new Mhs();
-        $data1 = [
-            "nrp" => $nrp,
-            "nama" => $nama,
-            "angkatan" => $angkatan
-        ];
-        $query1 = $mhs->insert($data1);
-
-        if($query1 > 0)
+        if($this->cek_status($kode_acara) === 0)
         {
-            $hadir = new Hadir();
-            $data2 = [
-                "waktu" => $waktu,
-                "kode_acara" => $kode_acara,
-                "nrp" => $nrp
+            $mhs = new Mhs();
+            $data1 = [
+                "nrp" => $nrp,
+                "nama" => $nama,
+                "angkatan" => $angkatan
             ];
-            $query2 = $hadir->insert($data2);
+            $query1 = $mhs->insert($data1);
 
-            $this->input_session($kode_acara, $nrp);
+            if($query1 > 0)
+            {
+                $hadir = new Hadir();
+                $data2 = [
+                    "waktu" => $waktu,
+                    "kode_acara" => $kode_acara,
+                    "nrp" => $nrp
+                ];
+                $query2 = $hadir->insert($data2);
 
-            if($query2 > 0) return redirect()->to(base_url("/sukses"));
+                $this->input_session($kode_acara, $nrp);
+
+                if($query2 > 0) return redirect()->to(base_url("/sukses"));
+            }
+            return redirect()->to(base_url("/$kode_acara"))
+                ->with("error","Data gagal disimpan ke Database");
         }
-        return redirect()->to(base_url("/$kode_acara"))->with("error","Data gagal disimpan ke Database");
+        return redirect()->to(base_url("/"))
+            ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b>");
     }
 
     public function cek_ganda($kode_acara, $nrp)
@@ -107,6 +129,15 @@ class Presensi extends BaseController
             ->where("nrp",$nrp)
             ->first();
         return ($query1 === null) ? 0 : 1;
+    }
+
+    public function cek_status($kode_acara)
+    {
+        $acara = new Acara();
+        $query1 = $acara->select("status")
+            ->where("kode_acara",$kode_acara)
+            ->first();
+        return ($query1->status === '0') ? 0 : 1;
     }
 
     public function input_session($kode_acara, $nrp)

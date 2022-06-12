@@ -75,6 +75,10 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
         $routes->post("ubah","Admin::hadir_ubah_kirim");
 
         $routes->get("hapus/(:num)","Admin::hadir_hapus/$1");
+
+        $routes->get("tutup/(:num)","Admin::hadir_tutup/$1");
+
+        $routes->get("buka/(:num)","Admin::hadir_buka/$1");
     });
 
     $routes->group("akun",function ($routes){

@@ -9,6 +9,12 @@
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>
+<div id="copy_link" class="alert alert-success alert-dismissible fade show mt-3 mb-3 d-none" role="alert">
+    Tautan akses presensi berhasil disalin ke clipboard
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
 
 <table id="daftar-link-acara" class="table table-hover">
     <thead>
@@ -18,8 +24,8 @@
         <th class="wd-15p">Nama</th>
         <th class="wd-15p">Tanggal</th>
         <th class="wd-15p">Lokasi</th>
-        <th class="wd-20p">Pembuat / Pengubah</th>
-        <th class="wd-25p">Aksi</th>
+        <th class="wd-30p">Pembuat / Pengubah</th>
+        <th class="wd-15p">Aksi</th>
     </tr>
     </thead>
     <tbody>
@@ -35,24 +41,67 @@
             <?= $d->nama . "<br><i>" . $d->jabatan . " " . $d->nama_departemen . "</i>" ?><br>
         </td>
         <td class="align-middle tx-center">
-            <a onclick="navigator.clipboard.writeText('<?= base_url("/$d->kode_acara") ?>')"
-               class="btn btn-primary btn-xs" target="_blank">
-                <span class="tx-white"><i data-feather="link-2"></i> Salin</a></span>
-            <a href="<?= base_url("admin/hadir/ubah/$d->kode_acara") ?>" class="btn btn-warning btn-xs">
-                <i data-feather="edit-2"></i> Ubah</a>
-            <a onclick="deleteConfirm('<?= base_url('admin/hadir/hapus/'.$d->kode_acara) ?>')" href="#"
-               class="btn btn-danger btn-xs"><i data-feather="trash-2"></i> Hapus</a>
+            <a onclick="copyLink('<?= base_url("/$d->kode_acara") ?>')"
+               class="btn btn-primary btn-xs btn-block" target="_blank">
+                <span class="tx-white"><i data-feather="link-2"></i> Salin Tautan</span></a>
+            <?php if($d->status === '0'): ?>
+                <a onclick="tutupConfirm('<?= base_url('admin/hadir/tutup/'.$d->kode_acara) ?>')" href="#"
+                   class="btn btn-danger btn-xs btn-block"><i data-feather="x-octagon"></i> Tutup Akses</a>
+            <?php else: ?>
+                <a href="<?= base_url("admin/hadir/buka/$d->kode_acara") ?>" class="btn btn-outline-secondary btn-xs btn-block">
+                    <i data-feather="eye"></i> Buka Akses</a>
+            <?php endif; ?>
+            <?php if($d->jumlah === '0'): ?>
+                <a href="<?= base_url("admin/hadir/ubah/$d->kode_acara") ?>" class="btn btn-warning btn-xs btn-block">
+                    <i data-feather="edit-2"></i> Ubah</a>
+                <a onclick="deleteConfirm('<?= base_url('admin/hadir/hapus/'.$d->kode_acara) ?>')" href="#" class="btn btn-dark btn-xs btn-block"><i data-feather="trash-2"></i> Hapus</a>
+            <?php endif; ?>
         </td>
     </tr>
     <?php endforeach; ?>
     </tbody>
 </table>
 
+<div class="modal fade" id="modal_tutup" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog wd-sm-400" role="document">
+        <div class="modal-content bg-white">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold">Konfirmasi</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="font-weight-bold tx-14">Apakah kamu yakin ingin MENUTUP AKSES presensi?</p>
+                <p class="tx-danger" id="konfirm_tutup">Peserta <b>TIDAK BISA </b>melakukan presensi lagi setelah akses ditutup</p>
+                <span>Klik tombol <b>TUTUP</b> untuk melanjutkan.</span>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-xs" type="button" data-dismiss="modal">Batal</button>
+                <a class="btn btn-danger btn-xs" id="btn-delete" href="#">Tutup</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?= $this->endSection() ?>
 
 <?= $this->section("js") ?>
 
 <script>
+    function tutupConfirm(url)
+    {
+        $("#btn-delete").attr("href", url);
+        $("#modal_tutup").modal();
+    }
+
+    function copyLink(url)
+    {
+        navigator.clipboard.writeText(url);
+        document.getElementById("copy_link").classList.remove('d-none');
+        document.getElementById("copy_link").classList.add('d-block');
+    }
+
     $('#daftar-link-acara').DataTable({
         language: {
             searchPlaceholder: "Cari...",

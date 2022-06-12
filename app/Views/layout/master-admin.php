@@ -67,12 +67,12 @@
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "hadir") &&
             ((current_url(true)->getSegment(4)) === "dashboard") ? "active" : "" ?>">
                 <a href="<?= base_url("/admin/hadir/dashboard") ?>" class="nav-link">
-                    <i data-feather="list"></i> <span>Daftar Pranala</span></a>
+                    <i data-feather="list"></i> <span>Daftar Presensi</span></a>
             </li>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "hadir") &&
             ((current_url(true)->getSegment(4)) === "tambah") ? "active" : "" ?>">
                 <a href="<?= base_url("/admin/hadir/tambah") ?>" class="nav-link">
-                    <i data-feather="plus-circle"></i> <span>Tambah Pranala</span></a>
+                    <i data-feather="plus-circle"></i> <span>Tambah Presensi</span></a>
             </li>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "hadir") &&
             ((current_url(true)->getSegment(4)) === "rekap") ? "active" : "" ?>">

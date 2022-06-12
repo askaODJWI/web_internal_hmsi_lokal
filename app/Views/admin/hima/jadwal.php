@@ -13,16 +13,14 @@ Jadwal Pemakaian Ruang Kesekretariatan
 <link href="<?= base_url("main/lib/fullcalendar/fullcalendar.min.css") ?>" rel="stylesheet">
 <link href="<?= base_url("main/assets/css/dashforge.calendar.css") ?>" rel="stylesheet" >
 
-<div class="calendar-wrapper">
-    <div class="calendar-content">
-        <div class="d-block d-lg-none tx-center mg-t-20 mg-lg-t-0">
-            <a href="" class="btn btn-sm btn-primary btn-icon calendar-add">
-                <i data-feather="plus"></i> Buat Peminjaman Baru
-            </a>
-        </div>
-        <div id="calendar" class="calendar-content-body"></div>
-    </div>
+
+<div class="d-block d-lg-none tx-center mg-t-20 mg-lg-t-0">
+    <a href="" class="btn btn-sm btn-primary btn-icon calendar-add">
+        <i data-feather="plus"></i> Buat Peminjaman Baru
+    </a>
 </div>
+<div id="calendar" class="calendar-content-body"></div>
+
 
 <div class="modal calendar-modal-create fade effect-scale" id="modalCreateEvent" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -106,8 +104,8 @@ Jadwal Pemakaian Ruang Kesekretariatan
     // BPH
     let calendarEvents = {
         id: 1,
-        backgroundColor: '#d9e8ff',
-        borderColor: '#0168fa',
+        backgroundColor: '#fcbfdc',
+        borderColor: '#f10075',
         events: [
             <?php foreach($data1 as $ka=>$da): ?>
             {
@@ -123,11 +121,11 @@ Jadwal Pemakaian Ruang Kesekretariatan
         ]
     };
 
-    // Eksternal
+    // Internal
     let birthdayEvents = {
         id: 2,
-        backgroundColor: '#c3edd5',
-        borderColor: '#10b759',
+        backgroundColor: '#d9e8ff',
+        borderColor: '#0168fa',
         events: [
             <?php foreach($data2 as $kb=>$db): ?>
             {
@@ -143,11 +141,11 @@ Jadwal Pemakaian Ruang Kesekretariatan
         ]
     };
 
-    // Internal
+    // Eksternal
     let holidayEvents = {
         id: 3,
-        backgroundColor: '#fcbfdc',
-        borderColor: '#f10075',
+        backgroundColor: '#c3edd5',
+        borderColor: '#10b759',
         events: [
             <?php foreach($data3 as $kc=>$dc): ?>
             {

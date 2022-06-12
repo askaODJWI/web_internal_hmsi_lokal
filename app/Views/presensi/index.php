@@ -5,6 +5,14 @@ Kehadiran Acara HMSI
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>
+<?php if(session()->has("error")): ?>
+    <div class="alert alert-danger alert-dismissible fade show mt-3 animated fadeInDown" role="alert">
+        <?= session()->getFlashdata("error") ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+<?php endif; ?>
 
 <form action="<?= base_url("/cek") ?>" method="post" data-parsley-validate class="animated fadeInUp">
     <div class="form-group">
@@ -15,14 +23,5 @@ Kehadiran Acara HMSI
         <i data-feather="search"></i> <span>Cek Kode Acara</span>
     </button>
 </form>
-
-<?php if(session()->has("error")): ?>
-<div class="alert alert-danger alert-dismissible fade show mt-3 animated fadeInDown delay-1s" role="alert">
-    <?= session()->getFlashdata("error") ?>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">×</span>
-    </button>
-</div>
-<?php endif; ?>
 
 <?= $this->endSection() ?>

@@ -111,20 +111,25 @@ class Admin extends BaseController
         $acara = new Acara();
         if($id_pengurus < 2000)
         {
-            $query2 = $acara
+            $query2 = $acara->select(["acara.kode_acara","nama_acara","tanggal","nama_departemen","lokasi","nama","jabatan","status","COUNT(hadir.kode_acara) AS jumlah"])
                 ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
                 ->join("mhs","pengurus.nrp = mhs.nrp")
                 ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+                ->join("hadir","acara.kode_acara = hadir.kode_acara","left")
                 ->orderBy("tanggal","desc")
+                ->groupBy("hadir.kode_acara")
                 ->get()
                 ->getResult();
             return view("admin/hadir/dashboard",["data" => $query2]);
         }
-        $query3 = $acara->where("acara.id_departemen",$query1->id_departemen)
+        $query3 = $acara->select(["acara.kode_acara","nama_acara","tanggal","nama_departemen","lokasi","nama","jabatan","status","COUNT(hadir.kode_acara) AS jumlah"])
+            ->where("acara.id_departemen",$query1->id_departemen)
             ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
             ->join("mhs","pengurus.nrp = mhs.nrp")
             ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+            ->join("hadir","acara.kode_acara = hadir.kode_acara","left")
             ->orderBy("tanggal","desc")
+            ->groupBy("hadir.kode_acara")
             ->get()
             ->getResult();
         return view("admin/hadir/dashboard",["data" => $query3]);
@@ -302,6 +307,24 @@ class Admin extends BaseController
             return redirect()->to(base_url("admin/hadir/dashboard"))->with('berhasil',"Acara berhasil dibatalkan");
         }
         return redirect()->to(base_url("admin/hadir/dashboard"))->with("error","Maaf, acara ini sedang berjalan sehingga tidak dapat dihapus");
+    }
+
+    public function hadir_tutup($kode_acara)
+    {
+        $acara = new Acara();
+        $query1 = $acara->set(["status" => 1])
+            ->where("kode_acara", $kode_acara)
+            ->update();
+        return redirect()->to(base_url("admin/hadir/dashboard"))->with("berhasil","Akses Acara berhasil ditutup");
+    }
+
+    public function hadir_buka($kode_acara)
+    {
+        $acara = new Acara();
+        $query1 = $acara->set(["status" => 0])
+            ->where("kode_acara", $kode_acara)
+            ->update();
+        return redirect()->to(base_url("admin/hadir/dashboard"))->with("berhasil","Akses Acara berhasil dibuka kembali");
     }
 
     public function rapor_dashboard()
