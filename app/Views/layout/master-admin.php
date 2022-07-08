@@ -101,28 +101,10 @@
             </li>
             <?php endif; ?>
 
-            <li class="nav-label mg-t-25">Ruang Kesekretariatan</li>
-            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "hima") &&
-            ((current_url(true)->getSegment(4)) === "jadwal") ? "active" : "" ?>">
-                <a href="<?= base_url("/admin/hima/jadwal") ?>" class="nav-link">
-                    <i data-feather="calendar"></i> <span>Pinjam Ruangan</span></a>
-            </li>
-            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "hima") &&
-            ((current_url(true)->getSegment(4)) === "titip") ? "active" : "" ?>">
-                <a href="<?= base_url("/admin/hima/titip") ?>" class="nav-link">
-                    <i data-feather="box"></i> <span>Titip Barang</span></a>
-            </li>
-
             <li class="nav-label mg-t-25">Peringkas Tautan</li>
-            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "tautan") &&
-            ((current_url(true)->getSegment(4)) === "dashboard") ? "active" : "" ?>">
-                <a href="<?= base_url("/admin/tautan/dashboard") ?>" class="nav-link">
-                    <i data-feather="globe"></i> <span>Daftar Tautan</span></a>
-            </li>
-            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "tautan") &&
-            ((current_url(true)->getSegment(4)) === "buat") ? "active" : "" ?>">
-                <a href="<?= base_url("/admin/tautan/buat") ?>" class="nav-link">
-                    <i data-feather="link"></i> <span>Buat Tautan</span></a>
+            <li class="nav-item">
+                <a href="https://tekan.id/" target="_blank" class="nav-link">
+                    <i data-feather="link"></i> <span>Buat Tautan <i data-feather="external-link" style="height:12px; margin-bottom:5px;"></i></span></a>
             </li>
 
             <li class="nav-label mg-t-25">Akun</li>
@@ -226,13 +208,7 @@
     </div>
 </div>
 
-<?php if(((current_url(true)->getSegment(3)) === "hima")
-    && ((current_url(true)->getSegment(4)) === "jadwal")): ?>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<?php else: ?>
-    <script src="<?= base_url("main/lib/jquery/jquery.min.js") ?>"></script>
-<?php endif; ?>
-
+<script src="<?= base_url("main/lib/jquery/jquery.min.js") ?>"></script>
 <script src="<?= base_url("main/lib/jqueryui/jquery-ui.min.js") ?>"></script>
 <script src="<?= base_url("main/lib/bootstrap/js/bootstrap.bundle.min.js") ?>"></script>
 <script src="<?= base_url("main/lib/feather-icons/feather.min.js") ?>"></script>

@@ -12,7 +12,7 @@ Ubah Pranala Kehadiran Acara
 
 <form action="<?= base_url("admin/hadir/ubah") ?>" method="post" data-parsley-validate>
     <div class="row">
-        <div class="col-lg-2">
+        <div class="col-lg-1">
             <div class="form-group">
                 <label for="kode_acara" class="tx-bold">Kode <span class="tx-danger">*</span></label>
                 <input id="kode_acara" name="kode_acara" type="text" class="form-control" readonly value="<?= $data->kode_acara ?>">
@@ -24,7 +24,7 @@ Ubah Pranala Kehadiran Acara
                 <input id="nama_acara" name="nama_acara" type="text" class="form-control" placeholder="Masukkan nama acara" required data-parsley-required-message="Nama Acara wajib diisi!" value="<?= $data->nama_acara ?>">
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-5">
             <div class="form-group">
                 <label for="tanggal" class="tx-bold">Tanggal <span class="tx-danger">*</span></label>
                 <input id="tanggal" name="tanggal" type="datetime-local" class="form-control" placeholder="Masukkan tanggal acara" required data-parsley-required-message="Tanggal Acara wajib diisi!" value="<?= str_replace(' ', 'T', $data->tanggal) ?>">
@@ -32,25 +32,26 @@ Ubah Pranala Kehadiran Acara
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-7">
             <div class="form-group">
                 <label for="lokasi" class="tx-bold">Lokasi <span class="tx-danger">*</span></label>
                 <input id="lokasi" name="lokasi" type="text" class="form-control" placeholder="Masukkan lokasi acara (dapat berupa link online meet atau lokasi offline)" required data-parsley-required-message="Lokasi Acara wajib diisi!" value="<?= $data->lokasi ?>">
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-5">
             <div class="form-group">
                 <label for="tipe" class="tx-bold">Tipe Acara <span class="tx-danger">*</span></label>
                 <select id="tipe" name="tipe" type="text" class="form-control" required data-parsley-required-message="Tipe Acara wajib diisi!">
-                    <option value="0" <?= ($data->tipe === '0') ? "selected" : "" ?>>0 - WAJIB diikuti fungsionaris</option>
-                    <option value="1" <?= ($data->tipe === '1') ? "selected" : "" ?>>1 - TIDAK WAJIB diikuti fungsionaris</option>
-                    <option value="2" <?= ($data->tipe === '2') ? "selected" : "" ?>>2 - Hanya diikuti fungsionaris TERTENTU</option>
+                    <option value="0" <?= ($data->tipe === '0') ? "selected" : "" ?>>0 - WAJIB diikuti fungsionaris (hanya pengurus)</option>
+                    <option value="1" <?= ($data->tipe === '1') ? "selected" : "" ?>>1 - TIDAK WAJIB diikuti fungsionaris (dengan peserta umum)</option>
+                    <option value="2" <?= ($data->tipe === '2') ? "selected" : "" ?>>2 - Hanya diikuti FUNGSIONARIS TERTENTU (dengan peserta umum)</option>
+                    <option value="3" <?= ($data->tipe === '3') ? "selected" : "" ?>>3 - Hanya diikuti DEPARTEMEN TERTENTU (internal departemen)</option>
                 </select>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="form-group">
                 <label for="narahubung1" class="tx-bold">Narahubung <span class="tx-danger">*</span></label>
                 <select id="narahubung1" name="narahubung1" class="form-control" required data-parsley-required-message="Narahubung wajib diisi!">

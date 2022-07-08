@@ -22,9 +22,7 @@ $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('BaseController');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
-$routes->set404Override(function(){
-    return view("errors/404");
-});
+$routes->set404Override(function(){ return view("errors/404"); });
 $routes->setAutoRoute(true);
 
 /*
@@ -77,17 +75,18 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
         $routes->get("hapus/(:num)","Admin::hadir_hapus/$1");
 
         $routes->get("tutup/(:num)","Admin::hadir_tutup/$1");
-
         $routes->get("buka/(:num)","Admin::hadir_buka/$1");
     });
 
-    $routes->group("akun",function ($routes){
+    $routes->group("akun",function ($routes)
+    {
         $routes->get("ubah","Admin::akun_ubah");
         $routes->post("ubah","Admin::akun_ubah_kirim");
         $routes->post("ubah_pass","Admin::akun_ubah_pass");
     });
 
-    $routes->group("rapor", function ($routes){
+    $routes->group("rapor", function ($routes)
+    {
         $routes->get("dashboard","Admin::rapor_dashboard");
 
         $routes->get("isi","Admin::rapor_isi");
@@ -98,21 +97,6 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
         $routes->get("hasil","Admin::rapor_hasil");
         $routes->post("hasil","Admin::rapor_hasil_post");
     });
-
-    $routes->group("tautan", function ($routes){
-        $routes->get("dashboard","Admin::tautan_dashboard");
-
-        $routes->get("buat","Admin::tautan_buat");
-        $routes->post("buat","Admin::tautan_buat_kirim");
-    });
-
-    $routes->group("hima",function ($routes){
-        $routes->get("jadwal","Admin::hima_jadwal");
-        $routes->post("jadwal/buat","Admin::hima_jadwal_buat");
-
-        $routes->get("titip","Admin::hima_titip");
-    });
-
 });
 /*
  * --------------------------------------------------------------------
