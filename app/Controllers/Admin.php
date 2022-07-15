@@ -112,25 +112,23 @@ class Admin extends BaseController
         $acara = new Acara();
         if($id_pengurus < 2000)
         {
-            $query2 = $acara->select(["acara.kode_acara","nama_acara","tanggal","nama_departemen","lokasi","nama","jabatan","status"])
+            $query2 = $acara->select("(SELECT COUNT(kode_acara) FROM hadir WHERE acara.kode_acara = hadir.kode_acara GROUP BY kode_acara) as jumlah")
+                ->select(["acara.kode_acara","nama_acara","tanggal","nama_departemen","lokasi","nama","jabatan","status"])
                 ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
                 ->join("mhs","pengurus.nrp = mhs.nrp")
                 ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
-                ->join("hadir","acara.kode_acara = hadir.kode_acara","left")
                 ->orderBy("tanggal","desc")
-                ->groupBy("hadir.kode_acara")
                 ->get()
                 ->getResult();
             return view("admin/hadir/dashboard",["data" => $query2]);
         }
-        $query3 = $acara->select(["acara.kode_acara","nama_acara","tanggal","nama_departemen","lokasi","nama","jabatan","status"])
+        $query3 = $acara->select("(SELECT COUNT(kode_acara) FROM hadir WHERE acara.kode_acara = hadir.kode_acara GROUP BY kode_acara) as jumlah")
+            ->select(["acara.kode_acara","nama_acara","tanggal","nama_departemen","lokasi","nama","jabatan","status"])
             ->where("acara.id_departemen",$query1->id_departemen)
             ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
             ->join("mhs","pengurus.nrp = mhs.nrp")
             ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
-            ->join("hadir","acara.kode_acara = hadir.kode_acara","left")
             ->orderBy("tanggal","desc")
-            ->groupBy("hadir.kode_acara")
             ->get()
             ->getResult();
         return view("admin/hadir/dashboard",["data" => $query3]);

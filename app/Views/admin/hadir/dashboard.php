@@ -46,7 +46,7 @@
                 <a href="<?= base_url("admin/hadir/buka/$d->kode_acara") ?>" class="btn btn-outline-secondary btn-xs btn-block">
                     <i data-feather="eye"></i> Buka Akses</a>
             <?php endif; ?>
-            <?php if($d->jumlah === '0'): ?>
+            <?php if($d->jumlah === null): ?>
                 <a href="<?= base_url("admin/hadir/ubah/$d->kode_acara") ?>" class="btn btn-warning btn-xs btn-block">
                     <i data-feather="edit-2"></i> Ubah</a>
                 <a onclick="deleteConfirm('<?= base_url('admin/hadir/hapus/'.$d->kode_acara) ?>')" href="#" class="btn btn-dark btn-xs btn-block"><i data-feather="trash-2"></i> Hapus</a>
