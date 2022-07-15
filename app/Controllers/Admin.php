@@ -112,7 +112,7 @@ class Admin extends BaseController
         $acara = new Acara();
         if($id_pengurus < 2000)
         {
-            $query2 = $acara->select(["acara.kode_acara","nama_acara","tanggal","nama_departemen","lokasi","nama","jabatan","status","COUNT(hadir.kode_acara) AS jumlah"])
+            $query2 = $acara->select(["acara.kode_acara","nama_acara","tanggal","nama_departemen","lokasi","nama","jabatan","status"])
                 ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
                 ->join("mhs","pengurus.nrp = mhs.nrp")
                 ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
@@ -123,7 +123,7 @@ class Admin extends BaseController
                 ->getResult();
             return view("admin/hadir/dashboard",["data" => $query2]);
         }
-        $query3 = $acara->select(["acara.kode_acara","nama_acara","tanggal","nama_departemen","lokasi","nama","jabatan","status","COUNT(hadir.kode_acara) AS jumlah"])
+        $query3 = $acara->select(["acara.kode_acara","nama_acara","tanggal","nama_departemen","lokasi","nama","jabatan","status"])
             ->where("acara.id_departemen",$query1->id_departemen)
             ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
             ->join("mhs","pengurus.nrp = mhs.nrp")
@@ -851,5 +851,19 @@ class Admin extends BaseController
         }
         return redirect()->to(base_url("admin/akun/ubah"))
             ->with("error","Kata Sandi baru <b>TIDAK COCOK</b>");
+    }
+
+    public function tautan_alih($pendek)
+    {
+        $tautan = new Tautan();
+        $query1 = $tautan->select("panjang")
+            ->where("pendek",$pendek)
+            ->first();
+
+        if($query1 !== null)
+        {
+            return redirect()->to($query1->panjang);
+        }
+        return view("errors/404");
     }
 }
