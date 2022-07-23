@@ -454,16 +454,34 @@ class Admin extends BaseController
             ->join("mhs","pengurus.nrp = mhs.nrp")
             ->first();
 
+        switch($id_bulan)
+        {
+            case(1):
+                $awal = (new \DateTime("2022-02-01 00:00:00"))->format("y-m-d H:i:s") ;
+                $akhir = (new \DateTime("2022-05-31 23:59:59"))->format("y-m-d H:i:s") ; break;
+            case(2):
+                $awal = (new \DateTime("2022-06-01 00:00:00"))->format("y-m-d H:i:s") ;
+                $akhir = (new \DateTime("2022-07-31 23:59:59"))->format("y-m-d H:i:s"); break;
+            case(3):
+                $awal = (new \DateTime("2022-08-01 00:00:00"))->format("y-m-d H:i:s") ;
+                $akhir = (new \DateTime("2022-10-31 23:59:59"))->format("y-m-d H:i:s"); break;
+        }
         $nilai2a = $hadir->where("nrp",$query1->nrp)
             ->where("tipe","1")
+            ->where("tanggal >=",$awal)
+            ->where("tanggal <=",$akhir)
             ->join("acara","hadir.kode_acara = acara.kode_acara")
             ->countAllResults();
         $nilai2b = $acara->where("id_departemen !=",$query1->id_departemen)
             ->where("tipe","1")
+            ->where("tanggal >=",$awal)
+            ->where("tanggal <=",$akhir)
             ->countAllResults();
 
         $total_hadir = $hadir->where("nrp",$query1->nrp)
             ->where("tipe","1")
+            ->where("waktu >=",$awal)
+            ->where("waktu <=",$akhir)
             ->join("acara","hadir.kode_acara = acara.kode_acara")
             ->get()
             ->getResult();
@@ -473,6 +491,8 @@ class Admin extends BaseController
         {
             $pertama = $hadir->where("kode_acara",$h->kode_acara)
                 ->orderBy("waktu","asc")
+                ->where("waktu >=",$awal)
+                ->where("waktu <=",$akhir)
                 ->first();
 
             $waktu_telat = date("H:i", strtotime('+15 minutes', strtotime($pertama->waktu)));
@@ -484,9 +504,13 @@ class Admin extends BaseController
 
         $nilai5a = $hadir->where("nrp",$query1->nrp)
             ->where("tipe","0")
+            ->where("tanggal >=",$awal)
+            ->where("tanggal <=",$akhir)
             ->join("acara","hadir.kode_acara = acara.kode_acara")
             ->countAllResults();
         $nilai5b = $acara->where("tipe","0")
+            ->where("tanggal >=",$awal)
+            ->where("tanggal <=",$akhir)
             ->countAllResults();
 
         $data2 = [
