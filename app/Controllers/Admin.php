@@ -77,9 +77,22 @@ class Admin extends BaseController
             11 => "#095950",
             12 => "#2C427A"
         ];
+
+        $sekarang = new \DateTime("now");
+        $bulan1_awal = new \DateTime("2022-02-01 00:00:00");
+        $bulan1_akhir = new \DateTime("2022-07-19 23:59:59");
+        $bulan2_awal = new \DateTime("2022-07-20 00:00:00");
+        $bulan2_akhir = new \DateTime("2022-10-19 23:59:59");
+        $bulan3_awal = new \DateTime("2022-10-20 00:00:00");
+        $bulan3_akhir = new \DateTime("2022-12-31 23:59:59");
+
+        if($sekarang >= $bulan1_awal && $sekarang <= $bulan1_akhir) $id_bulan = 1;
+        else if($sekarang >= $bulan2_awal && $sekarang <= $bulan2_akhir) $id_bulan = 2;
+        else if($sekarang >= $bulan3_awal && $sekarang <= $bulan3_akhir) $id_bulan = 3;
+
         $query3 = $nilai->select(["pengurus.id_departemen","CAST((CAST(SUM(nilai.nilai) / (COUNT(nilai.id_pengurus) / 2) AS INT) / 2) AS INT) AS rerata"])
             ->where("nilai.id_indikator <=",2)
-            ->where("nilai.id_bulan",1)
+            ->where("nilai.id_bulan",$id_bulan)
             ->join("pengurus","nilai.id_pengurus = pengurus.id_pengurus")
             ->groupBy("pengurus.id_departemen")
             ->orderBy("pengurus.id_departemen")
@@ -87,14 +100,14 @@ class Admin extends BaseController
             ->getResult();
         $query4 = $nilai->select(["pengurus.id_departemen","CAST((CAST(SUM(nilai.nilai) / (COUNT(nilai.id_pengurus) / 3) AS INT) / 3) AS INT) AS rerata"])
             ->where("nilai.id_indikator >=",3)
-            ->where("nilai.id_bulan",1)
+            ->where("nilai.id_bulan",$id_bulan)
             ->join("pengurus","nilai.id_pengurus = pengurus.id_pengurus")
             ->groupBy("pengurus.id_departemen")
             ->orderBy("pengurus.id_departemen")
             ->get()
             ->getResult();
         $query5 = $nilai->select("id_pengurus")
-            ->where("id_bulan",1)
+            ->where("id_bulan",$id_bulan)
             ->where("nilai >",0)
             ->get()
             ->getResult();
