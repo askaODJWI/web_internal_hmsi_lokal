@@ -823,12 +823,12 @@ class Admin extends BaseController
         return view("admin/rapor/hasil",["data" => $query2, "data2" => $query1]);
     }
 
-    public function data_nrp()
+    public function data_nama()
     {
-        return view("admin/data/nrp");
+        return view("admin/data/nama");
     }
 
-    public function data_nrp_kirim()
+    public function data_nama_kirim()
     {
         $nama = $this->request->getPost("nama");
 
@@ -837,7 +837,7 @@ class Admin extends BaseController
             ->get()
             ->getResult();
 
-        return view("admin/data/nrp",["data" => $query1]);
+        return view("admin/data/nama",["data" => $query1, "data2" => $nama]);
     }
 
     public function akun_ubah()

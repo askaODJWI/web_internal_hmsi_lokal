@@ -109,9 +109,9 @@
 
             <li class="nav-label mg-t-25">Pencarian Data</li>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "data") &&
-            ((current_url(true)->getSegment(4)) === "nrp") ? "active" : "" ?>">
-                <a href="<?= base_url("/admin/data/nrp") ?>" class="nav-link">
-                    <i data-feather="info"></i> <span>Nama ke NRP</span></a>
+            ((current_url(true)->getSegment(4)) === "nama") ? "active" : "" ?>">
+                <a href="<?= base_url("/admin/data/nama") ?>" class="nav-link">
+                    <i data-feather="info"></i> <span>Berdasarkan Nama</span></a>
             </li>
 
             <li class="nav-label mg-t-25">Akun</li>

@@ -1,16 +1,20 @@
 <?= $this->extend("layout/master-admin") ?>
 
 <?= $this->section("title") ?>
-Admin HMSI | Data | Dashboard
+Admin HMSI | Data | Nama
 <?= $this->endSection() ?>
 
 <?= $this->section("halaman") ?>
-Cari Data dari Nama ke NRP
+Cari Data Berdasarkan Nama
+
+<?php if(service("request")->getMethod() === "post"): ?>
+<span class="text-primary">: <?= $data2 ?></span>
+<?php endif; ?>
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>
 
-<form action="<?= base_url("admin/data/nrp") ?>" method="post" data-parsley-validate>
+<form action="<?= base_url("admin/data/nama") ?>" method="post" class="mb-3" data-parsley-validate>
     <div class="row">
         <div class="col-lg-9">
             <div class="form-group">
@@ -33,10 +37,10 @@ Cari Data dari Nama ke NRP
     <thead>
     <tr class="tx-center tx-bold">
         <th class="wd-5p">No.</th>
-        <th class="wd-40p">Nama</th>
+        <th class="wd-35p">Nama</th>
         <th class="wd-15p">NRP</th>
         <th class="wd-10p">Angkatan</th>
-        <th class="wd-30p">Program Studi</th>
+        <th class="wd-35p">Program Studi</th>
     </tr>
     </thead>
     <tbody>
@@ -74,9 +78,6 @@ Cari Data dari Nama ke NRP
             emptyTable: "Tidak ada data yang ditemukan",
             zeroRecords:  "Tidak ada data yang ditemukan",
         },
-        drawCallback: function() {
-            feather.replace();
-        }
     });
 
     $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });

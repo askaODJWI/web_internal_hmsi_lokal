@@ -100,6 +100,9 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
 
     $routes->group("data", function ($routes)
     {
+        $routes->get("nama","Admin::data_nama");
+        $routes->post("nama","Admin::data_nama_kirim");
+
         $routes->get("nrp","Admin::data_nrp");
         $routes->post("nrp","Admin::data_nrp_kirim");
     });
