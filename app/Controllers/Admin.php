@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\Acara;
 use App\Models\Hadir;
 use App\Models\Jadwal;
+use App\Models\Mhs;
 use App\Models\Nilai;
 use App\Models\Pengurus;
 use App\Models\Rapor;
@@ -820,6 +821,23 @@ class Admin extends BaseController
             ->get()
             ->getResult();
         return view("admin/rapor/hasil",["data" => $query2, "data2" => $query1]);
+    }
+
+    public function data_nrp()
+    {
+        return view("admin/data/nrp");
+    }
+
+    public function data_nrp_kirim()
+    {
+        $nama = $this->request->getPost("nama");
+
+        $mhs = new Mhs();
+        $query1 = $mhs->like("nama",$nama)
+            ->get()
+            ->getResult();
+
+        return view("admin/data/nrp",["data" => $query1]);
     }
 
     public function akun_ubah()

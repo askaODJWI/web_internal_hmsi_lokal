@@ -107,6 +107,13 @@
                     <i data-feather="link"></i> <span>Buat Tautan <i data-feather="external-link" style="height:12px; margin-bottom:5px;"></i></span></a>
             </li>
 
+            <li class="nav-label mg-t-25">Pencarian Data</li>
+            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "data") &&
+            ((current_url(true)->getSegment(4)) === "nrp") ? "active" : "" ?>">
+                <a href="<?= base_url("/admin/data/nrp") ?>" class="nav-link">
+                    <i data-feather="info"></i> <span>Nama ke NRP</span></a>
+            </li>
+
             <li class="nav-label mg-t-25">Akun</li>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "akun") &&
             ((current_url(true)->getSegment(4)) === "ubah") ? "active" : "" ?>">

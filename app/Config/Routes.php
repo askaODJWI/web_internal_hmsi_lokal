@@ -97,6 +97,12 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
         $routes->get("hasil","Admin::rapor_hasil");
         $routes->post("hasil","Admin::rapor_hasil_post");
     });
+
+    $routes->group("data", function ($routes)
+    {
+        $routes->get("nrp","Admin::data_nrp");
+        $routes->post("nrp","Admin::data_nrp_kirim");
+    });
 });
 /*
  * --------------------------------------------------------------------
