@@ -36,7 +36,7 @@ $routes->setAutoRoute(true);
 $routes->group("/", function ($routes)
 {
     $routes->get("", "Presensi::index");
-    $routes->post("cek", "Presensi::cek_acara");
+    $routes->post("cek", "Presensi::index_kirim");
     $routes->post("hadir","Presensi::hadir");
     $routes->post("hadir_manual","Presensi::hadir_manual");
     $routes->get("sukses","Presensi::sukses");

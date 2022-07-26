@@ -15,36 +15,46 @@ class Presensi extends BaseController
         return view("presensi/index");
     }
 
-    public function cek_acara()
+    public function index_kirim()
     {
         $kode_acara = $this->request->getPost("kode_acara");
 
+        return ($this->cek_acara($kode_acara)) ?
+            redirect()->to(base_url("/$kode_acara")) :
+            redirect()->to(base_url("/"))
+                ->with("error","Maaf, kode acara <b>tidak ditemukan!</b><br>Pastikan kode acara sudah benar.");
+    }
+
+    public function cek_acara($kode_acara)
+    {
         $acara = new Acara();
         $query1 = $acara->where("kode_acara",$kode_acara)
             ->first();
 
-        return ($query1 !== null) ?
-            redirect()->to(base_url("/$kode_acara")) :
-            redirect()->to(base_url("/"))
-                ->with("error","Maaf, kode acara <b>tidak ditemukan!</b>");
+        return ($query1 !== null);
     }
 
     public function acara($kode_acara)
     {
-        if($this->cek_status($kode_acara) === 0)
+        if($this->cek_acara($kode_acara))
         {
-            $acara = new Acara();
-            $query1 = $acara->where("kode_acara",$kode_acara)
-                ->join("departemen","acara.id_departemen = departemen.id_departemen")
-                ->join("pengurus","acara.narahubung = pengurus.id_pengurus")
-                ->first();
+            if($this->cek_status($kode_acara) === 0)
+            {
+                $acara = new Acara();
+                $query1 = $acara->where("kode_acara",$kode_acara)
+                    ->join("departemen","acara.id_departemen = departemen.id_departemen")
+                    ->join("pengurus","acara.narahubung = pengurus.id_pengurus")
+                    ->first();
 
-            return ($query1 !== null) ?
-                view("presensi/acara",["data" => $query1]) :
-                view("errors/404");
+                return ($query1 !== null) ?
+                    view("presensi/acara",["data" => $query1]) :
+                    view("errors/404");
+            }
+            return redirect()->to(base_url("/"))
+                ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b><br>Hubungi panitia untuk konfirmasi kehadiran.");
         }
         return redirect()->to(base_url("/"))
-            ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b>");
+            ->with("error","Maaf, kode acara <b>tidak ditemukan!</b><br>Pastikan kode acara sudah benar.");
     }
 
     public function hadir()
@@ -78,7 +88,7 @@ class Presensi extends BaseController
             return redirect()->to(base_url("/sukses"));
         }
         return redirect()->to(base_url("/"))
-            ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b>");
+            ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b><br>Hubungi panitia untuk konfirmasi kehadiran.");
     }
 
     public function hadir_manual()
@@ -119,7 +129,7 @@ class Presensi extends BaseController
                 ->with("error","Data gagal disimpan ke Database");
         }
         return redirect()->to(base_url("/"))
-            ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b>");
+            ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b><br>Hubungi panitia untuk konfirmasi kehadiran.");
     }
 
     public function cek_ganda($kode_acara, $nrp)

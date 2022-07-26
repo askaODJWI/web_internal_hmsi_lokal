@@ -186,6 +186,18 @@ class Admin extends BaseController
             }
 
             if(
+                strpos($c, "intip.in") === 0 ||
+                strpos($c, "tekan.id") === 0 ||
+                strpos($c, "zoom.us") === 0 ||
+                strpos($c, "bit.ly") === 0 ||
+                strpos($c, "its.id") === 0 ||
+                strpos($c, "s.id") === 0
+            ){
+                return redirect()->to(base_url("admin/hadir/tambah"))
+                    ->with("error","Lokasi acara <b>TIDAK VALID</b>. Acara daring WAJIB didahului <b>https://</b> pada awal link.");
+            }
+
+            if(
                 strtolower($c) === "online" ||
                 strtolower($c) === "daring" ||
                 strtolower($c) === "zoom" ||
@@ -279,6 +291,18 @@ class Admin extends BaseController
             {
                 return redirect()->to(base_url("admin/hadir/ubah/$kode_acara"))
                     ->with("error","Lokasi acara <b>TIDAK VALID</b>. Acara daring CUKUP ditulis <b>link online meeting-nya saja</b>.");
+            }
+
+            if(
+                strpos($c, "intip.in") === 0 ||
+                strpos($c, "tekan.id") === 0 ||
+                strpos($c, "zoom.us") === 0 ||
+                strpos($c, "bit.ly") === 0 ||
+                strpos($c, "its.id") === 0 ||
+                strpos($c, "s.id") === 0
+            ){
+                return redirect()->to(base_url("admin/hadir/ubah/$kode_acara"))
+                    ->with("error","Lokasi acara <b>TIDAK VALID</b>. Acara daring WAJIB didahului <b>https://</b> pada awal link.");
             }
 
             if(
