@@ -168,10 +168,45 @@ class Admin extends BaseController
         $query1 = $pengurus->where("id_pengurus",$pembuat)->first();
         $id_departemen = $query1->id_departemen;
 
+        $cek_lokasi = explode(" ",$lokasi);
+        $cek_panjang = array_key_last($cek_lokasi);
+
         if($no_wa1 === "" || $id_line1 === "")
         {
             return redirect()->to(base_url("admin/hadir/tambah"))
-                ->with("error","Data Narahubung belum lengkap. Silakan melengkapi terlebih dahulu.");
+                ->with("error","Data Narahubung belum diisi. Silakan melengkapi datanya terlebih dahulu.");
+        }
+
+        foreach($cek_lokasi as $c)
+        {
+            if($cek_panjang > 0 && (!filter_var($c, FILTER_VALIDATE_URL) === false))
+            {
+                return redirect()->to(base_url("admin/hadir/tambah"))
+                    ->with("error","Lokasi acara <b>TIDAK VALID</b>. Acara daring CUKUP ditulis <b>link online meeting-nya saja</b>.");
+            }
+
+            if(
+                strtolower($c) === "online" ||
+                strtolower($c) === "daring" ||
+                strtolower($c) === "zoom" ||
+                strtolower($c) === "meeting" ||
+                strtolower($c) === "teams" ||
+                strtolower($c) === "google" ||
+                strtolower($c) === "meet" ||
+                strtolower($c) === "melalui" ||
+                strtolower($c) === "via"
+            ){
+                return redirect()->to(base_url("admin/hadir/tambah"))
+                    ->with("error","Lokasi acara <b>TIDAK VALID</b>. Acara daring WAJIB ditulis <b>link online meeting-nya</b>.");
+            }
+
+            if(
+                strtolower($c) === "offline" ||
+                strtolower($c) === "luring"
+            ){
+                return redirect()->to(base_url("admin/hadir/tambah"))
+                    ->with("error","Lokasi acara <b>TIDAK VALID</b>. Acara luring WAJIB ditulis <b>nama lokasi / gedungnya</b>.");
+            }
         }
 
         $acara = new Acara();
@@ -229,10 +264,45 @@ class Admin extends BaseController
         $query1 = $pengurus->where("id_pengurus",$pembuat)->first();
         $id_departemen = $query1->id_departemen;
 
+        $cek_lokasi = explode(" ",$lokasi);
+        $cek_panjang = array_key_last($cek_lokasi);
+
         if($no_wa1 === "" || $id_line1 === "")
         {
             return redirect()->to(base_url("admin/hadir/tambah"))
-                ->with("error","Data Narahubung belum lengkap. Silakan melengkapi terlebih dahulu.");
+                ->with("error","Data Narahubung belum diisi. Silakan melengkapi datanya terlebih dahulu.");
+        }
+
+        foreach($cek_lokasi as $c)
+        {
+            if($cek_panjang > 0 && (!filter_var($c, FILTER_VALIDATE_URL) === false))
+            {
+                return redirect()->to(base_url("admin/hadir/ubah/$kode_acara"))
+                    ->with("error","Lokasi acara <b>TIDAK VALID</b>. Acara daring CUKUP ditulis <b>link online meeting-nya saja</b>.");
+            }
+
+            if(
+                strtolower($c) === "online" ||
+                strtolower($c) === "daring" ||
+                strtolower($c) === "zoom" ||
+                strtolower($c) === "meeting" ||
+                strtolower($c) === "teams" ||
+                strtolower($c) === "google" ||
+                strtolower($c) === "meet" ||
+                strtolower($c) === "melalui" ||
+                strtolower($c) === "via"
+            ){
+                return redirect()->to(base_url("admin/hadir/ubah/$kode_acara"))
+                    ->with("error","Lokasi acara <b>TIDAK VALID</b>. Acara daring WAJIB ditulis <b>link online meeting-nya</b>.");
+            }
+
+            if(
+                strtolower($c) === "offline" ||
+                strtolower($c) === "luring"
+            ){
+                return redirect()->to(base_url("admin/hadir/ubah/$kode_acara"))
+                    ->with("error","Lokasi acara <b>TIDAK VALID</b>. Acara luring WAJIB ditulis <b>nama lokasi / gedungnya</b>.");
+            }
         }
 
         $acara = new Acara();
@@ -254,7 +324,7 @@ class Admin extends BaseController
             return redirect()->to(base_url("admin/hadir/dashboard"))
                 ->with("berhasil","Data berhasil diperbarui");
         }
-        return redirect()->to(base_url("admin/hadir/tambah"))
+        return redirect()->to(base_url("admin/hadir/ubah/$kode_acara"))
             ->with("error","Data gagal disimpan ke Database");
     }
 

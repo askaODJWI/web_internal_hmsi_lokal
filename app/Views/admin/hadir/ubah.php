@@ -42,10 +42,10 @@ Ubah Pranala Kehadiran Acara
             <div class="form-group">
                 <label for="tipe" class="tx-bold">Tipe Acara <span class="tx-danger">*</span></label>
                 <select id="tipe" name="tipe" type="text" class="form-control" required data-parsley-required-message="Tipe Acara wajib diisi!">
-                    <option value="0" <?= ($data->tipe === '0') ? "selected" : "" ?>>0 - WAJIB diikuti fungsionaris (hanya pengurus)</option>
-                    <option value="1" <?= ($data->tipe === '1') ? "selected" : "" ?>>1 - TIDAK WAJIB diikuti fungsionaris (dengan peserta umum)</option>
-                    <option value="2" <?= ($data->tipe === '2') ? "selected" : "" ?>>2 - Hanya diikuti FUNGSIONARIS TERTENTU (dengan peserta umum)</option>
-                    <option value="3" <?= ($data->tipe === '3') ? "selected" : "" ?>>3 - Hanya diikuti DEPARTEMEN TERTENTU (internal departemen)</option>
+                    <option value="0" <?= ($data->tipe === '0') ? "selected" : "" ?>>0 - WAJIB diikuti fungsionaris</option>
+                    <option value="1" <?= ($data->tipe === '1') ? "selected" : "" ?>>1 - TIDAK WAJIB diikuti fungsionaris</option>
+                    <option value="2" <?= ($data->tipe === '2') ? "selected" : "" ?>>2 - Hanya diikuti fungsionaris TERTENTU (peserta terbatas)</option>
+                    <option value="3" <?= ($data->tipe === '3') ? "selected" : "" ?>>3 - Rapat INTERNAL departemen atau KOORDINASI HMSI</option>
                 </select>
             </div>
         </div>
@@ -75,9 +75,8 @@ Ubah Pranala Kehadiran Acara
     <div class="row">
         <div class="col-lg-6">
             <label class="tx-italic tx-danger tx-bold">Catatan Penting: </label>
-            <label class="tx-italic tx-danger">1. Jika Nomor WA dan ID Line tidak muncul setelah memasukkan nama, berarti narahubung tersebut belum melengkapi profilnya. Silakan melengkapi profil terlebih dahulu.</label>
-            <label class="tx-italic tx-danger">2. Narahubung yang tercantum hanya bisa satu orang saja.</label>
-            <label class="tx-italic tx-danger">3. Tipe acara secara umum adalah acara tidak wajib. Konfirmasi kepada Vice Head jika mengajukan acara menjadi wajib.</label>
+            <label class="tx-italic tx-danger">PASTIKAN KAMU SUDAH MEMBACA PANDUAN PEMBUATAN ACARA DI
+                <a href="https://hmsi.tekan.id/panduan-web">https://hmsi.tekan.id/panduan-web</a></label>
         </div>
         <div class="col-lg-3 mt-auto">
             <div class="form-group">
