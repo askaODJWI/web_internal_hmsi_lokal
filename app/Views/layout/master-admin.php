@@ -101,6 +101,13 @@
             </li>
             <?php endif; ?>
 
+            <li class="nav-label mg-t-25">Survei</li>
+            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "survei") &&
+            ((current_url(true)->getSegment(4)) === "dashboard") ? "active" : "" ?>">
+                <a href="<?= base_url("/admin/survei/dashboard") ?>" class="nav-link">
+                    <i data-feather="bar-chart-2"></i> <span>Daftar Survei</span></a>
+            </li>
+
             <li class="nav-label mg-t-25">Peringkas Tautan</li>
             <li class="nav-item">
                 <a href="https://tekan.id/" target="_blank" class="nav-link">

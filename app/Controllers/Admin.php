@@ -10,6 +10,8 @@ use App\Models\Mhs;
 use App\Models\Nilai;
 use App\Models\Pengurus;
 use App\Models\Rapor;
+use App\Models\Rekap;
+use App\Models\Survei;
 use App\Models\Tautan;
 
 class Admin extends BaseController
@@ -1012,5 +1014,17 @@ class Admin extends BaseController
             return redirect()->to($query1->panjang);
         }
         return view("errors/404");
+    }
+
+    public function survei_dashboard()
+    {
+        $survei = new Survei();
+        $query1 = $survei->get()
+            ->getResult();
+
+        $rekap = new Rekap();
+        $query2 = $rekap->where("id_pengurus",session()->get("id_pengurus"))
+            ->countAllResults();
+        return view("admin/survei/dashboard",["data" => $query1, "data2" => $query2]);
     }
 }

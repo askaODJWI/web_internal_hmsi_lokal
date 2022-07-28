@@ -52,6 +52,11 @@ $routes->group("ajax", function ($routes)
     $routes->get("cek_password/(:num)","Ajax::cek_password/$1");
 });
 
+$routes->group("webhook", function ($routes)
+{
+    $routes->get("survei","Webhook::survei/$1");
+});
+
 $routes->get("admin/login","Admin::login");
 $routes->post("admin/login","Admin::login_cek");
 
@@ -105,6 +110,11 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
 
         $routes->get("nrp","Admin::data_nrp");
         $routes->post("nrp","Admin::data_nrp_kirim");
+    });
+
+    $routes->group("survei", function ($routes)
+    {
+        $routes->get("dashboard","Admin::survei_dashboard");
     });
 });
 /*
