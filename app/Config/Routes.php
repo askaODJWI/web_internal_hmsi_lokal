@@ -54,7 +54,7 @@ $routes->group("ajax", function ($routes)
 
 $routes->group("webhook", function ($routes)
 {
-    $routes->get("survei","Webhook::survei/$1");
+    $routes->post("survei","Webhook::survei");
 });
 
 $routes->get("admin/login","Admin::login");

@@ -9,9 +9,8 @@ class Webhook extends BaseController
 {
     public function survei()
     {
-        $request = service("request");
-        $id_pengurus = $request->getVar("id_pengurus");
-        $id_survei = $request->getVar("id_survei");
+        $id_pengurus = $this->request->getVar("id_pengurus");
+        $id_survei = $this->request->getVar("id_survei");
 
         $rekap = new Rekap();
         $query1 = $rekap->insert([
