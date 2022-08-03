@@ -1027,4 +1027,24 @@ class Admin extends BaseController
             ->countAllResults();
         return view("admin/survei/dashboard",["data" => $query1, "data2" => $query2]);
     }
+
+    public function survei_detail($id_survei)
+    {
+        $rekap = new Rekap();
+        $query1 = $rekap->select(["mhs.nama","mhs.nrp","departemen.nama_departemen","pengurus.jabatan"])
+            ->join("pengurus","rekap.id_pengurus = pengurus.id_pengurus")
+            ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+            ->join("mhs","pengurus.nrp = mhs.nrp")
+            ->where("id_survei",$id_survei)
+            ->orderBy("pengurus.id_departemen")
+            ->get()
+            ->getResult();
+
+        $survei = new Survei();
+        $query2 = $survei->select("nama_survei")
+            ->where("id_survei",$id_survei)
+            ->first();
+
+        return view("admin/survei/rekap",["data" => $query1, "data1" => $query2]);
+    }
 }

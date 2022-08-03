@@ -115,6 +115,8 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
     $routes->group("survei", function ($routes)
     {
         $routes->get("dashboard","Admin::survei_dashboard");
+
+        $routes->get("detail/(:num)","Admin::survei_detail/$1");
     });
 });
 /*

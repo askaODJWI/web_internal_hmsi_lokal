@@ -30,13 +30,22 @@
             $id_survei = str_replace("id-survei",$d->id_survei,$id_pengurus);
 
             if($data2 === 0): ?>
-            <a href="<?= $id_survei ?>" class="btn btn-primary btn-xs btn-block">
-                <i data-feather="edit-2"></i> Mulai Isi Survei
-            </a>
+                <a href="<?= $id_survei ?>" class="btn btn-success btn-xs btn-block">
+                    <i data-feather="edit-2"></i> Mulai Isi Survei
+                </a>
             <?php else: ?>
-            <a href="#" class="btn btn-secondary btn-xs btn-block">
-                <i data-feather="close"></i> Survei Sudah Diisi
-            </a>
+                <a href="#" class="btn btn-secondary btn-xs btn-block">
+                    <i data-feather="close"></i> Survei Sudah Diisi
+                </a>
+            <?php endif; ?>
+
+            <?php
+            $id = $d->id_survei;
+            if(session()->get("id_pengurus") < 2000):
+            ?>
+                <a href="<?= base_url("admin/survei/detail/$id") ?>" class="btn btn-primary btn-xs btn-block">
+                    <i data-feather="file-text"></i> Rekap Pengisian
+                </a>
             <?php endif; ?>
         </td>
     </tr>
