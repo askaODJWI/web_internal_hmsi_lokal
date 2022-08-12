@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\Mhs;
 use App\Models\Pengurus;
+use App\Models\Produk;
 
 class Ajax extends BaseController
 {
@@ -62,5 +63,16 @@ class Ajax extends BaseController
 
         return ($query1->password === '$2y$10$VMP7SX97IwLIkP2lOTIs6etJ8uJHLiiDIQaE6Weh8VCrAuNukNVsa') ?
             json_encode("ganti") : json_encode("aman");
+    }
+
+    public function cek_barang()
+    {
+        $produk = new Produk();
+        $query1 = $produk->select(["nama_barang","kode_barang","harga_jual"])
+            ->orderBy("kode_barang")
+            ->get()
+            ->getResult();
+
+        return json_encode($query1);
     }
 }

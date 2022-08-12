@@ -132,6 +132,59 @@ class Presensi extends BaseController
             ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b><br>Hubungi panitia untuk konfirmasi kehadiran.");
     }
 
+    public function acara_panitia($kode_acara)
+    {
+        if($this->cek_acara($kode_acara))
+        {
+            $acara = new Acara();
+            $query1 = $acara->where("kode_acara", $kode_acara)
+                ->join("departemen", "acara.id_departemen = departemen.id_departemen")
+                ->join("pengurus", "acara.narahubung = pengurus.id_pengurus")
+                ->first();
+
+            return ($query1 !== null) ?
+                view("presensi/panitia", ["data" => $query1]) :
+                view("errors/404");
+        }
+        return redirect()->to(base_url("/"))
+            ->with("error","Maaf, kode acara <b>tidak ditemukan!</b><br>Pastikan kode acara sudah benar.");
+    }
+
+    public function hadir_panitia()
+    {
+        $kode_acara = $this->request->getPost("form_kode");
+        $nrp = $this->request->getPost("form_nrp");
+        $waktu = (new \DateTime('now'))
+            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+            ->format('Y-m-d H:i:s');
+
+        if($this->cek_status($kode_acara) === 0)
+        {
+            if($this->cek_ganda($kode_acara, $nrp) === 0)
+            {
+                $hadir = new Hadir();
+                $data1 = [
+                    "waktu" => $waktu,
+                    "kode_acara" => $kode_acara,
+                    "nrp" => $nrp
+                ];
+                $query1 = $hadir->insert($data1);
+
+                $this->input_session($kode_acara, $nrp);
+
+                return ($query1 > 0) ?
+                    redirect()->to(base_url("/p/$kode_acara"))
+                        ->with("berhasil","Peserta <b>$nrp</b> berhasil hadir.") :
+                    redirect()->to(base_url("/p/$kode_acara"))
+                        ->with("error","Data gagal disimpan ke Database");
+            }
+            $this->input_session($kode_acara, $nrp);
+            return redirect()->to(base_url("/p/$kode_acara"));
+        }
+        return redirect()->to(base_url("/"))
+            ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b><br>Hubungi panitia untuk konfirmasi kehadiran.");
+    }
+
     public function cek_ganda($kode_acara, $nrp)
     {
         $hadir = new Hadir();

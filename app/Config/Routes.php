@@ -39,8 +39,10 @@ $routes->group("/", function ($routes)
     $routes->post("cek", "Presensi::index_kirim");
     $routes->post("hadir","Presensi::hadir");
     $routes->post("hadir_manual","Presensi::hadir_manual");
+    $routes->post("hadir_panitia","Presensi::hadir_panitia");
     $routes->get("sukses","Presensi::sukses");
 
+    $routes->get("/p/(:num)","Presensi::acara_panitia/$1");
     $routes->get("/(:num)","Presensi::acara/$1");
     $routes->get("/(:segment)","Admin::tautan_alih/$1");
 });
@@ -48,8 +50,10 @@ $routes->group("/", function ($routes)
 $routes->group("ajax", function ($routes)
 {
     $routes->get("cek_nrp/(:num)","Ajax::cek_nrp/$1");
+    $routes->get("cek_narahubung","Ajax::cek_narahubung");
     $routes->get("cek_pengurus/(:num)","Ajax::cek_pengurus/$1");
     $routes->get("cek_password/(:num)","Ajax::cek_password/$1");
+    $routes->get("cek_barang","Ajax::cek_barang");
 });
 
 $routes->group("webhook", function ($routes)
@@ -117,6 +121,11 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
         $routes->get("dashboard","Admin::survei_dashboard");
 
         $routes->get("detail/(:num)","Admin::survei_detail/$1");
+    });
+
+    $routes->group("store", function ($routes)
+    {
+        $routes->get("coba","Admin::store_coba");
     });
 });
 /*

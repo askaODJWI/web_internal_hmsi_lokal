@@ -38,7 +38,10 @@
         <td class="align-middle tx-center">
             <a onclick="copyLink('<?= base_url("/$d->kode_acara") ?>')"
                class="btn btn-primary btn-xs btn-block" target="_blank">
-                <span class="tx-white"><i data-feather="link-2"></i> Salin Tautan</span></a>
+                <span class="tx-white"><i data-feather="link-2"></i> Tautan Peserta</span></a>
+            <a onclick="copyLink('<?= base_url("/p/$d->kode_acara") ?>')"
+               class="btn btn-info btn-xs btn-block" target="_blank">
+                <span class="tx-white"><i data-feather="link"></i> Tautan Panitia</span></a>
             <?php if($d->status === '0'): ?>
                 <a onclick="tutupConfirm('<?= base_url('admin/hadir/tutup/'.$d->kode_acara) ?>')" href="#"
                    class="btn btn-danger btn-xs btn-block"><i data-feather="x-octagon"></i> Tutup Akses</a>
