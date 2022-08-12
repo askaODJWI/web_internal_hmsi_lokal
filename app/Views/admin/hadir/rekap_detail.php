@@ -16,11 +16,12 @@
     <tr class="tx-center">
         <th class="wd-5p">No</th>
         <th class="wd-15p">Waktu Kehadiran</th>
-        <th class="wd-25p">Nama Lengkap</th>
+        <th class="wd-15p">Nama Lengkap</th>
         <th class="wd-10p">NRP</th>
         <th class="wd-10p">Angkatan</th>
         <th class="wd-15p">Jabatan</th>
         <th class="wd-15p">Departemen</th>
+        <th class="wd-10p">Keterangan</th>
     </tr>
     </thead>
     <tbody>
@@ -33,6 +34,7 @@
             <td class="align-middle tx-center"><?= "20".substr($d->nrp,4,2) ?></td>
             <td class="align-middle"><?= $d->jabatan ?? "Bukan Fungsionaris" ?></td>
             <td class="align-middle"><?= $d->nama_departemen ?? "Bukan Fungsionaris" ?></td>
+            <td class="align-middle"><?= $d->keterangan ?? "-" ?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>

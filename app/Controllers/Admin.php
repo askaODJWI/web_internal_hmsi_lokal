@@ -396,7 +396,7 @@ class Admin extends BaseController
         $id_pengurus = session()->get("id_pengurus");
 
         $hadir = new Hadir();
-        $query1 = $hadir->select(["mhs.nama","mhs.nrp","waktu","departemen.nama_departemen","pengurus.jabatan"])
+        $query1 = $hadir->select(["mhs.nama","mhs.nrp","waktu","departemen.nama_departemen","pengurus.jabatan","hadir.keterangan"])
             ->where("kode_acara", $kode_acara)
             ->join("mhs","hadir.nrp = mhs.nrp")
             ->join("pengurus","hadir.nrp = pengurus.nrp","left outer")

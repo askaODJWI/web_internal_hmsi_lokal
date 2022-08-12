@@ -48,24 +48,27 @@ Kehadiran Acara HMSI
 <div class="mt-3 hasil_cek" style="display: none">
     <div class="card card-body tx-white bg-success ht-100p overflow-hidden">
         <div class="marker pos-absolute t-10 l-10">Hasil Pencarian: <span class="tx-primary" id="cek_nrp"></span></div>
-        <table class="mg-t-25">
-            <tr>
-                <td style="min-width: 50px">Nama</td>
-                <td>:</td>
-                <td class="tx-bold" id="cek_nama"></td>
-            </tr>
-            <tr>
-                <td>Prodi</td>
-                <td>:</td>
-                <td class="tx-bold" id="cek_prodi"></td>
-            </tr>
-            <tr>
-                <td>Angkatan</td>
-                <td>:</td>
-                <td class="tx-bold" id="cek_angkatan"></td>
-            </tr>
-        </table>
         <form action="<?= base_url("/hadir_panitia") ?>" method="post">
+            <table class="mg-t-25">
+                <tr>
+                    <td style="min-width: 50px">Nama</td>
+                    <td>:</td>
+                    <td class="tx-bold" id="cek_nama"></td>
+                </tr>
+                <tr>
+                    <td>Prodi</td>
+                    <td>:</td>
+                    <td class="tx-bold" id="cek_prodi"></td>
+                </tr>
+                <tr>
+                    <td>Angkatan</td>
+                    <td>:</td>
+                    <td class="tx-bold" id="cek_angkatan"></td>
+                </tr>
+            </table>
+            <br>
+            <span>Keterangan:</span>
+            <textarea id="keterangan" name="keterangan" class="form-control" rows="2" type="text" placeholder="tidak wajib diisi"></textarea>
             <input type="hidden" id="form_kode" name="form_kode" value="<?= $data->kode_acara ?>">
             <input type="hidden" id="form_nrp" name="form_nrp">
             <button type="submit" class="mt-2 btn btn-primary btn-block btn-xs"><i data-feather="check-circle"></i> Klik untuk Hadir</button>

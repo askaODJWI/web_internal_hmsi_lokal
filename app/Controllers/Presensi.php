@@ -73,7 +73,8 @@ class Presensi extends BaseController
                 $data1 = [
                     "waktu" => $waktu,
                     "kode_acara" => $kode_acara,
-                    "nrp" => $nrp
+                    "nrp" => $nrp,
+                    "keterangan" => "-",
                 ];
                 $query1 = $hadir->insert($data1);
 
@@ -107,7 +108,8 @@ class Presensi extends BaseController
             $data1 = [
                 "nrp" => $nrp,
                 "nama" => $nama,
-                "angkatan" => $angkatan
+                "angkatan" => $angkatan,
+                "keterangan" => "-",
             ];
             $query1 = $mhs->insert($data1);
 
@@ -154,6 +156,8 @@ class Presensi extends BaseController
     {
         $kode_acara = $this->request->getPost("form_kode");
         $nrp = $this->request->getPost("form_nrp");
+        $ket = $this->request->getPost("keterangan");
+        $keterangan = (strlen($ket) === 0) ? "-" : $ket;
         $waktu = (new \DateTime('now'))
             ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
             ->format('Y-m-d H:i:s');
@@ -166,7 +170,8 @@ class Presensi extends BaseController
                 $data1 = [
                     "waktu" => $waktu,
                     "kode_acara" => $kode_acara,
-                    "nrp" => $nrp
+                    "nrp" => $nrp,
+                    "keterangan" => $keterangan,
                 ];
                 $query1 = $hadir->insert($data1);
 

@@ -9,5 +9,5 @@ class Hadir extends Model
     protected $DBGroup          = 'default';
     protected $table            = 'hadir';
     protected $returnType       = 'object';
-    protected $allowedFields    = ['id','waktu','kode_acara','nrp'];
+    protected $allowedFields    = ['id','waktu','kode_acara','nrp','keterangan'];
 }
