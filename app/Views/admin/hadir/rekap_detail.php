@@ -34,7 +34,7 @@
             <td class="align-middle tx-center"><?= "20".substr($d->nrp,4,2) ?></td>
             <td class="align-middle"><?= $d->jabatan ?? "Bukan Fungsionaris" ?></td>
             <td class="align-middle"><?= $d->nama_departemen ?? "Bukan Fungsionaris" ?></td>
-            <td class="align-middle"><?= $d->keterangan ?? "-" ?></td>
+            <td class="align-middle tx-center"><?= $d->keterangan ?? "-" ?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>

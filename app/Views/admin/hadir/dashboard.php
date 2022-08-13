@@ -36,13 +36,15 @@
             <?= $d->nama . "<br><i>" . $d->jabatan . " " . $d->nama_departemen . "</i>" ?><br>
         </td>
         <td class="align-middle tx-center">
-            <a onclick="copyLink('<?= base_url("/$d->kode_acara") ?>')"
-               class="btn btn-primary btn-xs btn-block" target="_blank">
-                <span class="tx-white"><i data-feather="link-2"></i> Tautan Peserta</span></a>
-            <a onclick="copyLink('<?= base_url("/p/$d->kode_acara") ?>')"
-               class="btn btn-info btn-xs btn-block" target="_blank">
-                <span class="tx-white"><i data-feather="link"></i> Tautan Panitia</span></a>
+            <?php if(!filter_var($d->lokasi, FILTER_VALIDATE_URL) === true): ?>
+                <a onclick="panitiaConfirm('<?= base_url("/p/$d->kode_acara") ?>')"
+                   class="btn btn-info btn-xs btn-block" target="_blank">
+                    <span class="tx-white"><i data-feather="link"></i> Akses Panitia</span></a>
+            <?php endif; ?>
             <?php if($d->status === '0'): ?>
+                <a onclick="copyLink('<?= base_url("/$d->kode_acara") ?>')"
+                   class="btn btn-primary btn-xs btn-block" target="_blank">
+                    <span class="tx-white"><i data-feather="link-2"></i> Tautan Peserta</span></a>
                 <a onclick="tutupConfirm('<?= base_url('admin/hadir/tutup/'.$d->kode_acara) ?>')" href="#"
                    class="btn btn-danger btn-xs btn-block"><i data-feather="x-octagon"></i> Tutup Akses</a>
             <?php else: ?>
@@ -82,6 +84,29 @@
     </div>
 </div>
 
+<div class="modal fade" id="modal_panitia" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog wd-sm-400" role="document">
+        <div class="modal-content bg-white">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold">Konfirmasi</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="font-weight-bold tx-14">Apakah kamu yakin ingin mengakses halaman
+                    <span class="text-danger animated flash infinite slower" >HAK AKSES PRESENSI KHUSUS PANITIA?</span>
+                </p>
+                <span>Klik tombol <b>BUKA</b> untuk melanjutkan.</span>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-xs" type="button" data-dismiss="modal">Batal</button>
+                <a class="btn btn-danger btn-xs" id="btn-panitia" href="#">Buka</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?= $this->endSection() ?>
 
 <?= $this->section("js") ?>
@@ -91,6 +116,12 @@
     {
         $("#btn-tutup").attr("href", url);
         $("#modal_tutup").modal();
+    }
+
+    function panitiaConfirm(url)
+    {
+        $("#btn-panitia").attr("href", url);
+        $("#modal_panitia").modal();
     }
 
     function copyLink(url)
