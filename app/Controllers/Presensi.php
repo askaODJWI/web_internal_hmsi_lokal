@@ -136,20 +136,25 @@ class Presensi extends BaseController
 
     public function acara_panitia($kode_acara)
     {
-        if($this->cek_acara($kode_acara))
+        if($this->cek_status($kode_acara) === 0)
         {
-            $acara = new Acara();
-            $query1 = $acara->where("kode_acara", $kode_acara)
-                ->join("departemen", "acara.id_departemen = departemen.id_departemen")
-                ->join("pengurus", "acara.narahubung = pengurus.id_pengurus")
-                ->first();
+            if($this->cek_acara($kode_acara))
+            {
+                $acara = new Acara();
+                $query1 = $acara->where("kode_acara", $kode_acara)
+                    ->join("departemen", "acara.id_departemen = departemen.id_departemen")
+                    ->join("pengurus", "acara.narahubung = pengurus.id_pengurus")
+                    ->first();
 
-            return ($query1 !== null) ?
-                view("presensi/panitia", ["data" => $query1]) :
-                view("errors/404");
+                return ($query1 !== null) ?
+                    view("presensi/panitia", ["data" => $query1]) :
+                    view("errors/404");
+            }
+            return redirect()->to(base_url("/"))
+                ->with("error","Maaf, kode acara <b>tidak ditemukan!</b><br>Pastikan kode acara sudah benar.");
         }
         return redirect()->to(base_url("/"))
-            ->with("error","Maaf, kode acara <b>tidak ditemukan!</b><br>Pastikan kode acara sudah benar.");
+            ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b><br>Hubungi panitia untuk konfirmasi kehadiran.");
     }
 
     public function hadir_panitia()

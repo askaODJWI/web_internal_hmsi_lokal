@@ -36,12 +36,12 @@
             <?= $d->nama . "<br><i>" . $d->jabatan . " " . $d->nama_departemen . "</i>" ?><br>
         </td>
         <td class="align-middle tx-center">
-            <?php if(!filter_var($d->lokasi, FILTER_VALIDATE_URL) === true): ?>
-                <a onclick="panitiaConfirm('<?= base_url("/p/$d->kode_acara") ?>')"
-                   class="btn btn-info btn-xs btn-block" target="_blank">
-                    <span class="tx-white"><i data-feather="link"></i> Akses Panitia</span></a>
-            <?php endif; ?>
             <?php if($d->status === '0'): ?>
+                <?php if(!filter_var($d->lokasi, FILTER_VALIDATE_URL) === true): ?>
+                    <a onclick="panitiaConfirm('<?= base_url("/p/$d->kode_acara") ?>')"
+                       class="btn btn-info btn-xs btn-block" target="_blank">
+                        <span class="tx-white"><i data-feather="link"></i> Akses Panitia</span></a>
+                <?php endif; ?>
                 <a onclick="copyLink('<?= base_url("/$d->kode_acara") ?>')"
                    class="btn btn-primary btn-xs btn-block" target="_blank">
                     <span class="tx-white"><i data-feather="link-2"></i> Tautan Peserta</span></a>

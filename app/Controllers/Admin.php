@@ -1047,9 +1047,4 @@ class Admin extends BaseController
 
         return view("admin/survei/rekap",["data" => $query1, "data1" => $query2]);
     }
-
-    public function store_coba()
-    {
-        return view("admin/store/coba");
-    }
 }
