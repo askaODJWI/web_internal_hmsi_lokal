@@ -57,6 +57,7 @@ $routes->group("ajax", function ($routes)
     $routes->get("cek_pengurus/(:num)","Ajax::cek_pengurus/$1");
     $routes->get("cek_password/(:num)","Ajax::cek_password/$1");
     $routes->get("cek_barang","Ajax::cek_barang");
+    $routes->get("cek_info","Ajax::cek_info");
 });
 
 $routes->group("webhook", function ($routes)
@@ -103,7 +104,7 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
 
         $routes->get("isi","Admin::rapor_isi");
         $routes->get("isi/auto/(:num)/(:num)","Admin::rapor_isi_auto/$1/$2");
-        $routes->post("isi/detail","Admin::rapor_isi_detail");
+        $routes->get("isi/detail/(:num)","Admin::rapor_isi_detail/$1");
         $routes->post("isi/kirim","Admin::rapor_isi_kirim");
 
         $routes->get("hasil","Admin::rapor_hasil");

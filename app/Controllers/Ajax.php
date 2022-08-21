@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\Info;
 use App\Models\Mhs;
 use App\Models\Pengurus;
 use App\Models\Produk;
@@ -70,6 +71,17 @@ class Ajax extends BaseController
         $produk = new Produk();
         $query1 = $produk->select(["nama_barang","kode_barang","harga_jual"])
             ->orderBy("kode_barang")
+            ->get()
+            ->getResult();
+
+        return json_encode($query1);
+    }
+
+    public function cek_info()
+    {
+        $info = new Info();
+        $query1 = $info->select(["detail_info"])
+            ->orderBy("id_info")
             ->get()
             ->getResult();
 

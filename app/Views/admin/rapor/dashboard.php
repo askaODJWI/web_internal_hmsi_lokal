@@ -20,10 +20,10 @@ Daftar Nilai Rapor Fungsionaris
                 <input type="hidden" id="id_bulan" name="id_bulan" value="<?= $data[$j]->id_bulan ?>">
                 <a href="#" onclick="document.getElementById('hasil<?= $j ?>').submit();">
                 <div class="card card-body btn-outline-<?= ($data[$j]->nilai === "0" || $data[$j+1]->nilai === "0") ? "danger" : "primary" ?>" style="min-height: 100px">
-                    <span class="tx-10">Bulan <b><?php switch($data[$j]->id_bulan){
-                                case(1): echo "April"; break;
-                                case(2): echo "Juli"; break;
-                                case(3): echo "Oktober"; break;}
+                    <span class="tx-10"><b><?php switch($data[$j]->id_bulan){
+                                case(1): echo "APRIL"; break;
+                                case(2): echo "JULI"; break;
+                                case(3): echo "OKTOBER"; break;}
                             ?></b>
                     </span>
                     <div class="marker pos-absolute t-20 r-20 tx-10" style="text-transform: capitalize">Inisiatif: <?= round($data[$j]->nilai,2) ?></div>

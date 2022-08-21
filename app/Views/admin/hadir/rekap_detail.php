@@ -60,7 +60,7 @@
                     messageTop: "<center><h4>Rekap Kehadiran Acara <?= $data1->nama_acara ?></h4></center><br>",
                     messageBottom:  "<br><center>Dokumen ini dicetak pada hari <b>" +
                         (new Date()).toLocaleString('id-ID',{dateStyle: 'full'}) + "</b> pukul <b>" +
-                        (new Date()).toLocaleString('id-ID',{timeStyle: 'full'}) + "</b> oleh <b>" +
+                        (new Date()).toLocaleString('id-ID',{timeStyle: 'long'}) + "</b> oleh <b>" +
                         "<?= $data2->nama ?></b> NRP <b><?= $data2->nrp ?></b></center>",
                     autoPrint: false,
                     className: "btn btn-primary bg-primary",

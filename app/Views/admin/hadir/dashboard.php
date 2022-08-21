@@ -29,8 +29,7 @@
         <td class="align-middle tx-center"><?= $i+1 ?></td>
         <td class="align-middle tx-center tx-bold"><?= $d->kode_acara ?></td>
         <td class="align-middle"><?= $d->nama_acara ?></td>
-        <td class="align-middle"><?php setlocale(LC_ALL,'id_ID.utf8', 'id-ID'); echo strftime("%A, %d %B %Y",strtotime($d->tanggal)) .
-                "<br>pukul " . date_format(date_create($d->tanggal),"H.i") . " WIB"?></td>
+        <td class="align-middle"><?= (new IntlDateFormatter("id_ID",IntlDateFormatter::FULL,IntlDateFormatter::SHORT,"Asia/Jakarta",IntlDateFormatter::GREGORIAN,"eeee, dd MMMM yyyy 'pukul' HH.mm z'"))->format(new DateTime($d->tanggal)) ?></td>
         <td class="align-middle"><?= (strlen($d->lokasi) <= 25) ? $d->lokasi : substr($d->lokasi,0,25) . " ..." ?></td>
         <td class="align-middle">
             <?= $d->nama . "<br><i>" . $d->jabatan . " " . $d->nama_departemen . "</i>" ?><br>

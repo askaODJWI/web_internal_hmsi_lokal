@@ -36,6 +36,11 @@
         .select2-results__option {
             font-size: 12px;
         }
+        .content-search {
+            overflow: hidden;
+            display: inline-block;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body class="page-profile tx-lexend">
@@ -101,24 +106,20 @@
             </li>
             <?php endif; ?>
 
-            <li class="nav-label mg-t-25">Survei</li>
+            <li class="nav-label mg-t-25">Fitur Lainnya</li>
+            <li class="nav-item">
+                <a href="https://tekan.id/" target="_blank" class="nav-link">
+                    <i data-feather="link"></i> <span>Ringkas Tautan <i data-feather="external-link" style="height:12px; margin-bottom:5px;"></i></span></a>
+            </li>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "survei") &&
             ((current_url(true)->getSegment(4)) === "dashboard") ? "active" : "" ?>">
                 <a href="<?= base_url("/admin/survei/dashboard") ?>" class="nav-link">
-                    <i data-feather="bar-chart-2"></i> <span>Daftar Survei</span></a>
+                    <i data-feather="bar-chart-2"></i> <span>Isi Survei</span></a>
             </li>
-
-            <li class="nav-label mg-t-25">Peringkas Tautan</li>
-            <li class="nav-item">
-                <a href="https://tekan.id/" target="_blank" class="nav-link">
-                    <i data-feather="link"></i> <span>Buat Tautan <i data-feather="external-link" style="height:12px; margin-bottom:5px;"></i></span></a>
-            </li>
-
-            <li class="nav-label mg-t-25">Pencarian Data</li>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "data") &&
             ((current_url(true)->getSegment(4)) === "nama") ? "active" : "" ?>">
                 <a href="<?= base_url("/admin/data/nama") ?>" class="nav-link">
-                    <i data-feather="info"></i> <span>Berdasarkan Nama</span></a>
+                    <i data-feather="info"></i> <span>Cari Data</span></a>
             </li>
 
             <li class="nav-label mg-t-25">Akun</li>
@@ -139,7 +140,18 @@
 
 <div class="content ht-100v pd-0">
     <div class="content-header">
-        <div class="content-search">
+        <div class="content-search wd-500 ml-auto mr-auto bg-gray-200 pd-8">
+<!--            <span class="running-ultah">-->
+<!--                Selamat Ulang Tahun <b>Abdullah Gymnastiar Abdoerrani</b> 🎉-->
+<!--                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-->
+<!--                Semoga selalu dilimpahkan kesehatan dan panjang umur.-->
+<!--            </span>-->
+<!--            <span class="running-jarak">-->
+<!--                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-->
+<!--                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-->
+<!--                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-->
+<!--            </span>-->
+            <span class="running-info"></span>
         </div>
         <nav class="nav">
             <div class="dropdown dropdown-profile">
@@ -236,6 +248,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
 <script src="<?= base_url("main/lib/select2/js/select2.full.min.js") ?>"></script>
 <script src="<?= base_url("main/lib/chart.js/Chart.bundle.min.js") ?>"></script>
+<script type='text/javascript' src="https://cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js"></script>
 
 <script src="<?= base_url("main/assets/js/dashforge.js") ?>"></script>
 <script src="<?= base_url("main/assets/js/dashforge.aside.js") ?>"></script>
@@ -246,6 +259,7 @@
         $("#modal_hapus").modal();
     }
 
+    let profil = $("#profil_lengkap");
     $.ajax({
         type: "GET",
         url: "/ajax/cek_pengurus/" + <?= session()->get("id_pengurus") ?>,
@@ -259,9 +273,28 @@
             $("#jabatan").append(data.jabatan);
             if (data.nama_panggilan === "" || data.id_line === "" || data.no_wa === "")
             {
-                $("#profil_lengkap").append("baru");
-                $("#profil_lengkap").addClass("animated flash infinite");
+                profil.append("baru");
+                profil.addClass("animated flash infinite");
             }
+        }
+    });
+
+    let info = $(".running-info");
+    const jarak = "&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"
+    $.ajax({
+        type: "GET",
+        url: "/ajax/cek_info",
+        dataType: "json",
+
+        success: function (data)
+        {
+            const akhir = data.length-1;
+            $.each(data, function (index, value){
+                info.append(value.detail_info);
+                (index !== akhir) ? info.append(jarak) : null;
+            });
+
+            $(".content-search").marquee();
         }
     });
 </script>

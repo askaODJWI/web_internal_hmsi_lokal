@@ -10,8 +10,7 @@ Kehadiran Acara HMSI
     <div class="marker marker-ribbon marker-primary pos-absolute t-10 l-0">Kode Acara: <?= $data->kode_acara ?><br></div>
     <p class="mg-t-30">
         <span class="tx-gray-700">Kamu sedang menghadiri acara:</span><br><b><?= $data->nama_acara ?></b><br>
-        <span class=""><?php setlocale(LC_ALL,'id_ID.utf8', 'id-ID'); echo strftime("%A, %d %B %Y",strtotime($data->tanggal)) .
-                " pukul " . date_format(date_create($data->tanggal),"H.i") . " WIB"?></span>
+        <span class=""><?= (new IntlDateFormatter("id_ID",IntlDateFormatter::FULL,IntlDateFormatter::SHORT,"Asia/Jakarta",IntlDateFormatter::GREGORIAN,"eeee, dd MMMM yyyy 'pukul' HH.mm z'"))->format(new DateTime($data->tanggal)) ?></span>
     </p>
     <p>
         <span class="tx-gray-700">Penyelenggara:</span><br><b><?= $data->nama_departemen ?></b>

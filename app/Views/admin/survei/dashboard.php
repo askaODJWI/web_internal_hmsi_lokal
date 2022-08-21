@@ -35,7 +35,7 @@
                 </a>
             <?php else: ?>
                 <a href="#" class="btn btn-secondary btn-xs btn-block">
-                    <i data-feather="close"></i> Survei Sudah Diisi
+                    <i data-feather="x-octagon"></i> Survei Sudah Diisi
                 </a>
             <?php endif; ?>
 
@@ -44,8 +44,7 @@
             if(session()->get("id_pengurus") < 2000):
             ?>
                 <a href="<?= base_url("admin/survei/detail/$id") ?>" class="btn btn-primary btn-xs btn-block">
-                    <i data-feather="file-text"></i> Rekap Pengisian
-                </a>
+                    <i data-feather="pie-chart"></i> Rekap Pengisian</a>
             <?php endif; ?>
         </td>
     </tr>

@@ -16,17 +16,16 @@ Cari Data Berdasarkan Nama
 
 <form action="<?= base_url("admin/data/nama") ?>" method="post" class="mb-3" data-parsley-validate>
     <div class="row">
-        <div class="col-lg-9">
-            <div class="form-group">
-                <label for="nama" class="tx-bold">Nama <span class="tx-danger">*</span></label>
-                <input id="nama" name="nama" type="text" class="form-control" placeholder="Masukkan nama mahasiswa yang ingin dicari" required data-parsley-required-message="Nama yang ingin dicari wajib diisi!">
-            </div>
-        </div>
-        <div class="col-lg-3 mt-auto">
-            <div class="form-group">
-                <button type="submit" class="btn btn-block btn-primary btn-icon">
-                    <i data-feather="search"></i> <span>Cari Data</span>
-                </button>
+        <div class="col-12 col-md-8 col-lg-6">
+            <label for="nama" class="tx-bold">Nama <span class="tx-danger">*</span></label>
+            <div class="input-group">
+                <input id="nama" name="nama" type="text" class="form-control"
+                       placeholder="Masukkan nama yang ingin dicari" required data-parsley-required-message="Nama wajib diisi!">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-block btn-primary btn-icon">
+                        <i data-feather="search"></i> <span>Cari Data</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

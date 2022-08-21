@@ -42,10 +42,8 @@ Isi Nilai Rapor Fungsionaris
                     "❌" : "✅" ?><br>
             </td>
             <td class="align-middle tx-center">
-                <form action="<?= base_url("admin/rapor/isi/detail") ?>" method="post">
-                    <input type="hidden" name="id_pengurus" id="id_pengurus" value="<?= $data[$i]->id_pengurus ?>">
-                    <button type="submit" class="btn btn-primary btn-xs"><i data-feather="edit-2"></i> Isi Nilai Rapor</button>
-                </form>
+                <a href="<?= base_url("admin/rapor/isi/detail") . "/" . $data[$i]->id_pengurus ?>"
+                   class="btn btn-primary btn-xs"><i data-feather="edit-2"></i> Isi Nilai Rapor</a>
             </td>
         </tr>
     <?php endfor; ?>

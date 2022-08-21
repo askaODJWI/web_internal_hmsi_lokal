@@ -588,6 +588,18 @@ class Admin extends BaseController
             ->where("tanggal <=",$akhir)
             ->countAllResults();
 
+        $nilai3a = $hadir->where("nrp",$query1->nrp)
+            ->where("tipe","3")
+            ->where("tanggal >=",$awal)
+            ->where("tanggal <=",$akhir)
+            ->join("acara","hadir.kode_acara = acara.kode_acara")
+            ->countAllResults();
+        $nilai3b = $acara->where("id_departemen",$query1->id_departemen)
+            ->where("tipe","3")
+            ->where("tanggal >=",$awal)
+            ->where("tanggal <=",$akhir)
+            ->countAllResults();
+
         $total_hadir = $hadir->where("nrp",$query1->nrp)
             ->where("tipe","1")
             ->where("waktu >=",$awal)
@@ -633,6 +645,16 @@ class Admin extends BaseController
             ->where("id_pengurus",$id_pengurus)
             ->update();
 
+        $data3 = [
+            "nilai_a" => $nilai3a,
+            "nilai_b" => $nilai3b,
+        ];
+        $query3 = $nilai->set($data3)
+            ->where("id_indikator",3)
+            ->where("id_bulan",$id_bulan)
+            ->where("id_pengurus",$id_pengurus)
+            ->update();
+
         $data4 = [
             "nilai_a" => $nilai4a,
             "nilai_b" => $nilai4b,
@@ -653,19 +675,17 @@ class Admin extends BaseController
             ->where("id_pengurus",$id_pengurus)
             ->update();
 
-        if($query2 > 0 && $query4 > 0 && $query5 > 0)
+        if($query2 > 0 && $query3 > 0 && $query4 > 0 && $query5 > 0)
         {
-            return redirect()->to(base_url("admin/rapor/isi"))
+            return redirect()->to(base_url("admin/rapor/isi/detail/$id_pengurus"))
                 ->with("berhasil","Penilaian secara auto-grading berhasil dilakukan");
         }
-        return redirect()->to(base_url("admin/rapor/isi"))
+        return redirect()->to(base_url("admin/rapor/isi/detail/$id_pengurus"))
             ->with("error","Penilaian secara auto-grading gagal dilakukan. Ulangi lagi proses auto-grading!");
     }
 
-    public function rapor_isi_detail()
+    public function rapor_isi_detail($id_pengurus)
     {
-        $id_pengurus = $this->request->getPost("id_pengurus");
-
         $nilai = new Nilai();
         $rapor = new Rapor();
 

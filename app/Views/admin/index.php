@@ -64,8 +64,8 @@ Selamat Datang <span class="tx-primary">Generasi Pionir ✨</span>
                         <?php foreach($data as $i=>$d): ?>
                             <li class="media animated fadeInDown delay-<?= $i+3 ?>s">
                                 <div class="media-left">
-                                    <label><?php setlocale(LC_ALL,'id_ID.utf8', 'id-ID');echo substr(strftime("%A",strtotime($d->tanggal)),0,3) ?></label>
-                                    <p><?php setlocale(LC_ALL,'id_ID.utf8', 'id-ID'); echo strftime("%d",strtotime($d->tanggal)) ?></p>
+                                    <label><?= substr((new IntlDateFormatter("id_ID", IntlDateFormatter::FULL, IntlDateFormatter::SHORT, "Asia/Jakarta", IntlDateFormatter::GREGORIAN, "eeee, dd MMMM yyyy 'pukul' HH.mm z'"))->format(new DateTime($d->tanggal)),0,3) ?></label>
+                                    <p><?= (new IntlDateFormatter("id_ID",IntlDateFormatter::FULL,IntlDateFormatter::SHORT,"Asia/Jakarta",IntlDateFormatter::GREGORIAN,"dd"))->format(new DateTime($d->tanggal)) ?></p>
                                 </div>
                                 <div class="media-body event-panel-<?php switch($d->id_departemen){
                                     case(1):case(2):case(3):case(4): echo "pink"; break;

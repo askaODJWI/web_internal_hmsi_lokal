@@ -74,8 +74,8 @@ Ubah Pranala Kehadiran Acara
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <label class="tx-italic tx-danger tx-bold">Catatan Penting: </label>
-            <label class="tx-italic tx-danger">PASTIKAN KAMU SUDAH MEMBACA PANDUAN PEMBUATAN ACARA DI
+            <label class="tx-danger tx-bold">Catatan Penting: </label>
+            <label class="tx-danger">PASTIKAN KAMU SUDAH MEMBACA PANDUAN PEMBUATAN ACARA DI
                 <a href="https://hmsi.tekan.id/panduan-web">https://hmsi.tekan.id/panduan-web</a></label>
         </div>
         <div class="col-lg-3 mt-auto">
