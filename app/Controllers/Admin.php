@@ -9,10 +9,12 @@ use App\Models\Jadwal;
 use App\Models\Mhs;
 use App\Models\Nilai;
 use App\Models\Pengurus;
+use App\Models\Piket;
 use App\Models\Rapor;
 use App\Models\Rekap;
 use App\Models\Survei;
 use App\Models\Tautan;
+use DateTime;
 
 class Admin extends BaseController
 {
@@ -1066,5 +1068,101 @@ class Admin extends BaseController
             ->first();
 
         return view("admin/survei/rekap",["data" => $query1, "data1" => $query2]);
+    }
+
+    public function sekre_piket()
+    {
+        $id_pengurus = session()->get("id_pengurus");
+
+        $piket = new Piket();
+        $query1 = $piket->where("id_pengurus",$id_pengurus)
+            ->where("status",1)
+            ->countAllResults();
+
+        $jadwal = new Jadwal();
+        $query2 = $jadwal->where("id_pengurus",$id_pengurus)
+            ->first();
+
+        $tanggal = date("Y-m-d");
+        $bawah = (new \DateTime($tanggal . "00:00:01"))
+            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+            ->format('Y-m-d H:i:s');
+        $atas = (new \DateTime($tanggal . "23:59:59"))
+            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+            ->format('Y-m-d H:i:s');
+
+        $query3 = $piket->where("id_pengurus",$id_pengurus)
+            ->where("waktu_datang >=",$bawah)
+            ->where("waktu_datang <=",$atas)
+            ->first();
+
+        return view("admin/sekre/piket",["data1" => $query1, "data2" => $query2, "data3" => $query3]);
+    }
+
+    public function sekre_piket_hadir()
+    {
+        $id_pengurus = session()->get("id_pengurus");
+        $waktu = (new \DateTime('now'))
+            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+            ->format('Y-m-d H:i:s');
+        $tanggal = date("Y-m-d");
+
+        $jadwal = new Jadwal();
+        $query1 = $jadwal->where("id_pengurus",$id_pengurus)
+            ->first();
+        ($query1->jadwal_wajib === $tanggal) ? $status = 0 : $status = 1;
+
+        $piket = new Piket();
+        $data = [
+            "id_pengurus" => $id_pengurus,
+            "waktu_datang" => $waktu,
+            "status" => $status
+        ];
+        $query2 = $piket->insert($data);
+
+        return redirect()->to(base_url("admin/sekre/piket"))->with("berhasil","Data kehadiran berhasil disimpan");
+    }
+
+    public function sekre_piket_pulang()
+    {
+        $id_pengurus = session()->get("id_pengurus");
+        $waktu = (new \DateTime('now'))
+            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+            ->format('Y-m-d H:i:s');
+        $tanggal = date("Y-m-d");
+        $bawah = (new \DateTime($tanggal . "00:00:01"))
+            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+            ->format('Y-m-d H:i:s');
+        $atas = (new \DateTime($tanggal . "23:59:59"))
+            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+            ->format('Y-m-d H:i:s');
+
+        $piket = new Piket();
+        $query1 = $piket->where("id_pengurus",$id_pengurus)
+            ->where("waktu_datang >=",$bawah)
+            ->where("waktu_datang <=",$atas)
+            ->first();
+
+        if($query1->waktu_datang !== null)
+        {
+            $query2 = $piket->set(["waktu_keluar" => $waktu])
+                ->where("id_pengurus",$id_pengurus)
+                ->where("waktu_datang >=",$bawah)
+                ->where("waktu_datang <=",$atas)
+                ->update();
+
+            $jadwal = new Jadwal();
+            $query3 = $jadwal->where("id_pengurus",$id_pengurus)
+                ->first();
+
+            if($query3->jadwal_wajib === $tanggal)
+            {
+                $query4 = $jadwal->set(["status" => 1])
+                    ->where("id_pengurus",$id_pengurus)
+                    ->update();
+            }
+            return redirect()->to(base_url("admin/sekre/piket"))->with("berhasil","Data kepulangan berhasil disimpan");
+        }
+        return redirect()->to(base_url("admin/sekre/piket"))->with("gagal","Data kehadiran wajib diisi terlebih dahulu!");
     }
 }

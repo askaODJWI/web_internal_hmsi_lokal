@@ -126,6 +126,12 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
 
         $routes->get("detail/(:num)","Admin::survei_detail/$1");
     });
+
+    $routes->group("sekre", function ($routes){
+        $routes->get("piket","Admin::sekre_piket");
+        $routes->post("piket/hadir","Admin::sekre_piket_hadir");
+        $routes->post("piket/pulang","Admin::sekre_piket_pulang");
+    });
 });
 /*
  * --------------------------------------------------------------------

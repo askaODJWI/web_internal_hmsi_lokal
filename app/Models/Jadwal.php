@@ -9,5 +9,5 @@ class Jadwal extends Model
     protected $DBGroup          = 'default';
     protected $table            = 'jadwal';
     protected $returnType       = 'object';
-    protected $allowedFields    = ['id','nama_kegiatan','waktu_mulai','waktu_selesai','pembuat'];
+    protected $allowedFields    = ['id_pengurus','jadwal_wajib','status'];
 }
