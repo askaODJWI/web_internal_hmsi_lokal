@@ -1096,7 +1096,13 @@ class Admin extends BaseController
             ->where("waktu_datang <=",$atas)
             ->first();
 
-        return view("admin/sekre/piket",["data1" => $query1, "data2" => $query2, "data3" => $query3]);
+        $query4 = $piket->where("id_pengurus",$id_pengurus)
+            ->where("waktu_datang <=",$bawah)
+            ->orderBy("waktu_datang","desc")
+            ->get()
+            ->getResult();
+
+        return view("admin/sekre/piket",["data1" => $query1, "data2" => $query2, "data3" => $query3, "data4" => $query4]);
     }
 
     public function sekre_piket_hadir()
@@ -1143,7 +1149,7 @@ class Admin extends BaseController
             ->where("waktu_datang <=",$atas)
             ->first();
 
-        if($query1->waktu_datang !== null)
+        if($query1 !== null)
         {
             $query2 = $piket->set(["waktu_keluar" => $waktu])
                 ->where("id_pengurus",$id_pengurus)
@@ -1163,6 +1169,6 @@ class Admin extends BaseController
             }
             return redirect()->to(base_url("admin/sekre/piket"))->with("berhasil","Data kepulangan berhasil disimpan");
         }
-        return redirect()->to(base_url("admin/sekre/piket"))->with("gagal","Data kehadiran wajib diisi terlebih dahulu!");
+        return redirect()->to(base_url("admin/sekre/piket"))->with("error","Data kehadiran wajib diisi terlebih dahulu!");
     }
 }

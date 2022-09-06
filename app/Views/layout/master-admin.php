@@ -117,13 +117,11 @@
                 <a href="<?= base_url("/admin/survei/dashboard") ?>" class="nav-link">
                     <i data-feather="bar-chart-2"></i> <span>Isi Survei</span></a>
             </li>
-            <?php if(session()->get("id_pengurus") < 2000): ?>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "sekre") &&
             ((current_url(true)->getSegment(4)) === "piket") ? "active" : "" ?>">
                 <a href="<?= base_url("/admin/sekre/piket") ?>" class="nav-link">
                     <i data-feather="check-square"></i> <span>Piket RK</span></a>
             </li>
-            <?php endif; ?>
             <li class="nav-item">
                 <a href="https://tekan.id/" target="_blank" class="nav-link">
                     <i data-feather="link"></i> <span>Ringkas Tautan <i data-feather="external-link" style="height:12px; margin-bottom:5px;"></i></span></a>
