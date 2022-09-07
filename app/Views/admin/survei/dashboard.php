@@ -29,7 +29,7 @@
             $id_pengurus = str_replace("id-pengurus",session()->get("id_pengurus"),$d->tautan);
             $id_survei = str_replace("id-survei",$d->id_survei,$id_pengurus);
 
-            if($data2 === 0): ?>
+            if($d->cek === '0'): ?>
                 <a href="<?= $id_survei ?>" class="btn btn-success btn-xs btn-block">
                     <i data-feather="edit-2"></i> Mulai Isi Survei
                 </a>
