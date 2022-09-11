@@ -1119,15 +1119,21 @@ class Admin extends BaseController
             ->first();
         ($query1->jadwal_wajib === $tanggal) ? $status = 0 : $status = 1;
 
-        $piket = new Piket();
-        $data = [
-            "id_pengurus" => $id_pengurus,
-            "waktu_datang" => $waktu,
-            "status" => $status
-        ];
-        $query2 = $piket->insert($data);
+        if($this->cek_ip() === 1)
+        {
+            $piket = new Piket();
+            $data = [
+                "id_pengurus" => $id_pengurus,
+                "waktu_datang" => $waktu,
+                "status" => $status
+            ];
+            $query2 = $piket->insert($data);
 
-        return redirect()->to(base_url("admin/sekre/piket"))->with("berhasil","Data kehadiran berhasil disimpan");
+            return redirect()->to(base_url("admin/sekre/piket"))
+                ->with("berhasil","Data kehadiran berhasil disimpan");
+        }
+        return redirect()->to(base_url("admin/sekre/piket"))
+            ->with("error","Klien tidak menggunakan internet ITS. Gunakan Wi-FI ITS untuk melakukan piket");
     }
 
     public function sekre_piket_pulang()
@@ -1152,24 +1158,37 @@ class Admin extends BaseController
 
         if($query1 !== null)
         {
-            $query2 = $piket->set(["waktu_keluar" => $waktu])
-                ->where("id_pengurus",$id_pengurus)
-                ->where("waktu_datang >=",$bawah)
-                ->where("waktu_datang <=",$atas)
-                ->update();
-
-            $jadwal = new Jadwal();
-            $query3 = $jadwal->where("id_pengurus",$id_pengurus)
-                ->first();
-
-            if($query3->jadwal_wajib === $tanggal)
+            if($this->cek_ip() === 1)
             {
-                $query4 = $jadwal->set(["status" => 1])
-                    ->where("id_pengurus",$id_pengurus)
+                $query2 = $piket->set(["waktu_keluar" => $waktu])
+                    ->where("id_piket",$query1->id_piket)
                     ->update();
+
+                $jadwal = new Jadwal();
+                $query3 = $jadwal->where("id_pengurus",$id_pengurus)
+                    ->first();
+
+                if($query3->jadwal_wajib === $tanggal)
+                {
+                    $query4 = $jadwal->set(["status" => 1])
+                        ->where("id_pengurus",$id_pengurus)
+                        ->update();
+                }
+                return redirect()->to(base_url("admin/sekre/piket"))
+                    ->with("berhasil","Data kepulangan berhasil disimpan");
             }
-            return redirect()->to(base_url("admin/sekre/piket"))->with("berhasil","Data kepulangan berhasil disimpan");
+            return redirect()->to(base_url("admin/sekre/piket"))
+                ->with("error","Klien tidak menggunakan internet ITS. Gunakan Wi-FI ITS untuk melakukan piket");
         }
-        return redirect()->to(base_url("admin/sekre/piket"))->with("error","Data kehadiran wajib diisi terlebih dahulu!");
+        return redirect()->to(base_url("admin/sekre/piket"))
+            ->with("error","Data kehadiran wajib diisi terlebih dahulu!");
+    }
+
+    public function cek_ip()
+    {
+        $ip_klien = $_SERVER['HTTP_CLIENT_IP'] ?? ($_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR']);
+        $ip_valid = '/^103\.94\.(18[89]|19[01])\.([1-9]?\d|[12]\d\d)$/';
+
+        return preg_match($ip_valid,$ip_klien);
     }
 }
