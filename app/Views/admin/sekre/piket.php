@@ -16,8 +16,8 @@ Kehadiran Piket Ruang Kesekretariatan
         <?= (
                 (strtotime("22:00:01") <= time()) ||
                 (strtotime("07:00:00") >= time()) ||
-                (date("w") == 5) ||
-                (date("w") == 6)
+                (date("w") == 6) ||
+                (date("w") == 0)
         ) ? "bg-danger" : "bg-secondary" ?>">
             <div class="card-body tx-center">
                 <span class="tx-20 tx-bold">SESI X</span><br>
@@ -30,8 +30,8 @@ Kehadiran Piket Ruang Kesekretariatan
         <?= (
                 (strtotime("07:00:01") <= time()) &&
                 (strtotime("10:00:00") >= time()) &&
-                (date("w") != 5) &&
-                (date("w") != 6)
+                (date("w") != 6) &&
+                (date("w") != 0)
         ) ? "bg-success" : "bg-secondary" ?>">
             <div class="card-body tx-center">
                 <span class="tx-20 tx-bold">SESI 1</span><br>
@@ -44,8 +44,8 @@ Kehadiran Piket Ruang Kesekretariatan
         <?= (
                 (strtotime("10:00:01") <= time()) &&
                 (strtotime("13:00:00") >= time()) &&
-                (date("w") != 5) &&
-                (date("w") != 6)
+                (date("w") != 6) &&
+                (date("w") != 0)
         ) ? "bg-success" : "bg-secondary" ?>">
             <div class="card-body tx-center">
                 <span class="tx-20 tx-bold">SESI 2</span><br>
@@ -58,8 +58,8 @@ Kehadiran Piket Ruang Kesekretariatan
         <?= (
                 (strtotime("13:00:01") <= time()) &&
                 (strtotime("16:00:00") >= time()) &&
-                (date("w") != 5) &&
-                (date("w") != 6)
+                (date("w") != 6) &&
+                (date("w") != 0)
         ) ? "bg-success" : "bg-secondary" ?>">
             <div class="card-body tx-center">
                 <span class="tx-20 tx-bold">SESI 3</span><br>
@@ -72,8 +72,8 @@ Kehadiran Piket Ruang Kesekretariatan
         <?= (
                 (strtotime("16:00:01") <= time()) &&
                 (strtotime("19:00:00") >= time()) &&
-                (date("w") != 5) &&
-                (date("w") != 6)
+                (date("w") != 6) &&
+                (date("w") != 0)
         ) ? "bg-success" : "bg-secondary" ?>">
             <div class="card-body tx-center">
                 <span class="tx-20 tx-bold">SESI 4</span><br>
@@ -86,8 +86,8 @@ Kehadiran Piket Ruang Kesekretariatan
         <?= (
                 (strtotime("19:00:01") <= time()) &&
                 (strtotime("22:00:00") >= time()) &&
-                (date("w") != 5) &&
-                (date("w") != 6)
+                (date("w") != 6) &&
+                (date("w") != 0)
         ) ? "bg-success" : "bg-secondary" ?>">
             <div class="card-body tx-center">
                 <span class="tx-20 tx-bold">SESI 5</span><br>
@@ -112,8 +112,8 @@ Kehadiran Piket Ruang Kesekretariatan
             <button type="submit" class="btn btn-primary btn-icon btn-sm mg-l-auto"
                 <?= (
                         ($data3 !== null) ||
-                        (date("w") != 5) ||
                         (date("w") != 6) ||
+                        (date("w") != 0) ||
                         (strtotime("22:00:01") <= time()) ||
                         (strtotime("07:00:00") >= time())
                 ) ? "disabled" : "" ?>>
