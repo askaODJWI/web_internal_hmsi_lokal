@@ -40,7 +40,6 @@ $routes->group("/", function ($routes)
     $routes->post("hadir","Presensi::hadir");
     $routes->post("hadir_manual","Presensi::hadir_manual");
     $routes->get("sukses","Presensi::sukses");
-    $routes->get("coba","Admin::cek_ip");
 
     $routes->group("/",["filter" => "auth"],function ($routes){
         $routes->post("hadir_panitia","Presensi::hadir_panitia");

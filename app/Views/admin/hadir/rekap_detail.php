@@ -55,7 +55,7 @@
             buttons: [
                 {
                     extend: "print",
-                    text: "<i data-feather='printer'></i> Cetak Halaman Ini",
+                    text: "<i data-feather='file-text'></i> Ekspor PDF",
                     title: "",
                     messageTop: "<center><h4>Rekap Kehadiran Acara <?= $data1->nama_acara ?></h4></center><br>",
                     messageBottom:  "<br><center>Dokumen ini dicetak pada hari <b>" +
@@ -63,7 +63,7 @@
                         (new Date()).toLocaleString('id-ID',{timeStyle: 'long'}) + "</b> oleh <b>" +
                         "<?= $data2->nama ?></b> NRP <b><?= $data2->nrp ?></b></center>",
                     autoPrint: false,
-                    className: "btn btn-primary bg-primary",
+                    className: "btn btn-danger bg-danger",
                     customize: function (win) {
                         $(win.document.body).find("table")
                             .addClass("compact")
@@ -71,10 +71,28 @@
                     },
                 },
                 {
+                    extend: "excel",
+                    text: "<i data-feather='table'></i> Ekspor Excel",
+                    className: "btn btn-success bg-success",
+                    filename: "Rekap Kehadiran Acara <?= $data1->nama_acara ?>",
+                    title: "Rekap Kehadiran Acara <?= $data1->nama_acara ?>",
+                    messageTop: "Dokumen ini TIDAK VALID untuk digunakan sebagai bukti capaian IPMS. Silakan gunakan Ekspor PDF untuk bukti capaian IPMS.",
+                    messageBottom:  "Dokumen ini dicetak pada hari " +
+                        (new Date()).toLocaleString('id-ID',{dateStyle: 'full'}) + " pukul " +
+                        (new Date()).toLocaleString('id-ID',{timeStyle: 'long'}) + " oleh " +
+                        "<?= $data2->nama ?> NRP <?= $data2->nrp ?>",
+                    customize: function( xlsx ) {
+                        var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                        $('row:first c', sheet).attr( 's', '2' );
+                        $('row c[r=A2]', sheet).attr( 's', '12' );
+                        $('row:last c', sheet).attr( 's', '2' );
+                    }
+                },
+                {
                     extend: "pageLength",
                     className: "btn btn-outline-primary bg-white"
                 },
-            ],
+            ]
         },
         language: {
             searchPlaceholder: "Cari...",

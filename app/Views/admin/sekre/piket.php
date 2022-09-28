@@ -112,8 +112,8 @@ Kehadiran Piket Ruang Kesekretariatan
             <button type="submit" class="btn btn-primary btn-icon btn-sm mg-l-auto"
                 <?= (
                         ($data3 !== null) ||
-                        (date("w") != 6) ||
-                        (date("w") != 0) ||
+                        (date("w") == 6) ||
+                        (date("w") == 0) ||
                         (strtotime("22:00:01") <= time()) ||
                         (strtotime("07:00:00") >= time())
                 ) ? "disabled" : "" ?>>
