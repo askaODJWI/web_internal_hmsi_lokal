@@ -10,93 +10,6 @@ Kehadiran Piket Ruang Kesekretariatan
 
 <?= $this->section("konten") ?>
 
-<div class="row mg-b-10">
-    <div class="col-6 col-md-4 col-lg-2 mg-b-10">
-        <div class="card shadow-none tx-white
-        <?= (
-                (strtotime("22:00:01") <= time()) ||
-                (strtotime("07:00:00") >= time()) ||
-                (date("w") == 6) ||
-                (date("w") == 0)
-        ) ? "bg-danger" : "bg-secondary" ?>">
-            <div class="card-body tx-center">
-                <span class="tx-20 tx-bold">SESI X</span><br>
-                <span class="tx-12">diluar waktu piket</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-6 col-md-4 col-lg-2 mg-b-10">
-        <div class="card shadow-none tx-white
-        <?= (
-                (strtotime("07:00:01") <= time()) &&
-                (strtotime("10:00:00") >= time()) &&
-                (date("w") != 6) &&
-                (date("w") != 0)
-        ) ? "bg-success" : "bg-secondary" ?>">
-            <div class="card-body tx-center">
-                <span class="tx-20 tx-bold">SESI 1</span><br>
-                <span class="tx-12">07.00 - 10.00</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-6 col-md-4 col-lg-2 mg-b-10">
-        <div class="card shadow-none tx-white
-        <?= (
-                (strtotime("10:00:01") <= time()) &&
-                (strtotime("13:00:00") >= time()) &&
-                (date("w") != 6) &&
-                (date("w") != 0)
-        ) ? "bg-success" : "bg-secondary" ?>">
-            <div class="card-body tx-center">
-                <span class="tx-20 tx-bold">SESI 2</span><br>
-                <span class="tx-12">10.00 - 13.00</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-6 col-md-4 col-lg-2 mg-b-10">
-        <div class="card shadow-none tx-white
-        <?= (
-                (strtotime("13:00:01") <= time()) &&
-                (strtotime("16:00:00") >= time()) &&
-                (date("w") != 6) &&
-                (date("w") != 0)
-        ) ? "bg-success" : "bg-secondary" ?>">
-            <div class="card-body tx-center">
-                <span class="tx-20 tx-bold">SESI 3</span><br>
-                <span class="tx-12">13.00 - 16.00</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-6 col-md-4 col-lg-2 mg-b-10">
-        <div class="card shadow-none tx-white
-        <?= (
-                (strtotime("16:00:01") <= time()) &&
-                (strtotime("19:00:00") >= time()) &&
-                (date("w") != 6) &&
-                (date("w") != 0)
-        ) ? "bg-success" : "bg-secondary" ?>">
-            <div class="card-body tx-center">
-                <span class="tx-20 tx-bold">SESI 4</span><br>
-                <span class="tx-12">16.00 - 19.00</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-6 col-md-4 col-lg-2 mg-b-10">
-        <div class="card shadow-none tx-white
-        <?= (
-                (strtotime("19:00:01") <= time()) &&
-                (strtotime("22:00:00") >= time()) &&
-                (date("w") != 6) &&
-                (date("w") != 0)
-        ) ? "bg-success" : "bg-secondary" ?>">
-            <div class="card-body tx-center">
-                <span class="tx-20 tx-bold">SESI 5</span><br>
-                <span class="tx-12">19.00 - 22.00</span>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="row">
     <form action="<?= base_url("admin/sekre/piket/hadir") ?>" method="post" data-parsley-validate class="col-md-6 col-lg-4 mg-b-10">
         <div class="card card-body">
@@ -109,16 +22,21 @@ Kehadiran Piket Ruang Kesekretariatan
                 <span class="tx-gray-700">Waktu Mulai:</span><br><b>
                     <?= $data3->waktu_datang ?? "-" ?></b>
             </p>
-            <button type="submit" class="btn btn-primary btn-icon btn-sm mg-l-auto"
-                <?= (
-                        ($data3 !== null) ||
-                        (date("w") == 6) ||
-                        (date("w") == 0) ||
-                        (strtotime("22:00:01") <= time()) ||
-                        (strtotime("07:00:00") >= time())
-                ) ? "disabled" : "" ?>>
-                <i data-feather="check-circle"></i> <span>Tekan untuk Hadir</span>
-            </button>
+            <?php if(
+                ($data3 !== null) ||
+                (strtotime("22:00:01") <= time()) ||
+                (strtotime("07:00:00") >= time()) ||
+                (date("w") == 6) ||
+                (date("w") == 0)):
+            ?>
+                <button type="button" class="btn btn-danger btn-icon btn-sm mg-l-auto">
+                    <span><i data-feather="x-octagon"></i> Bukan Sesi Piket</span>
+                </button>
+            <?php else: ?>
+                <button type="submit" class="btn btn-primary btn-icon btn-sm mg-l-auto" disabled>
+                    <span><i data-feather="check-circle"></i> Tekan untuk Hadir</span>
+                </button>
+            <?php endif; ?>
         </div>
     </form>
 
