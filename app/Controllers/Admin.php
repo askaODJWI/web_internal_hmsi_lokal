@@ -943,19 +943,11 @@ class Admin extends BaseController
 
     public function data_nama()
     {
-        return view("admin/data/nama");
-    }
-
-    public function data_nama_kirim()
-    {
-        $nama = $this->request->getPost("nama");
-
         $mhs = new Mhs();
-        $query1 = $mhs->like("nama",$nama)
-            ->get()
+        $query1 = $mhs->get()
             ->getResult();
 
-        return view("admin/data/nama",["data" => $query1, "data2" => $nama]);
+        return view("admin/data/nama",["data" => $query1]);
     }
 
     public function akun_ubah()

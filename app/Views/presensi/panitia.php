@@ -5,7 +5,7 @@ Kehadiran Acara HMSI
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>
-<div class="card card-body shadow-none bd-primary animated fadeInDown">
+<div class="card card-body shadow-none bd-primary">
     <div class="marker marker-ribbon marker-danger pos-absolute t-10 l-0">Hak Akses Panitia: <?= $data->kode_acara ?><br></div>
     <p class="mg-t-30">
         <span class="tx-gray-700">Kehadiran Acara oleh Panitia:</span><br><b><?= $data->nama_acara ?></b><br>
@@ -34,7 +34,7 @@ Kehadiran Acara HMSI
     </div>
 <?php endif; ?>
 
-<div class="form-group mt-3 animated zoomIn fast delay-1s">
+<div class="form-group mt-3">
     <label for="nrp" class="tx-bold">NRP <span class="tx-danger">*</span></label>
     <div class="input-group mg-b-10">
         <input id="nrp" name="nrp" type="text" class="form-control wd-200" placeholder="Masukkan NRP peserta">
@@ -129,14 +129,12 @@ Kehadiran Acara HMSI
                         cek_angkatan.append(data.angkatan);
                         form_nrp.prop('value',data.nrp);
                         div.show();
-                        div.addClass('animated fadeInDown fast');
                     },
                     error: function ()
                     {
                         nrp_salah.append(nrp);
                         form2_nrp.prop('value',nrp);
                         error.show();
-                        error.addClass('animated fadeInDown fast');
                     }
                 });
         }

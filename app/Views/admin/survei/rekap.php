@@ -59,6 +59,7 @@
         });
 
         $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+        $(".select2-container").addClass("tx-12");
     </script>
 
 <?= $this->endSection() ?>

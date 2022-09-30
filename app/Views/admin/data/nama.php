@@ -5,7 +5,7 @@ Admin HMSI | Data | Nama
 <?= $this->endSection() ?>
 
 <?= $this->section("halaman") ?>
-Cari Data Berdasarkan Nama
+Cari Data Mahasiswa
 
 <?php if(service("request")->getMethod() === "post"): ?>
 <span class="text-primary">: <?= $data2 ?></span>
@@ -13,25 +13,6 @@ Cari Data Berdasarkan Nama
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>
-
-<form action="<?= base_url("admin/data/nama") ?>" method="post" class="mb-3" data-parsley-validate>
-    <div class="row">
-        <div class="col-12 col-md-8 col-lg-6">
-            <label for="nama" class="tx-bold">Nama <span class="tx-danger">*</span></label>
-            <div class="input-group">
-                <input id="nama" name="nama" type="text" class="form-control"
-                       placeholder="Masukkan nama yang ingin dicari" required data-parsley-required-message="Nama wajib diisi!">
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-block btn-primary btn-icon">
-                        <i data-feather="search"></i> <span>Cari Data</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-
-<?php if(service("request")->getMethod() === "post"): ?>
 <table id="daftar-nrp" class="table table-hover">
     <thead>
     <tr class="tx-center tx-bold">
@@ -54,8 +35,6 @@ Cari Data Berdasarkan Nama
     <?php endforeach; ?>
     </tbody>
 </table>
-
-<?php endif; ?>
 
 <?= $this->endSection() ?>
 

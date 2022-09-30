@@ -10,19 +10,28 @@
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>
-
 <table id="rekap-detail" class="table table-hover">
     <thead>
-    <tr class="tx-center">
-        <th class="wd-5p">No</th>
-        <th class="wd-15p">Waktu Kehadiran</th>
-        <th class="wd-15p">Nama Lengkap</th>
-        <th class="wd-10p">NRP</th>
-        <th class="wd-10p">Angkatan</th>
-        <th class="wd-15p">Jabatan</th>
-        <th class="wd-15p">Departemen</th>
-        <th class="wd-10p">Keterangan</th>
-    </tr>
+    <?php if(!filter_var($data1->lokasi, FILTER_VALIDATE_URL) === false): ?>
+        <tr class="tx-center">
+            <th class="wd-5p">No</th>
+            <th class="wd-15p">Waktu Kehadiran</th>
+            <th class="wd-25p">Nama Lengkap</th>
+            <th class="wd-10p">NRP</th>
+            <th class="wd-5p">Angkatan</th>
+            <th class="wd-25p">Departemen</th>
+            <th class="wd-10p">Keterangan</th>
+        </tr>
+    <?php else: ?>
+        <tr class="tx-center">
+            <th class="wd-5p">No</th>
+            <th class="wd-15p">Waktu Kehadiran</th>
+            <th class="wd-25p">Nama Lengkap</th>
+            <th class="wd-10p">NRP</th>
+            <th class="wd-10p">Angkatan</th>
+            <th class="wd-30p">Departemen</th>
+        </tr>
+    <?php endif; ?>
     </thead>
     <tbody>
     <?php foreach ($data as $i=>$d): ?>
@@ -32,9 +41,10 @@
             <td class="align-middle"><?= $d->nama ?></td>
             <td class="align-middle"><?= $d->nrp ?></td>
             <td class="align-middle tx-center"><?= "20".substr($d->nrp,4,2) ?></td>
-            <td class="align-middle"><?= $d->jabatan ?? "Bukan Fungsionaris" ?></td>
-            <td class="align-middle"><?= $d->nama_departemen ?? "Bukan Fungsionaris" ?></td>
+            <td class="align-middle"><?= $d->nama_departemen ?? "-" ?></td>
+            <?php if(!filter_var($data1->lokasi, FILTER_VALIDATE_URL) === false): ?>
             <td class="align-middle tx-center"><?= $d->keterangan ?? "-" ?></td>
+            <?php endif; ?>
         </tr>
     <?php endforeach; ?>
     </tbody>
