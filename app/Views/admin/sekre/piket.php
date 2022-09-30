@@ -23,7 +23,6 @@ Kehadiran Piket Ruang Kesekretariatan
                     <?= $data3->waktu_datang ?? "-" ?></b>
             </p>
             <?php if(
-                ($data3 !== null) ||
                 (strtotime("22:00:01") <= time()) ||
                 (strtotime("07:00:00") >= time()) ||
                 (date("w") == 6) ||
@@ -32,8 +31,12 @@ Kehadiran Piket Ruang Kesekretariatan
                 <button type="button" class="btn btn-danger btn-icon btn-sm mg-l-auto">
                     <span><i data-feather="x-octagon"></i> Bukan Sesi Piket</span>
                 </button>
-            <?php else: ?>
+            <?php elseif($data3 !== null): ?>
                 <button type="submit" class="btn btn-primary btn-icon btn-sm mg-l-auto" disabled>
+                    <span><i data-feather="check-circle"></i> Sudah Hadir</span>
+                </button>
+            <?php else: ?>
+                <button type="submit" class="btn btn-primary btn-icon btn-sm mg-l-auto">
                     <span><i data-feather="check-circle"></i> Tekan untuk Hadir</span>
                 </button>
             <?php endif; ?>
