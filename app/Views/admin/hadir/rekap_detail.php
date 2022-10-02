@@ -12,7 +12,7 @@
 <?= $this->section("konten") ?>
 <table id="rekap-detail" class="table table-hover">
     <thead>
-    <?php if(!filter_var($data1->lokasi, FILTER_VALIDATE_URL) === false): ?>
+    <?php if(!filter_var($data1->lokasi, FILTER_VALIDATE_URL) === true): ?>
         <tr class="tx-center">
             <th class="wd-5p">No</th>
             <th class="wd-15p">Waktu Kehadiran</th>
@@ -42,7 +42,7 @@
             <td class="align-middle"><?= $d->nrp ?></td>
             <td class="align-middle tx-center"><?= "20".substr($d->nrp,4,2) ?></td>
             <td class="align-middle"><?= $d->nama_departemen ?? "-" ?></td>
-            <?php if(!filter_var($data1->lokasi, FILTER_VALIDATE_URL) === false): ?>
+            <?php if(!filter_var($data1->lokasi, FILTER_VALIDATE_URL) === true): ?>
             <td class="align-middle tx-center"><?= $d->keterangan ?? "-" ?></td>
             <?php endif; ?>
         </tr>

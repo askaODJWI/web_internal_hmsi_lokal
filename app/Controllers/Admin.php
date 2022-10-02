@@ -84,11 +84,11 @@ class Admin extends BaseController
         ];
 
         $sekarang = new \DateTime("now");
-        $bulan1_awal = new \DateTime("2022-02-01 00:00:00");
-        $bulan1_akhir = new \DateTime("2022-07-19 23:59:59");
-        $bulan2_awal = new \DateTime("2022-07-20 00:00:00");
-        $bulan2_akhir = new \DateTime("2022-10-19 23:59:59");
-        $bulan3_awal = new \DateTime("2022-10-20 00:00:00");
+        $bulan1_awal = new \DateTime("2022-01-01 00:00:00");
+        $bulan1_akhir = new \DateTime("2022-07-24 23:59:59");
+        $bulan2_awal = new \DateTime("2022-07-25 00:00:00");
+        $bulan2_akhir = new \DateTime("2022-10-24 23:59:59");
+        $bulan3_awal = new \DateTime("2022-10-25 00:00:00");
         $bulan3_akhir = new \DateTime("2022-12-31 23:59:59");
 
         if($sekarang >= $bulan1_awal && $sekarang <= $bulan1_akhir) $id_bulan = 1;
@@ -1125,7 +1125,7 @@ class Admin extends BaseController
                 ->with("berhasil","Data kehadiran berhasil disimpan");
         }
         return redirect()->to(base_url("admin/sekre/piket"))
-            ->with("error","Klien tidak menggunakan internet ITS. Gunakan Wi-FI ITS untuk melakukan piket");
+            ->with("error","Kamu sedang tidak menggunakan internet lokal ITS. Gunakan Wi-Fi ITS untuk melakukan piket!");
     }
 
     public function sekre_piket_pulang()
@@ -1170,7 +1170,7 @@ class Admin extends BaseController
                     ->with("berhasil","Data kepulangan berhasil disimpan");
             }
             return redirect()->to(base_url("admin/sekre/piket"))
-                ->with("error","Klien tidak menggunakan internet ITS. Gunakan Wi-FI ITS untuk melakukan piket");
+                ->with("error","Kamu sedang tidak menggunakan internet lokal ITS. Gunakan Wi-Fi ITS untuk melakukan piket!");
         }
         return redirect()->to(base_url("admin/sekre/piket"))
             ->with("error","Data kehadiran wajib diisi terlebih dahulu!");
