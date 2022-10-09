@@ -1095,7 +1095,18 @@ class Admin extends BaseController
             ->get()
             ->getResult();
 
-        return view("admin/sekre/piket",["data1" => $query1, "data2" => $query2, "data3" => $query3, "data4" => $query4]);
+        $query5 = $jadwal->select(["pengurus.id_pengurus","jadwal_wajib","nama","nama_departemen", "(CASE WHEN jadwal.status = 0 THEN 'Belum' ELSE 'Selesai' END) as 'status'"])
+            ->join("pengurus", "jadwal.id_pengurus = pengurus.id_pengurus")
+            ->join("mhs","pengurus.nrp = mhs.nrp")
+            ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
+            ->orderBy("pengurus.id_departemen")
+            ->orderBy("jadwal_wajib")
+            ->orderBy("nama")
+            ->where("jadwal_wajib >","2022-01-01")
+            ->get()
+            ->getResult();
+
+        return view("admin/sekre/piket",["data1" => $query1, "data2" => $query2, "data3" => $query3, "data4" => $query4, "data5" => $query5]);
     }
 
     public function sekre_piket_hadir()
@@ -1182,5 +1193,19 @@ class Admin extends BaseController
         $ip_valid = '/^103\.94\.(18[89]|19[01])\.([1-9]?\d|[12]\d\d)$/';
 
         return preg_match($ip_valid,$ip_klien);
+    }
+
+    public function sekre_piket_ubah()
+    {
+        $id_pengurus = $this->request->getPost("id_pengurus");
+        $tanggal = $this->request->getPost("tanggal");
+
+        $jadwal = new Jadwal();
+        $query1 = $jadwal->set(["jadwal_wajib" => $tanggal])
+            ->where("id_pengurus",$id_pengurus)
+            ->update();
+
+        return redirect()->to(base_url("admin/sekre/piket"))
+            ->with("berhasil","Perubahan jadwal piket berhasil disimpan");
     }
 }

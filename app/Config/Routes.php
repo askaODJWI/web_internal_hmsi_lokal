@@ -131,6 +131,7 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
         $routes->get("piket","Admin::sekre_piket");
         $routes->post("piket/hadir","Admin::sekre_piket_hadir");
         $routes->post("piket/pulang","Admin::sekre_piket_pulang");
+        $routes->post("piket/ubah","Admin::sekre_piket_ubah");
     });
 });
 /*

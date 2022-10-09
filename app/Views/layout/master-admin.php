@@ -106,7 +106,7 @@
             </li>
             <?php endif; ?>
 
-            <li class="nav-label mg-t-25">Fitur Lainnya</li>
+            <li class="nav-label mg-t-25">Menu Lainnya</li>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "data") &&
             ((current_url(true)->getSegment(4)) === "nama") ? "active" : "" ?>">
                 <a href="<?= base_url("/admin/data/nama") ?>" class="nav-link">

@@ -64,13 +64,13 @@ Kehadiran Piket Ruang Kesekretariatan
         <div class="card shadow-none bg-light">
             <div class="card-body tx-center">
                 <span class="tx-20 tx-bold tx-primary">Statistik</span><br><br>
-                <span class="tx-bold">Status Piket Wajib</span><br>
+                <span class="tx-bold">Jadwal Piket Wajib</span><br>
                 <span class="">
                     <?php
                     $status = $data2->status ?? 0;
-                    if($status === "0") echo "Belum Melaksanakan (" . $data2->jadwal_wajib . ")";
-                    if($status === "1") echo "Sudah Melaksanakan";
-                    if($status === "2") echo "Piket diulang karena durasi kurang dari 2 jam";
+                    echo ($status === "0") ?
+                        (new IntlDateFormatter("id_ID",IntlDateFormatter::FULL,IntlDateFormatter::SHORT,"Asia/Jakarta",IntlDateFormatter::GREGORIAN,"eeee, dd MMMM yyyy'"))->format(new DateTime($data2->jadwal_wajib))
+                    : "Sudah Melaksanakan";
                     ?>
                 </span><br><br>
                 <span class="tx-bold">Jumlah Piket Tidak Wajib</span><br>
@@ -93,14 +93,14 @@ Kehadiran Piket Ruang Kesekretariatan
     <div class="col-12">
         <hr>
         <p class="tx-20 tx-bold">Riwayat Kehadiran Piket</p>
-        <table id="rekap-piket" class="table table-hover">
+        <table id="riwayat-piket" class="table table-hover">
             <thead>
             <tr class="tx-center">
-                <th class="wd-10p">No</th>
+                <th class="wd-5p">No</th>
                 <th class="wd-30p">Hari / Tanggal</th>
                 <th class="wd-20p">Waktu Mulai</th>
                 <th class="wd-20p">Waktu Selesai</th>
-                <th class="wd-20p">Jenis Piket</th>
+                <th class="wd-25p">Jenis Piket</th>
             </tr>
             </thead>
             <tbody>
@@ -116,7 +116,7 @@ Kehadiran Piket Ruang Kesekretariatan
                     <td class="align-middle tx-center">
                         <?= ($d->waktu_keluar !== null) ? (new IntlDateFormatter("id_ID",IntlDateFormatter::FULL,IntlDateFormatter::SHORT,"Asia/Jakarta",IntlDateFormatter::GREGORIAN,"HH.mm.ss z'"))->format(new DateTime($d->waktu_datang)) : "Tidak Terdata" ?>
                     </td>
-                    <td class="align-middle tx-center"><?= ($d->status === '0') ? "Wajib" : "Tidak Wajib" ?></td>
+                    <td class="align-middle tx-center"><?= ($d->status === '0') ? "Piket Wajib" : "Piket Tidak Wajib" ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -124,10 +124,104 @@ Kehadiran Piket Ruang Kesekretariatan
     </div>
 </div>
 
+<?php if(session()->get("id_pengurus") < 2000): ?>
+<div class="row mg-t-30">
+    <div class="col-12">
+        <hr>
+        <p class="tx-20 tx-bold">Rekap Kehadiran Piket</p>
+        <table id="rekap-piket" class="table table-hover">
+            <thead>
+            <tr class="tx-center">
+                <th class="wd-5p">No</th>
+                <th class="wd-30p">Nama</th>
+                <th class="wd-30p">Departemen</th>
+                <th class="wd-10p">Jadwal</th>
+                <th class="wd-10p">Status</th>
+                <th class="wd-10p">Aksi</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($data5 as $i=>$d): ?>
+                <tr>
+                    <td class="align-middle tx-center"><?= $i+1 ?></td>
+                    <td class="align-middle"><?= $d->nama ?></td>
+                    <td class="align-middle"><?= $d->nama_departemen ?></td>
+                    <td class="align-middle tx-center"><?= $d->jadwal_wajib ?></td>
+                    <td class="align-middle tx-center <?= ($d->status  === "Belum") ? "tx-danger tx-bold" : "" ?>"><?= $d->status ?></td>
+                    <td class="align-middle tx-center">
+                        <?php if($d->status  === "Belum"): ?>
+                            <a onclick="pindahConfirm(<?= $d->id_pengurus ?>)" href="#" class="btn btn-primary btn-xs btn-block"><i data-feather="calendar"></i> Pindah</a>
+                        <?php else: ?>
+                        -
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_piket" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog wd-sm-400" role="document">
+        <div class="modal-content bg-white">
+            <form action="<?= base_url("admin/sekre/piket/ubah") ?>" method="post">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold">Pindah Jadwal Piket</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="id_pengurus" id="id_pengurus" value="">
+                <div class="form-group">
+                    <label for="tanggal" class="tx-bold">Tanggal Piket <span class="tx-danger">*</span></label>
+                    <input id="tanggal" name="tanggal" type="date" class="form-control" placeholder="Masukkan tanggal acara" required data-parsley-required-message="Tanggal piket wajib diisi!">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-xs" type="button" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-xs btn-danger">
+                    <i data-feather="save"></i> <span>Pindah Jadwal</span>
+                </button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php endif; ?>
+
 <?= $this->endSection() ?>
 
 <?= $this->section("js") ?>
 <script>
+    function pindahConfirm(id_pengurus)
+    {
+        $('#id_pengurus').attr("value",id_pengurus);
+        $("#modal_piket").modal();
+    }
+
+    $('#riwayat-piket').DataTable({
+        language: {
+            searchPlaceholder: "Cari...",
+            search: "",
+            lengthMenu: "Lihat _MENU_ data per halaman",
+            paginate: {
+                next: "Berikutnya",
+                previous: "Sebelumnya"
+            },
+            info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+            infoEmpty: "Menampilkan 0 data",
+            infoFiltered: "(Disaring dari _MAX_ data)",
+            emptyTable: "Tidak ada data yang ditemukan",
+            zeroRecords:  "Tidak ada data yang ditemukan",
+        },
+        drawCallback: function() {
+            feather.replace();
+        }
+    });
+
     $('#rekap-piket').DataTable({
         language: {
             searchPlaceholder: "Cari...",

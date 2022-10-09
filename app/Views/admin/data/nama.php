@@ -42,6 +42,10 @@ Cari Data Mahasiswa
 
 <script>
     $('#daftar-nrp').DataTable({
+        lengthMenu: [
+            [ 10, 25, 50, 100, 200, -1 ],
+            [ 10, 25, 50, 100, 200, "Semua" ]
+        ],
         language: {
             searchPlaceholder: "Cari...",
             search: "",
