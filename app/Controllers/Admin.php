@@ -1033,14 +1033,19 @@ class Admin extends BaseController
     public function survei_dashboard()
     {
         $id_pengurus = session()->get("id_pengurus");
+        $pengurus = new Pengurus();
+        $query1 = $pengurus->select("nrp")
+            ->where("id_pengurus", $id_pengurus)
+            ->first();
+        $nrp = $query1->nrp;
 
         $survei = new Survei();
-        $query1 = $survei->select(["id_survei","nama_survei","tautan","(CASE WHEN (SELECT rekap.id_rekap FROM rekap WHERE rekap.id_survei = survei.id_survei AND rekap.id_pengurus = $id_pengurus) IS NOT NULL THEN '1' ELSE '0' END) as cek"])
+        $query2 = $survei->select(["id_survei","nama_survei","tautan","(CASE WHEN (SELECT rekap.id_rekap FROM rekap WHERE rekap.id_survei = survei.id_survei AND rekap.nrp = $nrp) IS NOT NULL THEN '1' ELSE '0' END) as cek"])
             ->orderBy("id_survei")
             ->get()
             ->getResult();
 
-        return view("admin/survei/dashboard",["data" => $query1]);
+        return view("admin/survei/dashboard",["data" => $query2, "data2" => $nrp]);
     }
 
     public function survei_detail($id_survei)

@@ -27,7 +27,8 @@
         <td class="align-middle tx-center">
             <?php
             $id_pengurus = str_replace("id-pengurus",session()->get("id_pengurus"),$d->tautan);
-            $id_survei = str_replace("id-survei",$d->id_survei,$id_pengurus);
+            $nrp = str_replace("nrp",$data2,$id_pengurus);
+            $id_survei = str_replace("id-survei",$d->id_survei,$nrp);
 
             if($d->cek === '0'): ?>
                 <a href="<?= $id_survei ?>" class="btn btn-success btn-xs btn-block">
