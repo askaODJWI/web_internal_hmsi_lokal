@@ -1047,9 +1047,9 @@ class Admin extends BaseController
     {
         $rekap = new Rekap();
         $query1 = $rekap->select(["mhs.nama","mhs.nrp","departemen.nama_departemen","pengurus.jabatan"])
-            ->join("pengurus","rekap.id_pengurus = pengurus.id_pengurus")
-            ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
-            ->join("mhs","pengurus.nrp = mhs.nrp")
+            ->join("mhs","rekap.nrp = mhs.nrp")
+            ->join("pengurus","rekap.nrp = pengurus.nrp","left outer")
+            ->join("departemen","pengurus.id_departemen = departemen.id_departemen", "left outer")
             ->where("id_survei",$id_survei)
             ->orderBy("pengurus.id_departemen")
             ->get()

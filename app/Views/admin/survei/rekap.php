@@ -29,8 +29,8 @@
                 <td class="align-middle"><?= $d->nama ?></td>
                 <td class="align-middle"><?= $d->nrp ?></td>
                 <td class="align-middle tx-center"><?= "20".substr($d->nrp,4,2) ?></td>
-                <td class="align-middle"><?= $d->jabatan ?? "Bukan Fungsionaris" ?></td>
-                <td class="align-middle"><?= $d->nama_departemen ?? "Bukan Fungsionaris" ?></td>
+                <td class="align-middle"><?= $d->jabatan ?? "-" ?></td>
+                <td class="align-middle"><?= $d->nama_departemen ?? "-" ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
