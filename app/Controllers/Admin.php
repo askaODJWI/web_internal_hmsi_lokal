@@ -1163,19 +1163,34 @@ class Admin extends BaseController
         {
             if($this->cek_ip() === 1)
             {
-                $query2 = $piket->set(["waktu_keluar" => $waktu])
+                $jadwal = new Jadwal();
+                $query2 = $jadwal->where("id_pengurus",$id_pengurus)
+                    ->first();
+
+                $query3 = $piket->set(["waktu_keluar" => $waktu])
                     ->where("id_piket",$query1->id_piket)
                     ->update();
 
-                $jadwal = new Jadwal();
-                $query3 = $jadwal->where("id_pengurus",$id_pengurus)
-                    ->first();
-
-                if($query3->jadwal_wajib === $tanggal)
+                if($query2->jadwal_wajib === $tanggal)
                 {
+                    $mulai = $query1->waktu_datang;
+                    $durasi = strtotime($waktu) - strtotime($mulai);
+
+                    if($durasi < 7200)
+                    {
+                        $query3 = $piket->set(["waktu_keluar" => null])
+                            ->where("id_piket",$query1->id_piket)
+                            ->update();
+
+                        return redirect()->to(base_url("admin/sekre/piket"))
+                            ->with("error","Durasi piket belum mencapai <b>2 jam</b>. Silakan tunggu hingga 2 jam.");
+                    }
                     $query4 = $jadwal->set(["status" => 1])
                         ->where("id_pengurus",$id_pengurus)
                         ->update();
+
+                    return redirect()->to(base_url("admin/sekre/piket"))
+                        ->with("berhasil","Terima kasih sudah melaksanakan Piket Wajib sesuai tanggal 😊");
                 }
                 return redirect()->to(base_url("admin/sekre/piket"))
                     ->with("berhasil","Data kepulangan berhasil disimpan");

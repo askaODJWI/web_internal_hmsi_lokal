@@ -32,7 +32,7 @@ Kehadiran Piket Ruang Kesekretariatan
                     <span><i data-feather="x-octagon"></i> Bukan Sesi Piket</span>
                 </button>
             <?php elseif($data3 !== null): ?>
-                <button type="submit" class="btn btn-primary btn-icon btn-sm mg-l-auto" disabled>
+                <button type="button" class="btn btn-primary btn-icon btn-sm mg-l-auto">
                     <span><i data-feather="check-circle"></i> Sudah Hadir</span>
                 </button>
             <?php else: ?>
@@ -54,9 +54,28 @@ Kehadiran Piket Ruang Kesekretariatan
                 <span class="tx-gray-700">Waktu Selesai:</span><br><b>
                     <?= $data3->waktu_keluar ?? "-" ?></b>
             </p>
-            <button type="submit" class="btn btn-primary btn-icon btn-sm mg-l-auto" <?= ($data3 === null || $data3->waktu_keluar !== null) ? "disabled" : "" ?>>
-                <i data-feather="check-circle"></i> <span>Tekan untuk Selesai</span>
-            </button>
+            <?php if(
+                (strtotime("22:00:01") <= time()) ||
+                (strtotime("07:00:00") >= time()) ||
+                (date("w") == 6) ||
+                (date("w") == 0)):
+            ?>
+                <button type="button" class="btn btn-danger btn-icon btn-sm mg-l-auto">
+                    <span><i data-feather="x-octagon"></i> Bukan Sesi Piket</span>
+                </button>
+            <?php elseif($data3 === null): ?>
+                <button type="button" class="btn btn-danger btn-icon btn-sm mg-l-auto">
+                    <span><i data-feather="x-octagon"></i> Belum Hadir</span>
+                </button>
+            <?php elseif($data3->waktu_keluar !== null): ?>
+                <button type="button" class="btn btn-primary btn-icon btn-sm mg-l-auto">
+                    <span><i data-feather="check-circle"></i> Sudah Selesai</span>
+                </button>
+            <?php else: ?>
+                <button type="submit" class="btn btn-primary btn-icon btn-sm mg-l-auto">
+                    <i data-feather="check-circle"></i> <span>Tekan untuk Selesai</span>
+                </button>
+            <?php endif; ?>
         </div>
     </form>
 
@@ -128,7 +147,7 @@ Kehadiran Piket Ruang Kesekretariatan
 <div class="row mg-t-30">
     <div class="col-12">
         <hr>
-        <p class="tx-20 tx-bold">Rekap Kehadiran Piket</p>
+        <p class="tx-20 tx-bold">Data Rekap Kehadiran Piket</p>
         <table id="rekap-piket" class="table table-hover">
             <thead>
             <tr class="tx-center">
