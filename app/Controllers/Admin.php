@@ -1040,7 +1040,7 @@ class Admin extends BaseController
         $nrp = $query1->nrp;
 
         $survei = new Survei();
-        $query2 = $survei->select(["id_survei","nama_survei","tautan","(CASE WHEN (SELECT rekap.id_rekap FROM rekap WHERE rekap.id_survei = survei.id_survei AND rekap.nrp = $nrp) IS NOT NULL THEN '1' ELSE '0' END) as cek"])
+        $query2 = $survei->select(["id_survei","nama_survei","tautan","(SELECT EXISTS(SELECT id_rekap FROM rekap WHERE rekap.id_survei = survei.id_survei AND nrp = $nrp)) as cek"])
             ->orderBy("id_survei")
             ->get()
             ->getResult();
