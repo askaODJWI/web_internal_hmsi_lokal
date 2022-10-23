@@ -32,7 +32,7 @@ class Admin extends BaseController
         $query1 = $pengurus->where("nrp",$nrp)
             ->first();
 
-        if(password_verify($pass,$query1->password))
+        if($query1 !== null && password_verify($pass,$query1->password))
         {
             session()->remove("id_pengurus");
             session()->set("id_pengurus",$query1->id_pengurus);
