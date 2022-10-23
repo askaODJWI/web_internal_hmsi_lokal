@@ -78,6 +78,7 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
 
         $routes->get("tambah","Admin::hadir_tambah");
         $routes->post("tambah","Admin::hadir_tambah_kirim");
+        $routes->get("detail/(:num)","Admin::hadir_detail/$1");
 
         $routes->get("rekap","Admin::hadir_rekap");
         $routes->post("rekap/detail","Admin::hadir_rekap_detail");

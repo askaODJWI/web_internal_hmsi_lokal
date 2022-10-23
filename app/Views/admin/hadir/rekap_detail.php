@@ -71,7 +71,7 @@
                     messageBottom:  "<br><center>Dokumen ini dicetak pada hari <b>" +
                         (new Date()).toLocaleString('id-ID',{dateStyle: 'full'}) + "</b> pukul <b>" +
                         (new Date()).toLocaleString('id-ID',{timeStyle: 'long'}) + "</b> oleh <b>" +
-                        "<?= $data2->nama ?></b> NRP <b><?= $data2->nrp ?></b></center>",
+                        "<?= $data2->nama ?> - <?= $data2->nrp ?></b></center>",
                     autoPrint: false,
                     className: "btn btn-danger bg-danger",
                     customize: function (win) {
@@ -90,7 +90,7 @@
                     messageBottom:  "Dokumen ini dicetak pada hari " +
                         (new Date()).toLocaleString('id-ID',{dateStyle: 'full'}) + " pukul " +
                         (new Date()).toLocaleString('id-ID',{timeStyle: 'long'}) + " oleh " +
-                        "<?= $data2->nama ?> NRP <?= $data2->nrp ?>",
+                        "<?= $data2->nama ?> - <?= $data2->nrp ?>",
                     customize: function( xlsx ) {
                         var sheet = xlsx.xl.worksheets['sheet1.xml'];
                         $('row:first c', sheet).attr( 's', '2' );

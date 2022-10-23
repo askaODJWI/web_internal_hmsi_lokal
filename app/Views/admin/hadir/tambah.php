@@ -5,7 +5,7 @@ Admin HMSI | Hadir | Tambah
 <?= $this->endSection() ?>
 
 <?= $this->section("halaman") ?>
-Tambah Pranala Kehadiran Acara
+Buat Tautan Kehadiran Acara Baru
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>
@@ -68,7 +68,7 @@ Tambah Pranala Kehadiran Acara
         <div class="col-lg-7">
             <label class="tx-danger tx-bold">Catatan Penting: </label>
             <label class="tx-danger">PASTIKAN KAMU SUDAH MEMBACA PANDUAN PEMBUATAN ACARA DI
-                <a href="https://hmsi.tekan.id/panduan-web">https://hmsi.tekan.id/panduan-web</a></label>
+                <a href="https://hmsi.tekan.id/panduan-web" target="_blank">https://hmsi.tekan.id/panduan-web</a></label>
         </div>
         <div class="col-lg-3 mt-auto">
             <div class="form-group">

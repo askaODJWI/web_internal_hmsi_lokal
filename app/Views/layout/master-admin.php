@@ -72,17 +72,17 @@
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "hadir") &&
             ((current_url(true)->getSegment(4)) === "dashboard") ? "active" : "" ?>">
                 <a href="<?= base_url("/admin/hadir/dashboard") ?>" class="nav-link">
-                    <i data-feather="list"></i> <span>Daftar Presensi</span></a>
+                    <i data-feather="list"></i> <span>Daftar Acara</span></a>
             </li>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "hadir") &&
             ((current_url(true)->getSegment(4)) === "tambah") ? "active" : "" ?>">
                 <a href="<?= base_url("/admin/hadir/tambah") ?>" class="nav-link">
-                    <i data-feather="plus-circle"></i> <span>Tambah Presensi</span></a>
+                    <i data-feather="plus-circle"></i> <span>Buat Acara Baru</span></a>
             </li>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "hadir") &&
             ((current_url(true)->getSegment(4)) === "rekap") ? "active" : "" ?>">
                 <a href="<?= base_url("/admin/hadir/rekap") ?>" class="nav-link">
-                    <i data-feather="file-text"></i> <span>Rekap</span></a>
+                    <i data-feather="file-text"></i> <span>Rekap Kehadiran</span></a>
             </li>
 
             <li class="nav-label mg-t-25">Rapor Fungsionaris</li>

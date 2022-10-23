@@ -15,6 +15,14 @@ use App\Models\Rekap;
 use App\Models\Survei;
 use App\Models\Tautan;
 use DateTime;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
+use Endroid\QrCode\Writer\PngWriter;
 
 class Admin extends BaseController
 {
@@ -246,11 +254,44 @@ class Admin extends BaseController
 
         if($query3 > 0)
         {
-            return redirect()->to(base_url("admin/hadir/dashboard"))
-                ->with("berhasil", "Data berhasil disimpan");
+            $query4 = $acara->select("kode_acara")
+                ->where("kode_acara",$query3)
+                ->first();
+
+            return redirect()->to(base_url("admin/hadir/detail/$query4->kode_acara"));
         }
         return redirect()->to(base_url("admin/hadir/tambah"))
             ->with("error","Data gagal disimpan ke Database");
+    }
+
+    public function hadir_detail($kode_acara)
+    {
+        $acara = new Acara();
+        $query1 = $acara->select(["*","(SELECT COUNT(kode_acara) FROM hadir WHERE acara.kode_acara = hadir.kode_acara GROUP BY kode_acara) as jumlah"])
+            ->where("kode_acara",$kode_acara)
+            ->first();
+
+        $pengurus = new Pengurus();
+        $query2 = $pengurus->where("id_pengurus",$query1->narahubung)
+            ->join("mhs","pengurus.nrp = mhs.nrp")
+            ->first();
+
+        $writer = new PngWriter();
+        $qr_code = QrCode::create(base_url("/$query1->kode_acara"))
+            ->setEncoding(new Encoding('UTF-8'))
+            ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
+            ->setSize(250)
+            ->setMargin(10)
+            ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
+            ->setForegroundColor(new Color(0, 0, 0))
+            ->setBackgroundColor(new Color(255, 255, 255));
+        $logo = Logo::create( FCPATH .'pic\saturasi-mini.jpg')
+            ->setResizeToWidth(50);
+
+        $hasil = $writer->write($qr_code, $logo);
+        $hasil_url = $hasil->getDataUri();
+
+        return view("admin/hadir/detail",["data" => $query1, "data2" => $query2, "data3" => $hasil_url]);
     }
 
     public function hadir_ubah($kode_acara)
@@ -368,7 +409,7 @@ class Admin extends BaseController
 
         if($id_pengurus < 2000)
         {
-            $query2 = $acara->select(["nama","jabatan","nama_departemen","nama_acara","acara.kode_acara","tanggal","COUNT(hadir.kode_acara) as peserta"])
+            $query2 = $acara->select(["nama","jabatan","nama_departemen","nama_acara","acara.kode_acara","tanggal","lokasi","COUNT(hadir.kode_acara) as peserta"])
                 ->join("hadir","acara.kode_acara = hadir.kode_acara")
                 ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
                 ->join("mhs","pengurus.nrp = mhs.nrp")
@@ -379,7 +420,7 @@ class Admin extends BaseController
                 ->getResult();
             return view("admin/hadir/rekap",["data" => $query2]);
         }
-        $query3 = $acara->select(["nama","jabatan","nama_departemen","nama_acara","acara.kode_acara","tanggal","COUNT(hadir.kode_acara) as peserta"])
+        $query3 = $acara->select(["nama","jabatan","nama_departemen","nama_acara","acara.kode_acara","tanggal","lokasi","COUNT(hadir.kode_acara) as peserta"])
             ->where("acara.id_departemen",$query1->id_departemen)
             ->join("hadir","acara.kode_acara = hadir.kode_acara")
             ->join("pengurus","acara.pembuat = pengurus.id_pengurus")
