@@ -255,7 +255,7 @@ class Admin extends BaseController
         if($query3 > 0)
         {
             $query4 = $acara->select("kode_acara")
-                ->where("kode_acara",$query3)
+                ->where("id_acara",$query3)
                 ->first();
 
             return redirect()->to(base_url("admin/hadir/detail/$query4->kode_acara"));
@@ -285,7 +285,7 @@ class Admin extends BaseController
             ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
             ->setForegroundColor(new Color(0, 0, 0))
             ->setBackgroundColor(new Color(255, 255, 255));
-        $logo = Logo::create( FCPATH .'pic\saturasi-mini.jpg')
+        $logo = Logo::create( FCPATH .'pic/saturasi-mini.jpg')
             ->setResizeToWidth(50);
 
         $hasil = $writer->write($qr_code, $logo);
