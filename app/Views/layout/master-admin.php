@@ -145,18 +145,11 @@
 
 <div class="content ht-100v pd-0">
     <div class="content-header">
-        <div class="content-search wd-500 ml-auto mr-auto bg-gray-200 pd-8">
-<!--            <span class="running-ultah">-->
-<!--                Selamat Ulang Tahun <b>Abdullah Gymnastiar Abdoerrani</b> 🎉-->
-<!--                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-->
-<!--                Semoga selalu dilimpahkan kesehatan dan panjang umur.-->
-<!--            </span>-->
-<!--            <span class="running-jarak">-->
-<!--                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-->
-<!--                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-->
-<!--                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-->
-<!--            </span>-->
-            <span class="running-info"></span>
+        <div class="form-inline ml-auto mr-auto">
+            <div class="bg-info tx-bold tx-white pd-8 d-none d-md-block">Pengumuman</div>
+            <div class="content-search bg-gray-200 pd-8 wd-xs-300 wd-md-500 wd-lg-800">
+                <div class="running-info"></div>
+            </div>
         </div>
         <nav class="nav">
             <div class="dropdown dropdown-profile">
@@ -259,7 +252,7 @@
 
 <script src="<?= base_url("main/lib/select2/js/select2.full.min.js") ?>"></script>
 <script src="<?= base_url("main/lib/chart.js/Chart.bundle.min.js") ?>"></script>
-<script type='text/javascript' src="https://cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js"></script>
 
 <script src="<?= base_url("main/assets/js/dashforge.js") ?>"></script>
 <script src="<?= base_url("main/assets/js/dashforge.aside.js") ?>"></script>
@@ -291,7 +284,7 @@
     });
 
     let info = $(".running-info");
-    const jarak = "&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"
+    const jarak = "&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"
     $.ajax({
         type: "GET",
         url: "/ajax/cek_info",
@@ -305,7 +298,12 @@
                 (index !== akhir) ? info.append(jarak) : null;
             });
 
-            $(".content-search").marquee();
+            $(".running-info").marquee({
+                duration: ($(window).width() < 768) ? 4000 : ($(window).width() < 992) ? 7000 : 10000,
+                direction: 'left',
+                gap: '100px',
+                duplicated: true,
+            });
         }
     });
 </script>
