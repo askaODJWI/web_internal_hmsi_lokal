@@ -30,7 +30,7 @@
         <td class="align-middle"><?= $d->nama_acara ?></td>
         <td class="align-middle">
             <?= (new IntlDateFormatter("id_ID",IntlDateFormatter::FULL,IntlDateFormatter::SHORT,"Asia/Jakarta",IntlDateFormatter::GREGORIAN,"eeee, dd MMMM yyyy"))->format(new DateTime($d->tanggal)) ?><br>
-            Pukul <?= date_format(date_create($d->tanggal),"H.m") ?> WIB<br>
+            Pukul <?= date_format(date_create($d->tanggal),"H.i") ?> WIB<br>
             <?= (!filter_var($d->lokasi, FILTER_VALIDATE_URL) === false) ?
                 "<span class='tx-success tx-bold'>Daring (online)</span>" :
                 "<span class='tx-gray-600 tx-bold'>Luring (offline)</span>"

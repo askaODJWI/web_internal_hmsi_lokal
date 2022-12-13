@@ -57,11 +57,11 @@ Admin HMSI | Hadir | Acara Detail
     <div class="col-12 col-md-5 mg-t-30 mg-md-t-0">
         <div class="card bg-white hasil">
             <div class="card-body mg-t-30 mg-b-30">
-                <div class="tx-center"><img src="<?= $data3 ?>" alt="qr-code"></div>
+                <div class="tx-center"><img src="<?= $data3 ?>" alt="qr-code" style="max-width: 250px;"></div>
 
                 <div class="mg-t-20"></div>
                 <div class="input-group">
-                    <input type="text" class="form-control tx-center tx-bold tx-24"
+                    <input type="text" class="form-control tx-center tx-bold tx-20"
                            name="tautan" id="tautan" value="hmsi.tekan.id/<?= $data->kode_acara ?>" readonly>
                     <div class="input-group-append">
                         <button type="button" onclick="copyLink('<?= base_url("/$data->kode_acara") ?>')" class="btn btn-primary"

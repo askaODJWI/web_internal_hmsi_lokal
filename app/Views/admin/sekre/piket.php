@@ -16,7 +16,7 @@ Kehadiran Piket Ruang Kesekretariatan
             <div class="marker marker-ribbon marker-primary pos-absolute t-10 l-0">Mulai piket RK<br></div>
             <p class="mg-t-30">
                 <span class="tx-gray-700">Status Piket:</span><br><b>
-                    <?= ($data2->jadwal_wajib == date("Y-m-d")) ? "Jadwal piket wajib" : "Bukan jadwal piket wajib" ?></b>
+                    <?= ($data2->jadwal_wajib == date("Y-m-d")) ? "Jadwal piket wajib" : "BUKAN jadwal piket wajib" ?></b>
             </p>
             <p>
                 <span class="tx-gray-700">Waktu Mulai:</span><br><b>
@@ -48,7 +48,7 @@ Kehadiran Piket Ruang Kesekretariatan
             <div class="marker marker-ribbon marker-primary pos-absolute t-10 l-0">Selesai piket RK<br></div>
             <p class="mg-t-30">
                 <span class="tx-gray-700">Status Piket:</span><br><b>
-                    <?= ($data2->jadwal_wajib == date("Y-m-d")) ? "Jadwal piket wajib" : "Bukan jadwal piket wajib" ?></b>
+                    <?= ($data2->jadwal_wajib == date("Y-m-d")) ? "Jadwal piket wajib" : "BUKAN jadwal piket wajib" ?></b>
             </p>
             <p>
                 <span class="tx-gray-700">Waktu Selesai:</span><br><b>
@@ -100,10 +100,10 @@ Kehadiran Piket Ruang Kesekretariatan
 </div>
 
 <div class="row">
-    <div class="col-12 col-lg-6">
+    <div class="col-12">
         <span class="tx-danger">
             <b>Catatan:</b><br>
-            Bagian <b>Selesai Piket RK</b> hanya wajib diisi untuk yang dijadwalkan piket wajib.
+            Bagian <b>Selesai Piket RK</b> wajib diisi untuk yang statusnya <b>jadwal piket wajib</b>.
         </span>
     </div>
 </div>

@@ -100,7 +100,7 @@ Ubah Tautan Kehadiran Acara
         placeholder: "Masukkan nama narahubung",
         ajax: {
             type: "GET",
-            url: "/ajax/cek_narahubung/",
+            url: "/ajax/cek_narahubung",
             dataType: "json",
             delay: 1000,
             minimumInputLength: 3,

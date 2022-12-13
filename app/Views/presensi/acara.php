@@ -17,12 +17,21 @@ Kehadiran Acara HMSI
     </p>
 </div>
 
+<?php if(session()->has("error")): ?>
+    <div class="alert alert-danger alert-dismissible fade show mt-3 animated zoomIn fast delay-1s" role="alert">
+        <?= session()->getFlashdata("error") ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+<?php endif; ?>
+
 <div class="form-group mt-3 animated zoomIn fast delay-1s">
     <label for="nrp" class="tx-bold">NRP <span class="tx-danger">*</span></label>
     <div class="input-group mg-b-10">
         <input id="nrp" name="nrp" type="text" class="form-control wd-200" placeholder="Masukkan NRP kamu">
         <div class="input-group-append">
-            <button type="submit" id="cek" name="cek" class="btn btn-primary"><i data-feather="search"></i> Cek NRP</button>
+            <button type="submit" id="cek" name="cek" class="btn btn-primary"><i data-feather="search"></i> Cari</button>
         </div>
     </div>
 </div>
@@ -130,6 +139,7 @@ Kehadiran Acara HMSI
             cek_angkatan.empty();
             nrp_salah.empty();
             data_benar.prop('checked',false);
+            $("#cek").prop('disabled',true);
 
             $.ajax(
             {
@@ -147,6 +157,7 @@ Kehadiran Acara HMSI
                     form_nrp.prop('value',data.nrp);
                     div.show();
                     div.addClass('animated fadeInDown fast');
+                    $("#cek").prop('disabled',false);
                 },
                 error: function ()
                 {
@@ -154,6 +165,7 @@ Kehadiran Acara HMSI
                     form2_nrp.prop('value',nrp);
                     error.show();
                     error.addClass('animated fadeInDown fast');
+                    $("#cek").prop('disabled',false);
                 }
             });
         }

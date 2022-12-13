@@ -17,7 +17,10 @@ use App\Models\Tautan;
 use DateTime;
 use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
 use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelMedium;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelQuartile;
 use Endroid\QrCode\Label\Label;
 use Endroid\QrCode\Logo\Logo;
 use Endroid\QrCode\QrCode;
@@ -279,14 +282,14 @@ class Admin extends BaseController
         $writer = new PngWriter();
         $qr_code = QrCode::create(base_url("/$query1->kode_acara"))
             ->setEncoding(new Encoding('UTF-8'))
-            ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
-            ->setSize(250)
-            ->setMargin(10)
+            ->setErrorCorrectionLevel(new ErrorCorrectionLevelMedium())
+            ->setSize(500)
+            ->setMargin(20)
             ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
             ->setForegroundColor(new Color(0, 0, 0))
             ->setBackgroundColor(new Color(255, 255, 255));
         $logo = Logo::create( FCPATH .'pic/saturasi-mini.jpg')
-            ->setResizeToWidth(50);
+            ->setResizeToWidth(100);
 
         $hasil = $writer->write($qr_code, $logo);
         $hasil_url = $hasil->getDataUri();

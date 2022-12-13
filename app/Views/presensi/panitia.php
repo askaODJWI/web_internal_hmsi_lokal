@@ -5,6 +5,7 @@ Kehadiran Acara HMSI
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>
+
 <div class="card card-body shadow-none bd-primary">
     <div class="marker marker-ribbon marker-danger pos-absolute t-10 l-0">Hak Akses Panitia: <?= $data->kode_acara ?><br></div>
     <p class="mg-t-30">
@@ -39,7 +40,7 @@ Kehadiran Acara HMSI
     <div class="input-group mg-b-10">
         <input id="nrp" name="nrp" type="text" class="form-control wd-200" placeholder="Masukkan NRP peserta">
         <div class="input-group-append">
-            <button type="submit" id="cek" name="cek" class="btn btn-primary"><i data-feather="search"></i> Cek NRP</button>
+            <button type="submit" id="cek" name="cek" class="btn btn-primary"><i data-feather="search"></i> Cari</button>
         </div>
     </div>
 </div>
@@ -67,7 +68,7 @@ Kehadiran Acara HMSI
             </table>
             <br>
             <span>Keterangan:</span>
-            <textarea id="keterangan" name="keterangan" class="form-control" rows="2" type="text" placeholder="tidak wajib diisi"></textarea>
+            <textarea id="keterangan" name="keterangan" class="form-control" rows="1" type="text" placeholder="tidak wajib diisi"></textarea>
             <input type="hidden" id="form_kode" name="form_kode" value="<?= $data->kode_acara ?>">
             <input type="hidden" id="form_nrp" name="form_nrp">
             <button type="submit" class="mt-2 btn btn-primary btn-block btn-xs"><i data-feather="check-circle"></i> Klik untuk Hadir</button>
@@ -113,6 +114,7 @@ Kehadiran Acara HMSI
             cek_angkatan.empty();
             nrp_salah.empty();
             data_benar.prop('checked',false);
+            $("#cek").prop('disabled',true);
 
             $.ajax(
                 {
@@ -129,12 +131,14 @@ Kehadiran Acara HMSI
                         cek_angkatan.append(data.angkatan);
                         form_nrp.prop('value',data.nrp);
                         div.show();
+                        $("#cek").prop('disabled',false);
                     },
                     error: function ()
                     {
                         nrp_salah.append(nrp);
                         form2_nrp.prop('value',nrp);
                         error.show();
+                        $("#cek").prop('disabled',false);
                     }
                 });
         }
