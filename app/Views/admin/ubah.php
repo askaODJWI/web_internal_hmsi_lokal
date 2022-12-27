@@ -4,6 +4,10 @@
 Admin HMSI | Akun | Ubah
 <?= $this->endSection() ?>
 
+<?= $this->section("breadcrumb") ?>
+<?= $breadcrumb ?>
+<?= $this->endSection() ?>
+
 <?= $this->section("halaman") ?>
 Ubah Data Akun
 <?= $this->endSection() ?>

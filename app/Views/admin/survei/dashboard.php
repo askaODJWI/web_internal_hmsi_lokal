@@ -4,8 +4,12 @@
     Admin HMSI | Survei | Dashboard
 <?= $this->endSection() ?>
 
+<?= $this->section("breadcrumb") ?>
+<?= $breadcrumb ?>
+<?= $this->endSection() ?>
+
 <?= $this->section("halaman") ?>
-    Daftar Survei Tersedia
+    Daftar Survei
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>

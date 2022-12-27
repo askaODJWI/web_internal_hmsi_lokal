@@ -4,9 +4,17 @@
     Admin HMSI | Rapor | Isi Detail
 <?= $this->endSection() ?>
 
+<?= $this->section("breadcrumb") ?>
+<?= $breadcrumb ?>
+<?= $this->endSection() ?>
+
 <?= $this->section("halaman") ?>
     Isi Detail Nilai Rapor Fungsionaris
     <p class="tx-16 tx-bold tx-primary"><?= $data[0]->nama ?> - <?= $data[0]->nama_departemen ?></p>
+<?= $this->endSection() ?>
+
+<?= $this->section("tambah") ?>
+<a href="<?= base_url("admin/rapor/isi") ?>" class="btn btn-secondary btn-sm"><i data-feather="arrow-left"></i> Kembali</a>
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>
@@ -19,7 +27,6 @@
     for($i = 0 ; $i <= $total ; $i+=5 ): ?>
 
         <h4 class="accordion-title tx-bold tx-20">
-            Rapor Bulan
             <?php switch($data[$i]->id_bulan){
                         case(1): echo "APRIL"; break;
                         case(2): echo "JULI"; break;

@@ -4,9 +4,17 @@
     Admin HMSI | Hadir | Rekap Detail
 <?= $this->endSection() ?>
 
+<?= $this->section("breadcrumb") ?>
+<?= $breadcrumb ?>
+<?= $this->endSection() ?>
+
 <?= $this->section("halaman") ?>
     Rekap Kehadiran Acara
     <p class="tx-primary tx-bold tx-16"><?= $data1->nama_acara ?></p>
+<?= $this->endSection() ?>
+
+<?= $this->section("tambah") ?>
+    <a href="<?= base_url("admin/hadir/rekap") ?>" class="btn btn-secondary btn-sm"><i data-feather="arrow-left"></i> Kembali</a>
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>

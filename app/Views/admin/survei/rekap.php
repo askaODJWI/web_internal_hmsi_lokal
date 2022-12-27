@@ -4,9 +4,17 @@
     Admin HMSI | Survei | Rekap Pengisian
 <?= $this->endSection() ?>
 
+<?= $this->section("breadcrumb") ?>
+<?= $breadcrumb ?>
+<?= $this->endSection() ?>
+
 <?= $this->section("halaman") ?>
     Rekap Pengisian Survei
     <p class="tx-primary tx-bold tx-16"><?= $data1->nama_survei ?></p>
+<?= $this->endSection() ?>
+
+<?= $this->section("tambah") ?>
+    <a href="<?= base_url("admin/survei/dashboard") ?>" class="btn btn-secondary btn-sm"><i data-feather="arrow-left"></i> Kembali</a>
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>

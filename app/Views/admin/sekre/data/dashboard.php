@@ -1,15 +1,15 @@
 <?= $this->extend("layout/master-admin") ?>
 
 <?= $this->section("title") ?>
-Admin HMSI | Data | Nama
+Admin HMSI | Sekre | Data | Dashboard
+<?= $this->endSection() ?>
+
+<?= $this->section("breadcrumb") ?>
+<?= $breadcrumb ?>
 <?= $this->endSection() ?>
 
 <?= $this->section("halaman") ?>
-Cari Data Mahasiswa
-
-<?php if(service("request")->getMethod() === "post"): ?>
-<span class="text-primary">: <?= $data2 ?></span>
-<?php endif; ?>
+Dashboard Data Mahasiswa
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>

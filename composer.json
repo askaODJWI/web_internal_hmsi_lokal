@@ -9,7 +9,8 @@
         "codeigniter4/framework": "^4",
       "ext-json": "*",
       "ext-intl": "*",
-        "endroid/qr-code": "^4.6"
+        "endroid/qr-code": "^4.6",
+        "geeklabs/ci4-breadcrumbs": "^2.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",

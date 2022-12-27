@@ -4,8 +4,16 @@
 Admin HMSI | Hadir | Ubah
 <?= $this->endSection() ?>
 
+<?= $this->section("breadcrumb") ?>
+<?= $breadcrumb ?>
+<?= $this->endSection() ?>
+
 <?= $this->section("halaman") ?>
 Ubah Tautan Kehadiran Acara
+<?= $this->endSection() ?>
+
+<?= $this->section("tambah") ?>
+<a href="<?= base_url("admin/hadir/detail/$data->kode_acara") ?>" class="btn btn-secondary btn-sm"><i data-feather="arrow-left"></i> Kembali</a>
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>

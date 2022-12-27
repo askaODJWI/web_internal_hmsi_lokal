@@ -4,6 +4,10 @@
 Admin HMSI | Rapor | Isi
 <?= $this->endSection() ?>
 
+<?= $this->section("breadcrumb") ?>
+<?= $breadcrumb ?>
+<?= $this->endSection() ?>
+
 <?= $this->section("halaman") ?>
 Isi Nilai Rapor Fungsionaris
 <?= $this->endSection() ?>
@@ -43,7 +47,7 @@ Isi Nilai Rapor Fungsionaris
             </td>
             <td class="align-middle tx-center">
                 <a href="<?= base_url("admin/rapor/isi/detail") . "/" . $data[$i]->id_pengurus ?>"
-                   class="btn btn-primary btn-xs"><i data-feather="edit-2"></i> Isi Nilai Rapor</a>
+                   class="btn btn-primary btn-xs"><i data-feather="edit-2"></i> Lakukan Penilaian</a>
             </td>
         </tr>
     <?php endfor; ?>

@@ -4,6 +4,10 @@
     Admin HMSI | Hadir | Rekap
 <?= $this->endSection() ?>
 
+<?= $this->section("breadcrumb") ?>
+<?= $breadcrumb ?>
+<?= $this->endSection() ?>
+
 <?= $this->section("halaman") ?>
     Rekap Kehadiran Acara
 <?= $this->endSection() ?>
@@ -41,7 +45,7 @@
             <td class="align-middle tx-center">
                 <form action="<?= base_url("admin/hadir/rekap/detail") ?>" method="post">
                     <input type="hidden" name="kode_acara" id="kode_acara" value="<?= $d->kode_acara ?>">
-                    <button type="submit" class="btn btn-primary btn-xs"><i data-feather="file-text"></i> Lihat Rekap</button>
+                    <button type="submit" class="btn btn-primary"><i data-feather="file-text"></i> Tampilkan</button>
                 </form>
             </td>
         </tr>
@@ -55,6 +59,10 @@
 
 <script>
     $('#rekap-acara').DataTable({
+        lengthMenu: [
+            [ 10, 25, 50, 100, 200, -1 ],
+            [ 10, 25, 50, 100, 200, "Semua" ]
+        ],
         language: {
             searchPlaceholder: "Cari...",
             search: "",

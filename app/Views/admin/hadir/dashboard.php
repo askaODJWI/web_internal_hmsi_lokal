@@ -4,8 +4,16 @@
     Admin HMSI | Hadir | Dashboard
 <?= $this->endSection() ?>
 
+<?= $this->section("breadcrumb") ?>
+    <?= $breadcrumb ?>
+<?= $this->endSection() ?>
+
 <?= $this->section("halaman") ?>
     Daftar Tautan Kehadiran Acara
+<?= $this->endSection() ?>
+
+<?= $this->section("tambah") ?>
+<a href="<?= base_url("admin/hadir/tambah") ?>" class="btn btn-primary btn-sm"><i data-feather="plus"></i> Tambah Ajuan</a>
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>
@@ -92,6 +100,10 @@
     }
 
     $('#daftar-link-acara').DataTable({
+        lengthMenu: [
+            [ 10, 25, 50, 100, 200, -1 ],
+            [ 10, 25, 50, 100, 200, "Semua" ]
+        ],
         language: {
             searchPlaceholder: "Cari...",
             search: "",

@@ -4,8 +4,16 @@
 Admin HMSI | Hadir | Tambah
 <?= $this->endSection() ?>
 
+<?= $this->section("breadcrumb") ?>
+<?= $breadcrumb ?>
+<?= $this->endSection() ?>
+
 <?= $this->section("halaman") ?>
 Buat Tautan Kehadiran Acara Baru
+<?= $this->endSection() ?>
+
+<?= $this->section("tambah") ?>
+<a href="<?= base_url("admin/hadir/dashboard") ?>" class="btn btn-secondary btn-sm"><i data-feather="arrow-left"></i> Kembali</a>
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>

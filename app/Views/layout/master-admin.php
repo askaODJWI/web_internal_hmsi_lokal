@@ -11,7 +11,7 @@
     <link href="<?= base_url("main/lib/@fortawesome/fontawesome-free/css/all.min.css") ?>" rel="stylesheet">
 
     <link href="<?= base_url("main/lib/datatables.net-dt/css/jquery.dataTables.min.css") ?>" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.bootstrap4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.bootstrap4.min.css">
     <link href="<?= base_url("main/lib/select2/css/select2.min.css") ?>" rel="stylesheet">
 
     <link href="<?= base_url("main/lib/ionicons/css/ionicons.min.css") ?>" rel="stylesheet">
@@ -66,7 +66,7 @@
                     <i data-feather="home"></i> <span>Beranda</span></a>
             </li>
 
-            <li class="nav-label mg-t-25">
+            <li class="nav-label mg-t-20">
                 Kehadiran Acara
             </li>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "hadir") &&
@@ -75,17 +75,12 @@
                     <i data-feather="list"></i> <span>Daftar Acara</span></a>
             </li>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "hadir") &&
-            ((current_url(true)->getSegment(4)) === "tambah") ? "active" : "" ?>">
-                <a href="<?= base_url("/admin/hadir/tambah") ?>" class="nav-link">
-                    <i data-feather="plus-circle"></i> <span>Buat Acara Baru</span></a>
-            </li>
-            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "hadir") &&
             ((current_url(true)->getSegment(4)) === "rekap") ? "active" : "" ?>">
                 <a href="<?= base_url("/admin/hadir/rekap") ?>" class="nav-link">
                     <i data-feather="file-text"></i> <span>Rekap Kehadiran</span></a>
             </li>
 
-            <li class="nav-label mg-t-25">Rapor Fungsionaris</li>
+            <li class="nav-label mg-t-20">Rapor Fungsionaris</li>
             <?php if(session()->get("id_pengurus") < 4000): ?>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "rapor") &&
             ((current_url(true)->getSegment(4)) === "dashboard") ? "active" : "" ?>">
@@ -106,34 +101,50 @@
             </li>
             <?php endif; ?>
 
-            <li class="nav-label mg-t-25">Menu Lainnya</li>
-            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "data") &&
-            ((current_url(true)->getSegment(4)) === "nama") ? "active" : "" ?>">
-                <a href="<?= base_url("/admin/data/nama") ?>" class="nav-link">
-                    <i data-feather="info"></i> <span>Cari Data</span></a>
+            <li class="nav-label mg-t-20">Sekretariat</li>
+            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "sekre") &&
+            ((current_url(true)->getSegment(4)) === "piket")  &&
+            ((current_url(true)->getSegment(5)) === "dashboard") ? "active" : "" ?>">
+                <a href="<?= base_url("/admin/sekre/piket/dashboard") ?>" class="nav-link">
+                    <i data-feather="check-square"></i> <span>Kehadiran Piket</span></a>
             </li>
+            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "sekre") &&
+            ((current_url(true)->getSegment(4)) === "piket") &&
+            ((current_url(true)->getSegment(5)) === "riwayat") ? "active" : "" ?>">
+                <a href="<?= base_url("/admin/sekre/piket/riwayat") ?>" class="nav-link">
+                    <i data-feather="clock"></i> <span>Riwayat Piket</span></a>
+            </li>
+            <?php if(session()->get("id_pengurus") < 2000): ?>
+            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "sekre") &&
+            ((current_url(true)->getSegment(4)) === "piket") &&
+            ((current_url(true)->getSegment(5)) === "kontrol") ? "active" : "" ?>">
+                <a href="<?= base_url("/admin/sekre/piket/kontrol") ?>" class="nav-link">
+                    <i data-feather="trending-up"></i> <span>Kontrol Piket</span></a>
+            </li>
+            <?php endif; ?>
+            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "sekre") &&
+            ((current_url(true)->getSegment(4)) === "data") &&
+            ((current_url(true)->getSegment(5)) === "dashboard") ? "active" : "" ?>">
+                <a href="<?= base_url("/admin/sekre/data/dashboard") ?>" class="nav-link">
+                    <i data-feather="info"></i> <span>Data Mahasiswa</span></a>
+            </li>
+
+            <li class="nav-label mg-t-20">Menu Lain</li>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "survei") &&
             ((current_url(true)->getSegment(4)) === "dashboard") ? "active" : "" ?>">
                 <a href="<?= base_url("/admin/survei/dashboard") ?>" class="nav-link">
-                    <i data-feather="bar-chart-2"></i> <span>Isi Survei</span></a>
+                    <i data-feather="bar-chart-2"></i> <span>Daftar Survei</span></a>
             </li>
-            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "sekre") &&
-            ((current_url(true)->getSegment(4)) === "piket") ? "active" : "" ?>">
-                <a href="<?= base_url("/admin/sekre/piket") ?>" class="nav-link">
-                    <i data-feather="check-square"></i> <span>Piket RK</span></a>
+            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "akun") &&
+            ((current_url(true)->getSegment(4)) === "ubah") ? "active" : "" ?>">
+                <a href="<?= base_url("/admin/akun/ubah") ?>" class="nav-link">
+                    <i data-feather="user-check"></i> <span>Ubah Profil</span>
+                    <span class="badge badge-danger ml-auto animated infinite slower flash" id="profil_lengkap"></span>
+                </a>
             </li>
             <li class="nav-item">
                 <a href="https://tekan.id/" target="_blank" class="nav-link">
                     <i data-feather="link"></i> <span>Ringkas Tautan <i data-feather="external-link" style="height:12px; margin-bottom:5px;"></i></span></a>
-            </li>
-
-            <li class="nav-label mg-t-25">Akun</li>
-            <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "akun") &&
-            ((current_url(true)->getSegment(4)) === "ubah") ? "active" : "" ?>">
-                <a href="<?= base_url("/admin/akun/ubah") ?>" class="nav-link">
-                    <i data-feather="user-check"></i> <span>Ubah Data</span>
-                    <span class="badge badge-danger ml-auto animated infinite slower flash" id="profil_lengkap"></span>
-                </a>
             </li>
             <li class="nav-item">
                 <a href="<?= base_url("/admin/logout") ?>" class="nav-link">
@@ -173,7 +184,11 @@
 
     <div class="content-body">
         <div class="container pd-x-0">
-            <h3 class="mg-b-25"><?= $this->renderSection("halaman") ?></h3>
+            <?= $this->renderSection("breadcrumb") ?>
+            <div class="d-sm-flex align-items-center justify-content-between mg-b-20">
+                <h3><?= $this->renderSection("halaman") ?></h3>
+                <?= $this->renderSection("tambah") ?>
+            </div>
 
             <?php if(session()->has("error")): ?>
                 <div class="alert alert-danger alert-dismissible fade show mt-3 mb-3" role="alert">
@@ -241,7 +256,7 @@
 <script src="<?= base_url("main/lib/prismjs/prism.js") ?>"></script>
 
 <script src="<?= base_url("main/lib/datatables.net-dt/js/dataTables.dataTables.min.js") ?>"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
@@ -303,6 +318,7 @@
                 direction: 'left',
                 gap: '100px',
                 duplicated: true,
+                pauseOnHover: true
             });
         }
     });

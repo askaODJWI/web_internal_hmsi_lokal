@@ -114,11 +114,7 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
 
     $routes->group("data", function ($routes)
     {
-        $routes->get("nama","Admin::data_nama");
-        $routes->post("nama","Admin::data_nama_kirim");
 
-        $routes->get("nrp","Admin::data_nrp");
-        $routes->post("nrp","Admin::data_nrp_kirim");
     });
 
     $routes->group("survei", function ($routes)
@@ -129,10 +125,19 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
     });
 
     $routes->group("sekre", function ($routes){
-        $routes->get("piket","Admin::sekre_piket");
-        $routes->post("piket/hadir","Admin::sekre_piket_hadir");
-        $routes->post("piket/pulang","Admin::sekre_piket_pulang");
-        $routes->post("piket/ubah","Admin::sekre_piket_ubah");
+        $routes->group("piket", function ($routes){
+            $routes->get("dashboard","Admin::sekre_piket_dashboard");
+            $routes->get("riwayat","Admin::sekre_piket_riwayat");
+            $routes->get("kontrol","Admin::sekre_piket_kontrol");
+            $routes->post("hadir","Admin::sekre_piket_hadir");
+            $routes->post("pulang","Admin::sekre_piket_pulang");
+            $routes->post("ubah","Admin::sekre_piket_ubah");
+        });
+
+        $routes->group("data", function ($routes){
+            $routes->get("dashboard","Admin::sekre_data_dashboard");
+        });
+
     });
 });
 /*

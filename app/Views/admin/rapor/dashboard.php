@@ -4,6 +4,10 @@
 Admin HMSI | Rapor | Dashboard
 <?= $this->endSection() ?>
 
+<?= $this->section("breadcrumb") ?>
+<?= $breadcrumb ?>
+<?= $this->endSection() ?>
+
 <?= $this->section("halaman") ?>
 Daftar Nilai Rapor Fungsionaris
 <?= $this->endSection() ?>

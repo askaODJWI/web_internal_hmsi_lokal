@@ -4,6 +4,14 @@
 Admin HMSI | Rapor | Hasil
 <?= $this->endSection() ?>
 
+<?= $this->section("breadcrumb") ?>
+<?= $breadcrumb ?>
+<?= $this->endSection() ?>
+
+<?= $this->section("halaman") ?>
+Hasil Penilaian Rapor Fungsionaris
+<?= $this->endSection() ?>
+
 <?= $this->section("konten") ?>
 
 <style>
