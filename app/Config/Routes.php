@@ -3,7 +3,11 @@
 namespace Config;
 
 // Create a new instance of our RouteCollection class.
+use App\Controllers\HadirControl;
+use App\Controllers\PiketControl;
 use App\Controllers\Presensi;
+use App\Controllers\RaporControl;
+use App\Controllers\SurveiControl;
 
 $routes = Services::routes();
 
@@ -74,22 +78,17 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
 
     $routes->group("hadir", function ($routes)
     {
-        $routes->get("dashboard","Admin::hadir_dashboard");
-
-        $routes->get("tambah","Admin::hadir_tambah");
-        $routes->post("tambah","Admin::hadir_tambah_kirim");
-        $routes->get("detail/(:num)","Admin::hadir_detail/$1");
-
-        $routes->get("rekap","Admin::hadir_rekap");
-        $routes->post("rekap/detail","Admin::hadir_rekap_detail");
-
-        $routes->get("ubah/(:num)","Admin::hadir_ubah/$1");
-        $routes->post("ubah","Admin::hadir_ubah_kirim");
-
-        $routes->get("hapus/(:num)","Admin::hadir_hapus/$1");
-
-        $routes->get("tutup/(:num)","Admin::hadir_tutup/$1");
-        $routes->get("buka/(:num)","Admin::hadir_buka/$1");
+        $routes->get("dashboard",[HadirControl::class, "index"]);
+        $routes->get("tambah",[HadirControl::class, "tambah"]);
+        $routes->post("tambah",[HadirControl::class, "tambah_kirim"]);
+        $routes->get("detail/(:num)",[HadirControl::class, "detail"]);
+        $routes->get("rekap",[HadirControl::class, "rekap"]);
+        $routes->post("rekap/detail",[HadirControl::class, "rekap_detail"]);
+        $routes->get("ubah/(:num)",[HadirControl::class, "ubah"]);
+        $routes->post("ubah",[HadirControl::class, "ubah_kirim"]);
+        $routes->get("hapus/(:num)",[HadirControl::class, "hapus"]);
+        $routes->get("tutup/(:num)",[HadirControl::class, "tutup"]);
+        $routes->get("buka/(:num)",[HadirControl::class, "buka"]);
     });
 
     $routes->group("akun",function ($routes)
@@ -101,43 +100,34 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
 
     $routes->group("rapor", function ($routes)
     {
-        $routes->get("dashboard","Admin::rapor_dashboard");
-
-        $routes->get("isi","Admin::rapor_isi");
-        $routes->get("isi/auto/(:num)/(:num)","Admin::rapor_isi_auto/$1/$2");
-        $routes->get("isi/detail/(:num)","Admin::rapor_isi_detail/$1");
-        $routes->post("isi/kirim","Admin::rapor_isi_kirim");
-
-        $routes->get("hasil","Admin::rapor_hasil");
-        $routes->post("hasil","Admin::rapor_hasil_post");
-    });
-
-    $routes->group("data", function ($routes)
-    {
-
+        $routes->get("dashboard",[RaporControl::class, "index"]);
+        $routes->get("isi",[RaporControl::class, "isi"]);
+        $routes->get("isi/auto/(:num)/(:num)",[RaporControl::class, "isi_auto"]);
+        $routes->get("isi/detail/(:num)",[RaporControl::class, "isi_detail"]);
+        $routes->post("isi/kirim",[RaporControl::class,"isi_kirim"]);
+        $routes->get("hasil",[RaporControl::class, "hasil"]);
+        $routes->post("hasil",[RaporControl::class, "hasil_post"]);
     });
 
     $routes->group("survei", function ($routes)
     {
-        $routes->get("dashboard","Admin::survei_dashboard");
-
-        $routes->get("detail/(:num)","Admin::survei_detail/$1");
+        $routes->get("dashboard",[SurveiControl::class, "index"]);
+        $routes->get("detail/(:num)",[SurveiControl::class, "detail"]);
     });
 
     $routes->group("sekre", function ($routes){
         $routes->group("piket", function ($routes){
-            $routes->get("dashboard","Admin::sekre_piket_dashboard");
-            $routes->get("riwayat","Admin::sekre_piket_riwayat");
-            $routes->get("kontrol","Admin::sekre_piket_kontrol");
-            $routes->post("hadir","Admin::sekre_piket_hadir");
-            $routes->post("pulang","Admin::sekre_piket_pulang");
-            $routes->post("ubah","Admin::sekre_piket_ubah");
+            $routes->get("dashboard",[PiketControl::class,"index"]);
+            $routes->get("riwayat",[PiketControl::class,"riwayat"]);
+            $routes->get("kontrol",[PiketControl::class,"kontrol"]);
+            $routes->post("hadir",[PiketControl::class,"hadir"]);
+            $routes->post("pulang",[PiketControl::class,"pulang"]);
+            $routes->post("ubah",[PiketControl::class,"ubah"]);
         });
 
         $routes->group("data", function ($routes){
             $routes->get("dashboard","Admin::sekre_data_dashboard");
         });
-
     });
 });
 /*

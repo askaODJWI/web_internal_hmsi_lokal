@@ -81,7 +81,7 @@ Ubah Tautan Kehadiran Acara
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-7">
             <label class="tx-danger tx-bold">Catatan Penting: </label>
             <label class="tx-danger">PASTIKAN KAMU SUDAH MEMBACA PANDUAN PEMBUATAN ACARA DI
                 <a href="https://hmsi.tekan.id/panduan-web" target="_blank">https://hmsi.tekan.id/panduan-web</a></label>

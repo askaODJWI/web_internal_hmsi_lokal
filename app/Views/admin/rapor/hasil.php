@@ -12,6 +12,12 @@ Admin HMSI | Rapor | Hasil
 Hasil Penilaian Rapor Fungsionaris
 <?= $this->endSection() ?>
 
+<?php if(session("id_pengurus") < 4000): ?>
+<?= $this->section("tambah") ?>
+<a href="<?= base_url("admin/rapor/dashboard") ?>" class="btn btn-secondary btn-sm"><i data-feather="arrow-left"></i> Kembali</a>
+<?= $this->endSection() ?>
+<?php endif; ?>
+
 <?= $this->section("konten") ?>
 
 <style>

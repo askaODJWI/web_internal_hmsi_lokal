@@ -107,7 +107,7 @@ Kehadiran Piket Ruang Kesekretariatan
     <div class="col-12">
         <span class="tx-danger">
             <b>Catatan:</b><br>
-            Bagian <b>Selesai Piket RK</b> wajib diisi untuk yang statusnya <b>jadwal piket wajib</b>.
+            Bagian <b>KEPULANGAN PIKET</b> wajib diisi untuk yang statusnya <b>jadwal piket wajib</b>.
         </span>
     </div>
 </div>

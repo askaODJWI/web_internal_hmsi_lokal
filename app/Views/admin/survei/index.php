@@ -12,7 +12,12 @@
     Daftar Survei
 <?= $this->endSection() ?>
 
+<?= $this->section("tambah") ?>
+<a href="<?= base_url("admin/survei/tambah") ?>" class="btn btn-primary btn-sm"><i data-feather="plus"></i> Buat Survei Baru</a>
+<?= $this->endSection() ?>
+
 <?= $this->section("konten") ?>
+
 <table id="daftar-survei" class="table table-hover">
     <thead>
     <tr class="tx-center">

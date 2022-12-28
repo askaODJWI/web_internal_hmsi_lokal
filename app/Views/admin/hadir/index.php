@@ -13,7 +13,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section("tambah") ?>
-<a href="<?= base_url("admin/hadir/tambah") ?>" class="btn btn-primary btn-sm"><i data-feather="plus"></i> Tambah Ajuan</a>
+<a href="<?= base_url("admin/hadir/tambah") ?>" class="btn btn-primary btn-sm"><i data-feather="plus"></i> Buat Acara Baru</a>
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>

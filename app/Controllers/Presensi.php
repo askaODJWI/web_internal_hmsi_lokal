@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
 use App\Models\Acara;
 use App\Models\Hadir;
 use App\Models\Mhs;
