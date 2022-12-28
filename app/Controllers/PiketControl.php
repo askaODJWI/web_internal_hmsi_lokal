@@ -6,6 +6,8 @@ use App\Models\Jadwal;
 use App\Models\Piket;
 use App\Modules\Breadcrumbs\Breadcrumbs;
 use CodeIgniter\HTTP\RedirectResponse;
+use DateTime;
+use DateTimeZone;
 
 class PiketControl extends BaseController
 {
@@ -55,7 +57,7 @@ class PiketControl extends BaseController
         $breadcrumbs = $this->breadcrumbs->render();
 
         $this->cek_tanggal();
-        [$bawah, $atas] = $this->batas;
+        [$bawah,] = $this->batas;
 
         $query4 = $this->piket->where("id_pengurus",$this->id_pengurus)
             ->where("waktu_datang <=",$bawah)
@@ -89,10 +91,10 @@ class PiketControl extends BaseController
             ["data5" => $query5, "breadcrumbs" => $breadcrumbs]);
     }
 
-    public function hadir()
+    public function hadir(): RedirectResponse
     {
-        $waktu = (new \DateTime('now'))
-            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+        $waktu = (new DateTime('now'))
+            ->setTimezone(new DateTimeZone('Asia/Jakarta'))
             ->format('Y-m-d H:i:s');
         $tanggal = date("Y-m-d");
 
@@ -120,15 +122,15 @@ class PiketControl extends BaseController
 
     public function pulang(): RedirectResponse
     {
-        $waktu = (new \DateTime('now'))
-            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+        $waktu = (new DateTime('now'))
+            ->setTimezone(new DateTimeZone('Asia/Jakarta'))
             ->format('Y-m-d H:i:s');
         $tanggal = date("Y-m-d");
-        $bawah = (new \DateTime($tanggal . "00:00:01"))
-            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+        $bawah = (new DateTime($tanggal . "00:00:01"))
+            ->setTimezone(new DateTimeZone('Asia/Jakarta'))
             ->format('Y-m-d H:i:s');
-        $atas = (new \DateTime($tanggal . "23:59:59"))
-            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+        $atas = (new DateTime($tanggal . "23:59:59"))
+            ->setTimezone(new DateTimeZone('Asia/Jakarta'))
             ->format('Y-m-d H:i:s');
 
         $piket = new Piket();
@@ -205,11 +207,11 @@ class PiketControl extends BaseController
     public function cek_tanggal(): void
     {
         $tanggal = date("Y-m-d");
-        $bawah = (new \DateTime($tanggal . "00:00:01"))
-            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+        $bawah = (new DateTime($tanggal . "00:00:01"))
+            ->setTimezone(new DateTimeZone('Asia/Jakarta'))
             ->format('Y-m-d H:i:s');
-        $atas = (new \DateTime($tanggal . "23:59:59"))
-            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+        $atas = (new DateTime($tanggal . "23:59:59"))
+            ->setTimezone(new DateTimeZone('Asia/Jakarta'))
             ->format('Y-m-d H:i:s');
 
         $this->batas = array($bawah, $atas);

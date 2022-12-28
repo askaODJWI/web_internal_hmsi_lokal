@@ -9,6 +9,7 @@ use App\Models\Pengurus;
 use App\Models\Rapor;
 use App\Modules\Breadcrumbs\Breadcrumbs;
 use CodeIgniter\HTTP\RedirectResponse;
+use DateTime;
 
 class RaporControl extends BaseController
 {
@@ -136,17 +137,19 @@ class RaporControl extends BaseController
             ->join("mhs","pengurus.nrp = mhs.nrp")
             ->first();
 
+        $awal = (new DateTime("0000-00-00 00:00:00"))->format("y-m-d H:i:s");
+        $akhir = (new DateTime("0000-00-00 00:00:00"))->format("y-m-d H:i:s");
         switch($id_bulan)
         {
             case(1):
-                $awal = (new \DateTime("2022-02-01 00:00:00"))->format("y-m-d H:i:s") ;
-                $akhir = (new \DateTime("2022-05-31 23:59:59"))->format("y-m-d H:i:s") ; break;
+                $awal = (new DateTime("2022-02-01 00:00:00"))->format("y-m-d H:i:s");
+                $akhir = (new DateTime("2022-05-31 23:59:59"))->format("y-m-d H:i:s"); break;
             case(2):
-                $awal = (new \DateTime("2022-06-01 00:00:00"))->format("y-m-d H:i:s") ;
-                $akhir = (new \DateTime("2022-07-31 23:59:59"))->format("y-m-d H:i:s"); break;
+                $awal = (new DateTime("2022-06-01 00:00:00"))->format("y-m-d H:i:s");
+                $akhir = (new DateTime("2022-07-31 23:59:59"))->format("y-m-d H:i:s"); break;
             case(3):
-                $awal = (new \DateTime("2022-08-01 00:00:00"))->format("y-m-d H:i:s") ;
-                $akhir = (new \DateTime("2022-10-31 23:59:59"))->format("y-m-d H:i:s"); break;
+                $awal = (new DateTime("2022-08-01 00:00:00"))->format("y-m-d H:i:s");
+                $akhir = (new DateTime("2022-10-31 23:59:59"))->format("y-m-d H:i:s"); break;
         }
         $nilai2a = $this->hadir->where("nrp",$query1->nrp)
             ->where("tipe","1")

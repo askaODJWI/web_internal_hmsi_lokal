@@ -5,16 +5,19 @@ namespace App\Controllers;
 use App\Models\Acara;
 use App\Models\Hadir;
 use App\Models\Mhs;
+use CodeIgniter\HTTP\RedirectResponse;
+use DateTime;
+use DateTimeZone;
 
 
 class Presensi extends BaseController
 {
-    public function index()
+    public function index(): string
     {
         return view("presensi/index");
     }
 
-    public function index_kirim()
+    public function index_kirim(): RedirectResponse
     {
         $kode_acara = $this->request->getPost("kode_acara");
 
@@ -24,7 +27,7 @@ class Presensi extends BaseController
                 ->with("error","Maaf, kode acara <b>tidak ditemukan!</b><br>Pastikan kode acara sudah benar.");
     }
 
-    public function cek_acara($kode_acara)
+    public function cek_acara($kode_acara): bool
     {
         $acara = new Acara();
         $query1 = $acara->where("kode_acara",$kode_acara)
@@ -51,12 +54,12 @@ class Presensi extends BaseController
             ->with("error","Maaf, kode acara <b>tidak ditemukan!</b><br>Pastikan kode acara sudah benar.");
     }
 
-    public function hadir()
+    public function hadir(): RedirectResponse
     {
         $kode_acara = $this->request->getPost("form_kode");
         $nrp = $this->request->getPost("form_nrp");
-        $waktu = (new \DateTime('now'))
-            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+        $waktu = (new DateTime('now'))
+            ->setTimezone(new DateTimeZone('Asia/Jakarta'))
             ->format('Y-m-d H:i:s');
 
         if($this->cek_status($kode_acara) === 0)
@@ -86,14 +89,14 @@ class Presensi extends BaseController
             ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b><br>Hubungi panitia untuk konfirmasi kehadiran.");
     }
 
-    public function hadir_manual()
+    public function hadir_manual(): RedirectResponse
     {
         $kode_acara = $this->request->getPost("form2_kode");
         $nrp = $this->request->getPost("form2_nrp");
         $nama = $this->request->getPost("form2_nama");
         $angkatan = "20" . substr(($nrp),4,2);
-        $waktu = (new \DateTime('now'))
-            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+        $waktu = (new DateTime('now'))
+            ->setTimezone(new DateTimeZone('Asia/Jakarta'))
             ->format('Y-m-d H:i:s');
 
         if($this->cek_status($kode_acara) === 0)
@@ -119,7 +122,10 @@ class Presensi extends BaseController
 
                 $this->input_session($kode_acara, $nrp);
 
-                if($query2 > 0) return redirect()->to(base_url("/sukses"));
+                if($query2 > 0)
+                {
+                    return redirect()->to(base_url("/sukses"));
+                }
             }
             return redirect()->to(base_url("/$kode_acara"))
                 ->with("error","Data gagal disimpan ke Database");
@@ -151,14 +157,14 @@ class Presensi extends BaseController
             ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b><br>Hubungi panitia untuk konfirmasi kehadiran.");
     }
 
-    public function hadir_panitia()
+    public function hadir_panitia(): RedirectResponse
     {
         $kode_acara = $this->request->getPost("form_kode");
         $nrp = $this->request->getPost("form_nrp");
         $ket = $this->request->getPost("keterangan");
-        $keterangan = (strlen($ket) === 0) ? null : $ket;
-        $waktu = (new \DateTime('now'))
-            ->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+        $keterangan = ($ket === '') ? null : $ket;
+        $waktu = (new DateTime('now'))
+            ->setTimezone(new DateTimeZone('Asia/Jakarta'))
             ->format('Y-m-d H:i:s');
 
         if($this->cek_status($kode_acara) === 0)
@@ -189,7 +195,7 @@ class Presensi extends BaseController
             ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b><br>Hubungi panitia untuk konfirmasi kehadiran.");
     }
 
-    public function cek_ganda($kode_acara, $nrp)
+    public function cek_ganda($kode_acara, $nrp): int
     {
         $hadir = new Hadir();
         $query1 = $hadir->where("kode_acara",$kode_acara)
@@ -198,7 +204,7 @@ class Presensi extends BaseController
         return ($query1 === null) ? 0 : 1;
     }
 
-    public function cek_status($kode_acara)
+    public function cek_status($kode_acara): int
     {
         $acara = new Acara();
         $query1 = $acara->select("status")
@@ -207,19 +213,19 @@ class Presensi extends BaseController
         return ($query1->status === '0') ? 0 : 1;
     }
 
-    public function input_session($kode_acara, $nrp)
+    public function input_session($kode_acara, $nrp): void
     {
-        session()->remove("nrp");
-        session()->remove("kode_acara");
-        session()->set("nrp",$nrp);
-        session()->set("kode_acara",$kode_acara);
+        (session())->remove("nrp");
+        (session())->remove("kode_acara");
+        (session())->set("nrp",$nrp);
+        (session())->set("kode_acara",$kode_acara);
     }
 
-    public function sukses()
+    public function sukses(): string
     {
         $hadir = new Hadir();
-        $nrp = session()->get("nrp");
-        $kode_acara = session()->get("kode_acara");
+        $nrp = (session())->get("nrp");
+        $kode_acara = (session())->get("kode_acara");
 
         $query1 = $hadir->select(["hadir.nrp","mhs.nama","hadir.waktu","acara.nama_acara","departemen.nama_departemen","acara.lokasi","pengurus.nama_panggilan","pengurus.id_line","pengurus.no_wa"])
             ->where("hadir.nrp",$nrp)

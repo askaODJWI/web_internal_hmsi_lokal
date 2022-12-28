@@ -83,7 +83,7 @@ class HadirControl extends BaseController
     public function tambah_kirim(): RedirectResponse
     {
         $this->ambil_form();
-        [$kode_acara, $nama_acara, $tanggal, $lokasi, $narahubung1, $no_wa1, $id_line1, $tipe, $id_departemen] = $this->form;
+        [, $nama_acara, $tanggal, $lokasi, $narahubung1, $no_wa1, $id_line1, $tipe, $id_departemen] = $this->form;
 
         switch($this->cek_form($no_wa1, $id_line1, $lokasi))
         {

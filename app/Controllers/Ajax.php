@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
 use App\Models\Info;
 use App\Models\Mhs;
 use App\Models\Pengurus;

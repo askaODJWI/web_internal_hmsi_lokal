@@ -3,11 +3,14 @@
 namespace Config;
 
 // Create a new instance of our RouteCollection class.
+use App\Controllers\Admin;
+use App\Controllers\Ajax;
 use App\Controllers\HadirControl;
 use App\Controllers\PiketControl;
 use App\Controllers\Presensi;
 use App\Controllers\RaporControl;
 use App\Controllers\SurveiControl;
+use App\Controllers\Webhook;
 
 $routes = Services::routes();
 
@@ -39,42 +42,44 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->group("/", function ($routes)
 {
-    $routes->get("", "Presensi::index");
-    $routes->post("cek", "Presensi::index_kirim");
-    $routes->post("hadir","Presensi::hadir");
-    $routes->post("hadir_manual","Presensi::hadir_manual");
-    $routes->get("sukses","Presensi::sukses");
+    $routes->get("", [Presensi::class, "index"]);
+    $routes->post("cek", [Presensi::class, "index_kirim"]);
+    $routes->post("hadir", [Presensi::class, "hadir"]);
+    $routes->post("hadir_manual", [Presensi::class, "hadir_manual"]);
+    $routes->get("sukses", [Presensi::class, "sukses"]);
 
     $routes->group("/",["filter" => "auth"],function ($routes){
-        $routes->post("hadir_panitia","Presensi::hadir_panitia");
-        $routes->get("p/(:num)","Presensi::acara_panitia/$1");
+        $routes->post("hadir_panitia", [Presensi::class, "hadir_panitia"]);
+        $routes->get("p/(:num)", [Presensi::class, "acara_panitia"]);
     });
 
-    $routes->get("/(:num)","Presensi::acara/$1");
-    $routes->get("/(:segment)","Admin::tautan_alih/$1");
+    $routes->get("/(:num)", [Presensi::class, "acara"]);
+    $routes->get("/(:segment)",[Admin::class, "tautan_alih"]);
 });
 
 $routes->group("ajax", function ($routes)
 {
-    $routes->get("cek_nrp/(:num)","Ajax::cek_nrp/$1");
-    $routes->get("cek_narahubung","Ajax::cek_narahubung");
-    $routes->get("cek_pengurus/(:num)","Ajax::cek_pengurus/$1");
-    $routes->get("cek_password/(:num)","Ajax::cek_password/$1");
-    $routes->get("cek_barang","Ajax::cek_barang");
-    $routes->get("cek_info","Ajax::cek_info");
+    $routes->get("cek_nrp/(:num)",[Ajax::class, "cek_nrp"]);
+    $routes->get("cek_narahubung",[Ajax::class, "cek_narahubung"]);
+    $routes->get("cek_pengurus/(:num)",[Ajax::class, "cek_pengurus"]);
+    $routes->get("cek_password/(:num)",[Ajax::class, "cek_password"]);
+    $routes->get("cek_kontak/(:num)",[Ajax::class, "cek_kontak"]);
+    $routes->get("cek_barang",[Ajax::class, "cek_barang"]);
+    $routes->get("cek_info",[Ajax::class, "cek_info"]);
 });
 
 $routes->group("webhook", function ($routes)
 {
-    $routes->post("survei","Webhook::survei");
+    $routes->post("survei",[Webhook::class, "survei"]);
 });
 
-$routes->get("admin/login","Admin::login");
-$routes->post("admin/login","Admin::login_cek");
+$routes->get("admin/login",[Admin::class, "login"]);
+$routes->post("admin/login",[Admin::class, "login_cek"]);
+$routes->get("admin/logout",[Admin::class, "logout"]);
 
 $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
 {
-    $routes->get("beranda","Admin::beranda");
+    $routes->get("beranda",[Admin::class, "beranda"]);
 
     $routes->group("hadir", function ($routes)
     {
@@ -93,9 +98,9 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
 
     $routes->group("akun",function ($routes)
     {
-        $routes->get("ubah","Admin::akun_ubah");
-        $routes->post("ubah","Admin::akun_ubah_kirim");
-        $routes->post("ubah_pass","Admin::akun_ubah_pass");
+        $routes->get("ubah",[Admin::class, "akun_ubah"]);
+        $routes->post("ubah",[Admin::class, "akun_ubah_kirim"]);
+        $routes->post("ubah_pass",[Admin::class, "akun_ubah_pass"]);
     });
 
     $routes->group("rapor", function ($routes)
@@ -126,7 +131,7 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
         });
 
         $routes->group("data", function ($routes){
-            $routes->get("dashboard","Admin::sekre_data_dashboard");
+            $routes->get("dashboard",[Admin::class, "sekre_data_dashboard"]);
         });
     });
 });

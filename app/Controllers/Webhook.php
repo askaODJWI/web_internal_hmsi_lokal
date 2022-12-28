@@ -6,13 +6,13 @@ use App\Models\Rekap;
 
 class Webhook extends BaseController
 {
-    public function survei()
+    public function survei(): void
     {
         $nrp = $this->request->getVar("nrp");
         $id_survei = $this->request->getVar("id_survei");
 
         $rekap = new Rekap();
-        $query1 = $rekap->insert([
+        $rekap->insert([
             "nrp" => $nrp,
             "id_survei" => $id_survei
         ]);
