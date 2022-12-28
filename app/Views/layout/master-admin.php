@@ -184,7 +184,7 @@
 
     <div class="content-body">
         <div class="container pd-x-0">
-            <?= $this->renderSection("breadcrumb") ?>
+            <?= $this->renderSection("breadcrumbs") ?>
             <div class="d-sm-flex align-items-center justify-content-between mg-b-20">
                 <h3><?= $this->renderSection("halaman") ?></h3>
                 <?= $this->renderSection("tambah") ?>

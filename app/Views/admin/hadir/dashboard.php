@@ -4,8 +4,8 @@
     Admin HMSI | Hadir | Dashboard
 <?= $this->endSection() ?>
 
-<?= $this->section("breadcrumb") ?>
-    <?= $breadcrumb ?>
+<?= $this->section("breadcrumbs") ?>
+    <?= $breadcrumbs ?>
 <?= $this->endSection() ?>
 
 <?= $this->section("halaman") ?>

@@ -25,11 +25,11 @@ use Endroid\QrCode\Writer\PngWriter;
 
 class Admin extends BaseController
 {
-    public $breadcrumb;
+    public Breadcrumbs $breadcrumbs;
 
     public function __construct()
     {
-        $this->breadcrumb = new Breadcrumbs();
+        $this->breadcrumbs = new Breadcrumbs();
     }
 
     public function login()
@@ -135,9 +135,9 @@ class Admin extends BaseController
 
     public function hadir_dashboard()
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Daftar Acara", "/admin/hadir/dashboard");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Daftar Acara", "/admin/hadir/dashboard");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $id_pengurus = session()->get("id_pengurus");
 
@@ -156,7 +156,7 @@ class Admin extends BaseController
                 ->orderBy("tanggal","desc")
                 ->get()
                 ->getResult();
-            return view("admin/hadir/dashboard",["data" => $query2, "breadcrumb" => $breadcrumb]);
+            return view("admin/hadir/dashboard",["data" => $query2, "breadcrumbs" => $breadcrumbs]);
         }
         $query3 = $acara->select("(SELECT COUNT(kode_acara) FROM hadir WHERE acara.kode_acara = hadir.kode_acara GROUP BY kode_acara) as jumlah")
             ->select(["acara.kode_acara","nama_acara","tanggal","nama_departemen","lokasi","nama","jabatan","status"])
@@ -167,17 +167,17 @@ class Admin extends BaseController
             ->orderBy("tanggal","desc")
             ->get()
             ->getResult();
-        return view("admin/hadir/dashboard",["data" => $query3, "breadcrumb" => $breadcrumb]);
+        return view("admin/hadir/dashboard",["data" => $query3, "breadcrumbs" => $breadcrumbs]);
     }
 
     public function hadir_tambah()
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Daftar Acara", "/admin/hadir/dashboard");
-        $this->breadcrumb->add("Buat Tautan Baru", "/admin/hadir/tambah");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Daftar Acara", "/admin/hadir/dashboard");
+        $this->breadcrumbs->add("Buat Tautan Baru", "/admin/hadir/tambah");
+        $breadcrumbs = $this->breadcrumbs->render();
 
-        return view("admin/hadir/tambah", ["breadcrumb" => $breadcrumb]);
+        return view("admin/hadir/tambah", ["breadcrumbs" => $breadcrumbs]);
     }
 
     public function hadir_tambah_kirim()
@@ -281,10 +281,10 @@ class Admin extends BaseController
 
     public function hadir_detail($kode_acara)
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Daftar Acara", "/admin/hadir/dashboard");
-        $this->breadcrumb->add("Detail Acara", "/admin/hadir/detail/$kode_acara");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Daftar Acara", "/admin/hadir/dashboard");
+        $this->breadcrumbs->add("Detail Acara", "/admin/hadir/detail/$kode_acara");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $acara = new Acara();
         $query1 = $acara->select(["*","(SELECT COUNT(kode_acara) FROM hadir WHERE acara.kode_acara = hadir.kode_acara GROUP BY kode_acara) as jumlah"])
@@ -311,16 +311,16 @@ class Admin extends BaseController
         $hasil = $writer->write($qr_code, $logo);
         $hasil_url = $hasil->getDataUri();
 
-        return view("admin/hadir/detail",["data" => $query1, "data2" => $query2, "data3" => $hasil_url, "breadcrumb" => $breadcrumb]);
+        return view("admin/hadir/detail",["data" => $query1, "data2" => $query2, "data3" => $hasil_url, "breadcrumbs" => $breadcrumbs]);
     }
 
     public function hadir_ubah($kode_acara)
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Daftar Acara", "/admin/hadir/dashboard");
-        $this->breadcrumb->add("Detail Acara", "/admin/hadir/detail/$kode_acara");
-        $this->breadcrumb->add("Ubah Acara", "/admin/hadir/ubah/$kode_acara");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Daftar Acara", "/admin/hadir/dashboard");
+        $this->breadcrumbs->add("Detail Acara", "/admin/hadir/detail/$kode_acara");
+        $this->breadcrumbs->add("Ubah Acara", "/admin/hadir/ubah/$kode_acara");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $acara = new Acara();
         $query1 = $acara->where("kode_acara", $kode_acara)
@@ -328,7 +328,7 @@ class Admin extends BaseController
             ->join("mhs","pengurus.nrp = mhs.nrp")
             ->first();
 
-        return view("admin/hadir/ubah",["data" => $query1, "breadcrumb" => $breadcrumb]);
+        return view("admin/hadir/ubah",["data" => $query1, "breadcrumbs" => $breadcrumbs]);
     }
 
     public function hadir_ubah_kirim()
@@ -425,9 +425,9 @@ class Admin extends BaseController
 
     public function hadir_rekap()
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Rekap Kehadiran", "/admin/hadir/rekap");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Rekap Kehadiran", "/admin/hadir/rekap");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $id_pengurus = session()->get("id_pengurus");
 
@@ -448,7 +448,7 @@ class Admin extends BaseController
                 ->orderBy("tanggal","desc")
                 ->get()
                 ->getResult();
-            return view("admin/hadir/rekap",["data" => $query2, "breadcrumb" => $breadcrumb]);
+            return view("admin/hadir/rekap",["data" => $query2, "breadcrumbs" => $breadcrumbs]);
         }
         $query3 = $acara->select(["nama","jabatan","nama_departemen","nama_acara","acara.kode_acara","tanggal","lokasi","COUNT(hadir.kode_acara) as peserta"])
             ->where("acara.id_departemen",$query1->id_departemen)
@@ -460,15 +460,15 @@ class Admin extends BaseController
             ->orderBy("tanggal","desc")
             ->get()
             ->getResult();
-        return view("admin/hadir/rekap",["data" => $query3, "breadcrumb" => $breadcrumb]);
+        return view("admin/hadir/rekap",["data" => $query3, "breadcrumbs" => $breadcrumbs]);
     }
 
     public function hadir_rekap_detail()
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Rekap Kehadiran", "/admin/hadir/rekap");
-        $this->breadcrumb->add("Detail Laporan", "/admin/hadir/rekap/detail");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Rekap Kehadiran", "/admin/hadir/rekap");
+        $this->breadcrumbs->add("Detail Laporan", "/admin/hadir/rekap/detail");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $kode_acara = $this->request->getPost("kode_acara");
         $id_pengurus = session()->get("id_pengurus");
@@ -492,7 +492,7 @@ class Admin extends BaseController
             ->join("mhs","pengurus.nrp = mhs.nrp")
             ->first();
 
-        return view("admin/hadir/rekap_detail",["data" => $query1, "data1" => $query2, "data2" => $query3, "breadcrumb" => $breadcrumb]);
+        return view("admin/hadir/rekap_detail",["data" => $query1, "data1" => $query2, "data2" => $query3, "breadcrumbs" => $breadcrumbs]);
     }
 
     public function hadir_hapus($kode_acara)
@@ -535,9 +535,9 @@ class Admin extends BaseController
 
     public function rapor_dashboard()
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Daftar Rapor", "/admin/rapor/dashboard");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Daftar Rapor", "/admin/rapor/dashboard");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $id_pengurus = session()->get("id_pengurus");
 
@@ -564,7 +564,7 @@ class Admin extends BaseController
                 ->orderBy("jenis")
                 ->get()
                 ->getResult();
-            return view("admin/rapor/dashboard",["data" => $query2, "breadcrumb" => $breadcrumb]);
+            return view("admin/rapor/dashboard",["data" => $query2, "breadcrumbs" => $breadcrumbs]);
         }
 
         if($id_pengurus < 4000)
@@ -584,7 +584,7 @@ class Admin extends BaseController
                 ->orderBy("jenis")
                 ->get()
                 ->getResult();
-            return view("admin/rapor/dashboard",["data" => $query3, "breadcrumb" => $breadcrumb]);
+            return view("admin/rapor/dashboard",["data" => $query3, "breadcrumbs" => $breadcrumbs]);
         }
 
         return view("errors/404");
@@ -592,9 +592,9 @@ class Admin extends BaseController
 
     public function rapor_isi()
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Isi Penilaian", "/admin/rapor/isi");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Isi Penilaian", "/admin/rapor/isi");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $id_pengurus = session()->get("id_pengurus");
 
@@ -616,7 +616,7 @@ class Admin extends BaseController
                 ->orderBy("id_indikator")
                 ->get()
                 ->getResult();
-            return view("admin/rapor/isi", ["data" => $query2, "breadcrumb" => $breadcrumb]);
+            return view("admin/rapor/isi", ["data" => $query2, "breadcrumbs" => $breadcrumbs]);
         }
 
         if($id_pengurus < 4000)
@@ -633,7 +633,7 @@ class Admin extends BaseController
                 ->orderBy("id_indikator")
                 ->get()
                 ->getResult();
-            return view("admin/rapor/isi", ["data" => $query3, "breadcrumb" => $breadcrumb]);
+            return view("admin/rapor/isi", ["data" => $query3, "breadcrumbs" => $breadcrumbs]);
         }
         return view("errors/404");
     }
@@ -772,10 +772,10 @@ class Admin extends BaseController
 
     public function rapor_isi_detail($id_pengurus)
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Isi Penilaian", "/admin/rapor/isi");
-        $this->breadcrumb->add("Detail Penilaian", "/admin/rapor/isi/detail/$id_pengurus");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Isi Penilaian", "/admin/rapor/isi");
+        $this->breadcrumbs->add("Detail Penilaian", "/admin/rapor/isi/detail/$id_pengurus");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $nilai = new Nilai();
         $rapor = new Rapor();
@@ -796,7 +796,7 @@ class Admin extends BaseController
             ->get()
             ->getResult();
 
-        return view("admin/rapor/isi_detail",["data" => $query1, "data2" => $query2, "breadcrumb" => $breadcrumb]);
+        return view("admin/rapor/isi_detail",["data" => $query1, "data2" => $query2, "breadcrumbs" => $breadcrumbs]);
     }
 
     public function rapor_isi_kirim()
@@ -936,9 +936,9 @@ class Admin extends BaseController
 
     public function rapor_hasil()
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Hasil Rapor", "/admin/rapor/hasil");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Hasil Rapor", "/admin/rapor/hasil");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $id_pengurus = session()->get("id_pengurus");
 
@@ -969,7 +969,7 @@ class Admin extends BaseController
                     ->orderBy("id_indikator")
                     ->get()
                     ->getResult();
-                return view("admin/rapor/hasil",["data" => $query3, "data2" => $query2, "breadcrumb" => $breadcrumb]);
+                return view("admin/rapor/hasil",["data" => $query3, "data2" => $query2, "breadcrumbs" => $breadcrumbs]);
             case(9):case(10):case(11):case(12):case(13):
                 $query3 = $nilai->select(["nama","nilai.id_pengurus","nilai.id_indikator","nilai.id_bulan","nilai","deskripsi","nama_departemen","jabatan"])
                     ->where("nilai.id_pengurus",$id_pengurus)
@@ -984,7 +984,7 @@ class Admin extends BaseController
                     ->orderBy("id_indikator")
                     ->get()
                     ->getResult();
-                return view("admin/rapor/hasil",["data" => $query3, "data2" => $query2, "breadcrumb" => $breadcrumb]);
+                return view("admin/rapor/hasil",["data" => $query3, "data2" => $query2, "breadcrumbs" => $breadcrumbs]);
             case(14):
                 $query3 = $nilai->select(["nama","nilai.id_pengurus","nilai.id_indikator","nilai.id_bulan","nilai","deskripsi","nama_departemen","jabatan"])
                     ->where("nilai.id_pengurus",$id_pengurus)
@@ -998,7 +998,7 @@ class Admin extends BaseController
                     ->orderBy("id_indikator")
                     ->get()
                     ->getResult();
-                return view("admin/rapor/hasil",["data" => $query3, "data2" => $query2, "breadcrumb" => $breadcrumb]);
+                return view("admin/rapor/hasil",["data" => $query3, "data2" => $query2, "breadcrumbs" => $breadcrumbs]);
             default:
                 break;
         }
@@ -1008,10 +1008,10 @@ class Admin extends BaseController
 
     public function rapor_hasil_post()
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Daftar Rapor", "/admin/rapor/dashboard");
-        $this->breadcrumb->add("Hasil Rapor", "/admin/rapor/hasil");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Daftar Rapor", "/admin/rapor/dashboard");
+        $this->breadcrumbs->add("Hasil Rapor", "/admin/rapor/hasil");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $id_pengurus = $this->request->getPost("id_pengurus");
         $id_bulan = $this->request->getPost("id_bulan");
@@ -1036,27 +1036,27 @@ class Admin extends BaseController
             ->orderBy("id_indikator")
             ->get()
             ->getResult();
-        return view("admin/rapor/hasil",["data" => $query2, "data2" => $query1, "breadcrumb" => $breadcrumb]);
+        return view("admin/rapor/hasil",["data" => $query2, "data2" => $query1, "breadcrumbs" => $breadcrumbs]);
     }
 
     public function sekre_data_dashboard()
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Data Mahasiswa", "/admin/data/nama");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Data Mahasiswa", "/admin/data/nama");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $mhs = new Mhs();
         $query1 = $mhs->get()
             ->getResult();
 
-        return view("admin/sekre/data/dashboard",["data" => $query1, "breadcrumb" => $breadcrumb]);
+        return view("admin/sekre/data/dashboard",["data" => $query1, "breadcrumbs" => $breadcrumbs]);
     }
 
     public function akun_ubah()
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Ubah Profil", "/admin/akun/ubah");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Ubah Profil", "/admin/akun/ubah");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $id_pengurus = session()->get("id_pengurus");
 
@@ -1064,7 +1064,7 @@ class Admin extends BaseController
         $query1 = $pengurus->where("id_pengurus",$id_pengurus)
             ->first();
 
-        return view("admin/ubah",["data" => $query1, "breadcrumb" => $breadcrumb]);
+        return view("admin/ubah",["data" => $query1, "breadcrumbs" => $breadcrumbs]);
     }
 
     public function akun_ubah_kirim()
@@ -1138,9 +1138,9 @@ class Admin extends BaseController
 
     public function survei_dashboard()
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Daftar Survei", "/admin/survei/dashboard");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Daftar Survei", "/admin/survei/dashboard");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $id_pengurus = session()->get("id_pengurus");
         $pengurus = new Pengurus();
@@ -1155,15 +1155,15 @@ class Admin extends BaseController
             ->get()
             ->getResult();
 
-        return view("admin/survei/dashboard",["data" => $query2, "data2" => $nrp, "breadcrumb" => $breadcrumb]);
+        return view("admin/survei/dashboard",["data" => $query2, "data2" => $nrp, "breadcrumbs" => $breadcrumbs]);
     }
 
     public function survei_detail($id_survei)
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Daftar Survei", "/admin/survei/dashboard");
-        $this->breadcrumb->add("Rekap Pengisian", "/admin/survei/detail/$id_survei");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Daftar Survei", "/admin/survei/dashboard");
+        $this->breadcrumbs->add("Rekap Pengisian", "/admin/survei/detail/$id_survei");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $rekap = new Rekap();
         $query1 = $rekap->select(["mhs.nama","mhs.nrp","departemen.nama_departemen","pengurus.jabatan"])
@@ -1180,14 +1180,14 @@ class Admin extends BaseController
             ->where("id_survei",$id_survei)
             ->first();
 
-        return view("admin/survei/rekap",["data" => $query1, "data1" => $query2, "breadcrumb" => $breadcrumb]);
+        return view("admin/survei/rekap",["data" => $query1, "data1" => $query2, "breadcrumbs" => $breadcrumbs]);
     }
 
     public function sekre_piket_dashboard()
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Kehadiran Piket", "/admin/sekre/piket/dashboard");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Kehadiran Piket", "/admin/sekre/piket/dashboard");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $id_pengurus = session()->get("id_pengurus");
 
@@ -1201,14 +1201,14 @@ class Admin extends BaseController
             ->first();
 
         return view("admin/sekre/piket/piket",
-            ["data1" => $query1, "data2" => $query2, "breadcrumb" => $breadcrumb]);
+            ["data1" => $query1, "data2" => $query2, "breadcrumbs" => $breadcrumbs]);
     }
 
     public function sekre_piket_riwayat()
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Riwayat Piket", "/admin/sekre/piket/riwayat");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Riwayat Piket", "/admin/sekre/piket/riwayat");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $id_pengurus = session()->get("id_pengurus");
 
@@ -1233,14 +1233,14 @@ class Admin extends BaseController
             ->getResult();
 
         return view("admin/sekre/piket/riwayat",
-            ["data3" => $query3, "data4" => $query4, "breadcrumb" => $breadcrumb]);
+            ["data3" => $query3, "data4" => $query4, "breadcrumbs" => $breadcrumbs]);
     }
 
     public function sekre_piket_kontrol()
     {
-        $this->breadcrumb->add("Beranda", "/admin/beranda");
-        $this->breadcrumb->add("Kontrol Piket", "/admin/sekre/piket/kontrol");
-        $breadcrumb = $this->breadcrumb->render();
+        $this->breadcrumbs->add("Beranda", "/admin/beranda");
+        $this->breadcrumbs->add("Kontrol Piket", "/admin/sekre/piket/kontrol");
+        $breadcrumbs = $this->breadcrumbs->render();
 
         $jadwal = new Jadwal();
         $query5 = $jadwal->select(["pengurus.id_pengurus","jadwal_wajib","nama","nama_departemen", "(CASE WHEN jadwal.status = 0 THEN 'Belum' ELSE 'Selesai' END) as 'status'"])
@@ -1255,7 +1255,7 @@ class Admin extends BaseController
             ->getResult();
 
         return view("admin/sekre/piket/kontrol",
-            ["data5" => $query5, "breadcrumb" => $breadcrumb]);
+            ["data5" => $query5, "breadcrumbs" => $breadcrumbs]);
     }
 
     public function sekre_piket_hadir()

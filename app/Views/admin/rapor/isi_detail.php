@@ -4,8 +4,8 @@
     Admin HMSI | Rapor | Isi Detail
 <?= $this->endSection() ?>
 
-<?= $this->section("breadcrumb") ?>
-<?= $breadcrumb ?>
+<?= $this->section("breadcrumbs") ?>
+<?= $breadcrumbs ?>
 <?= $this->endSection() ?>
 
 <?= $this->section("halaman") ?>
