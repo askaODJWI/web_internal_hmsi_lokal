@@ -25,10 +25,12 @@ class Auth implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if(session()->get("id_pengurus") === null)
+        if(session("id_pengurus") === null)
         {
-            return redirect()->to(base_url("admin/login"));
+            return redirect()->to(base_url("admin/login"))
+                ->with("error","Silakan masuk akun terlebih dahulu!");
         }
+        return null;
     }
 
     /**
@@ -45,6 +47,6 @@ class Auth implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        //
+        return null;
     }
 }

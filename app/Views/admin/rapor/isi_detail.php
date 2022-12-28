@@ -1,4 +1,5 @@
 <?= $this->extend("layout/master-admin") ?>
+<?php if(isset($data, $data2, $breadcrumbs)): ?>
 
 <?= $this->section("title") ?>
     Admin HMSI | Rapor | Isi Detail
@@ -35,6 +36,7 @@
         </h4>
 
         <div class="accordion-body">
+            <span class="tx-danger">Pastikan kamu telah menekan tombol <b>Auto-Grading</b> sebelum mengisi kolom penilaian!</span><br><br>
             <p class="tx-16 tx-bold tx-primary">Hasil Penilaian:</p>
 
             <div class="row">
@@ -59,8 +61,7 @@
             <hr>
 
             <form action="<?= base_url("admin/rapor/isi/kirim/") ?>" method="post" data-parsley-validate>
-                <span class="tx-16 tx-bold tx-primary">Kolom Penilaian:</span><br>
-                <p class="tx-danger">Pastikan kamu telah menekan tombol <b>Auto-Grading</b> sebelum melakukan penilaian!</p>
+                <p class="tx-16 tx-bold tx-primary">Kolom Penilaian:</p>
 
                 <div class="row">
                     <input type="hidden" id="id_bulan" name="id_bulan" value="<?= $data[$i]->id_bulan ?>">
@@ -69,8 +70,12 @@
                         <table class="table table-borderless table-sm">
                             <tr>
                                 <td class="wd-20p"></td>
-                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah menjadi panitia inti (dalam kali)</td>
-                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah proker dan agenda sudah terlaksana (dalam kali)</td>
+                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">
+                                    <label for="indikator1a">Jumlah menjadi panitia inti (dalam kali)</label>
+                                </td>
+                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">
+                                    <label for="indikator1b">Jumlah proker dan agenda sudah terlaksana (dalam kali)</label>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="align-middle"><label for="indikator1" class="tx-bold">Indikator 1 <span class="tx-danger">*</span></label></td>
@@ -84,8 +89,12 @@
                         <table class="table table-borderless table-sm">
                             <tr>
                                 <td class="wd-20p"></td>
-                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah mengikuti acara departemen lain (dalam kali)</td>
-                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah acara departemen lain sudah terlaksana (dalam kali)</td>
+                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">
+                                    <label for="indikator2a">Jumlah mengikuti acara departemen lain (dalam kali)</label>
+                                </td>
+                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">
+                                    <label for="indikator2b">Jumlah acara departemen lain sudah terlaksana (dalam kali)</label>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="align-middle"><label for="indikator2" class="tx-bold">Indikator 2 <span class="tx-danger">*</span>
@@ -100,8 +109,12 @@
                         <table class="table table-borderless table-sm">
                             <tr>
                                 <td class="wd-20p"></td>
-                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah mengikuti rapat departemen (dalam kali)</td>
-                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah rapat departemen sudah terlaksana (dalam kali)</td>
+                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">
+                                    <label for="indikator3a">Jumlah mengikuti rapat departemen (dalam kali)</label>
+                                </td>
+                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">
+                                    <label for="indikator3b">Jumlah rapat departemen sudah terlaksana (dalam kali)</label>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="align-middle"><label for="indikator3" class="tx-bold">Indikator 3 <span class="tx-danger">*</span>
@@ -116,8 +129,12 @@
                         <table class="table table-borderless table-sm">
                             <tr>
                                 <td class="wd-20p"></td>
-                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah mengikuti acara dengan terlambat (dalam kali)</td>
-                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah acara sudah terlaksana (dalam kali)</td>
+                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">
+                                    <label for="indikator4a">Jumlah mengikuti acara dengan terlambat (dalam kali)</label>
+                                </td>
+                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">
+                                    <label for="indikator4b">Jumlah acara sudah terlaksana (dalam kali)</label>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="align-middle"><label for="indikator4" class="tx-bold">Indikator 4 <span class="tx-danger">*</span>
@@ -132,8 +149,12 @@
                         <table class="table table-borderless table-sm">
                             <tr>
                                 <td class="wd-20p"></td>
-                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah mengikuti acara wajib (dalam kali)</td>
-                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">Jumlah acara wajib sudah terlaksana (dalam kali)</td>
+                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">
+                                    <label for="indikator5a">Jumlah mengikuti acara wajib (dalam kali)</label>
+                                </td>
+                                <td class="wd-40p tx-10 align-bottom tx-center tx-gray-600">
+                                    <label for="indikator5b">Jumlah acara wajib sudah terlaksana (dalam kali)</label>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="align-middle"><label for="indikator5" class="tx-bold">Indikator 5 <span class="tx-danger">*</span>
@@ -163,9 +184,9 @@
                                 <td class="wd-70p align-middle">
                                     <label for="submit" class="tx-danger">
                                         Apakah pengisian nilai rapor bulan <b><?php switch($data[$i]->id_bulan){
-                                                case(1): echo "April"; break;
-                                                case(2): echo "Juli"; break;
-                                                case(3): echo "Oktober"; break;}
+                                                case(1): echo "APRIL"; break;
+                                                case(2): echo "JULI"; break;
+                                                case(3): echo "OKTOBER"; break;}
                                             ?></b> sudah benar?
                                     </label>
                                 </td>
@@ -196,3 +217,5 @@
 </script>
 
 <?= $this->endSection() ?>
+
+<?php endif; ?>

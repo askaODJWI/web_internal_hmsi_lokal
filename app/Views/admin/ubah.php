@@ -1,4 +1,5 @@
 <?= $this->extend("layout/master-admin") ?>
+<?php if(isset($data, $breadcrumbs)): ?>
 
 <?= $this->section("title") ?>
 Admin HMSI | Akun | Ubah
@@ -82,3 +83,4 @@ Ubah Data Akun
 
 <?= $this->endSection() ?>
 
+<?php endif; ?>

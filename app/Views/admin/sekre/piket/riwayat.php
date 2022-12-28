@@ -1,4 +1,5 @@
 <?= $this->extend("layout/master-admin") ?>
+<?php if(isset($data4, $breadcrumbs)): ?>
 
 <?= $this->section("title") ?>
     Admin HMSI | Sekretariat | Piket | Riwayat
@@ -50,29 +51,13 @@
 <?= $this->endSection() ?>
 
 <?= $this->section("js") ?>
+
 <script>
     $('#riwayat-piket').DataTable({
-        language: {
-            searchPlaceholder: "Cari...",
-            search: "",
-            lengthMenu: "Lihat _MENU_ data per halaman",
-            paginate: {
-                next: "Berikutnya",
-                previous: "Sebelumnya"
-            },
-            info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
-            infoEmpty: "Menampilkan 0 data",
-            infoFiltered: "(Disaring dari _MAX_ data)",
-            emptyTable: "Tidak ada data yang ditemukan",
-            zeroRecords:  "Tidak ada data yang ditemukan",
-        },
-        drawCallback: function() {
-            feather.replace();
-        }
+        <?= $this->include("layout/datatable.txt") ?>
     });
-
-    $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
-    $(".select2-container").addClass("tx-12");
 </script>
 
 <?= $this->endSection() ?>
+
+<?php endif; ?>

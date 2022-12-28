@@ -1,4 +1,5 @@
 <?= $this->extend("layout/master-admin") ?>
+<?php if(isset($data, $data1, $data2, $breadcrumbs)): ?>
 
 <?= $this->section("title") ?>
     Admin HMSI | Hadir | Rekap Detail
@@ -64,10 +65,6 @@
 
 <script>
     $('#rekap-detail').DataTable({
-        lengthMenu: [
-            [ 10, 25, 50, 100, 200, -1 ],
-            [ 10, 25, 50, 100, 200, "Semua" ]
-        ],
         dom: "Bfrtip",
         buttons: {
             buttons: [
@@ -100,7 +97,7 @@
                         (new Date()).toLocaleString('id-ID',{timeStyle: 'long'}) + " oleh " +
                         "<?= $data2->nama ?> - <?= $data2->nrp ?>",
                     customize: function( xlsx ) {
-                        var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                        let sheet = xlsx.xl.worksheets['sheet1.xml'];
                         $('row:first c', sheet).attr( 's', '2' );
                         $('row c[r=A2]', sheet).attr( 's', '12' );
                         $('row:last c', sheet).attr( 's', '2' );
@@ -112,28 +109,10 @@
                 },
             ]
         },
-        language: {
-            searchPlaceholder: "Cari...",
-            search: "",
-            buttons: {
-                pageLength: {
-                    _: "Tampilkan <b>%d</b> data per halaman",
-                    '-1': "Tampilkan <b>semua</b> data dalam satu halaman"
-                }
-            },
-            paginate: {
-                next: "Berikutnya",
-                previous: "Sebelumnya"
-            },
-            info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
-            infoEmpty: "Menampilkan 0 data",
-            infoFiltered: "(Disaring dari _MAX_ data)",
-            emptyTable: "Tidak ada data yang ditemukan",
-            zeroRecords: "Tidak ada data yang ditemukan",
-        },
+        <?= $this->include("layout/datatable.txt") ?>
     });
-
-    $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
 </script>
 
 <?= $this->endSection() ?>
+
+<?php endif; ?>

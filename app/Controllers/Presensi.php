@@ -150,11 +150,11 @@ class Presensi extends BaseController
                     view("presensi/panitia", ["data" => $query1]) :
                     view("errors/404");
             }
-            return redirect()->to(base_url("/"))
-                ->with("error","Maaf, kode acara <b>tidak ditemukan!</b><br>Pastikan kode acara sudah benar.");
+            return redirect()->to(base_url("/admin/hadir/dashboard"))
+                ->with("error","Maaf, kode acara <b>tidak ditemukan!</b> Pastikan mengakses menu ini langsung dari web Admin HMSI!");
         }
-        return redirect()->to(base_url("/$kode_acara"))
-            ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b><br>Hubungi panitia untuk konfirmasi kehadiran.");
+        return redirect()->to(base_url("/admin/hadir/dashboard"))
+            ->with("error","Maaf, registrasi acara <b>sudah ditutup!</b> Silakan buka akses kehadiran terlebih dahulu!");
     }
 
     public function hadir_panitia(): RedirectResponse

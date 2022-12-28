@@ -1,4 +1,5 @@
 <?= $this->extend("layout/master-admin") ?>
+<?php if(isset($data, $data1, $data2, $breadcrumbs)): ?>
 
 <?= $this->section("title") ?>
 Admin HMSI | Sekretariat | Piket | Dashboard
@@ -20,7 +21,7 @@ Kehadiran Piket Ruang Kesekretariatan
             <div class="marker marker-ribbon marker-primary pos-absolute t-10 l-0">Kedatangan piket<br></div>
             <p class="mg-t-30">
                 <span class="tx-gray-700">Status Piket:</span><br><b>
-                    <?= ($data2->jadwal_wajib == date("Y-m-d")) ? "Jadwal piket wajib" : "BUKAN jadwal piket wajib" ?></b>
+                    <?= ($data2->jadwal_wajib === date("Y-m-d")) ? "Jadwal piket wajib" : "BUKAN jadwal piket wajib" ?></b>
             </p>
             <p>
                 <span class="tx-gray-700">Waktu Mulai:</span><br><b>
@@ -113,3 +114,5 @@ Kehadiran Piket Ruang Kesekretariatan
 </div>
 
 <?= $this->endSection() ?>
+
+<?php endif; ?>

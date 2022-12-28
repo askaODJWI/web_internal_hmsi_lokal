@@ -1,4 +1,5 @@
 <?= $this->extend("layout/master-presensi") ?>
+<?php if(isset($data)): ?>
 
 <?= $this->section("title") ?>
 Kehadiran Acara HMSI
@@ -71,3 +72,11 @@ Kehadiran Acara HMSI
 </div>
 
 <?= $this->endSection() ?>
+
+<?php else: ?>
+
+<?= $this->section("konten") ?>
+Mohon maaf, halaman ini sedang error. Hubungi Pengembang via LINE: hendry.naufal atau WhatsApp: 0853-3130-3015 (hendry). Terima kasih.
+<?= $this->endSection() ?>
+
+<?php endif; ?>

@@ -1,4 +1,5 @@
 <?= $this->extend("layout/master-admin") ?>
+<?php if(isset($data, $data2, $data3, $breadcrumbs)): ?>
 
 <?= $this->section("title") ?>
 Admin HMSI | Hadir | Acara Detail
@@ -73,6 +74,7 @@ Detail Tautan Kehadiran Acara
 
                 <div class="mg-t-20"></div>
                 <div class="input-group">
+                    <label for="tautan"></label>
                     <input type="text" class="form-control tx-center tx-bold tx-20"
                            name="tautan" id="tautan" value="hmsi.tekan.id/<?= $data->kode_acara ?>" readonly>
                     <div class="input-group-append">
@@ -134,3 +136,5 @@ Detail Tautan Kehadiran Acara
 </script>
 
 <?= $this->endSection() ?>
+
+<?php endif; ?>

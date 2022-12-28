@@ -1,4 +1,5 @@
 <?= $this->extend("layout/master-admin") ?>
+<?php if(isset($data, $data1, $data2, $data3, $data4, $data5)): ?>
 
 <?= $this->section("title") ?>
 Admin HMSI | Beranda
@@ -199,8 +200,8 @@ Selamat Datang <span class="tx-primary">Generasi Pionir ✨</span>
 <script type="text/javascript">
     $(function() {
         // For a pie chart
-        var ctx2 = document.getElementById('chartDonut');
-        var myDonutChart = new Chart(ctx2, {
+        let ctx2 = document.getElementById('chartDonut');
+        new Chart(ctx2, {
             type: 'doughnut',
             data: {
                 labels: ["Head of HMSI", "Vice Head", "General Secretary", "General Treasury", "Entrepreneurship", "External Affairs", "Human Resource Development", "Information Media", "Internal Affairs", "Research and Technology Applications", "Social Development", "Student Welfare", "Technology Development"],
@@ -234,8 +235,8 @@ Selamat Datang <span class="tx-primary">Generasi Pionir ✨</span>
             }
         });
 
-        var ctx1 = document.getElementById('chartBar1').getContext('2d');
-        var myBarChart = new Chart(ctx1, {
+        let ctx1 = document.getElementById('chartBar1').getContext('2d');
+        new Chart(ctx1, {
             type: 'bar',
             data: {
                 labels: ["ES","EA","HRD","IM","IA","RTA","SocDev","SWF","TechDev"],
@@ -314,3 +315,4 @@ Selamat Datang <span class="tx-primary">Generasi Pionir ✨</span>
 
 <?= $this->endSection() ?>
 
+<?php endif; ?>

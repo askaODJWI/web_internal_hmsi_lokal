@@ -1,0 +1,32 @@
+lengthMenu: [
+    [ 10, 25, 50, 100, 200, -1 ],
+    [ 10, 25, 50, 100, 200, "Semua" ]
+],
+language:
+{
+    searchPlaceholder: "Cari...",
+    search: "",
+    buttons:
+    {
+        pageLength:
+        {
+            _: "Lihat <b>%d</b> data per halaman",
+            '-1': "Lihat <b>semua</b> data dalam satu halaman"
+        }
+    },
+    lengthMenu: "Lihat _MENU_ data per halaman",
+    paginate:
+    {
+        next: "Berikutnya",
+        previous: "Sebelumnya"
+    },
+    info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+    infoEmpty: "Menampilkan 0 data",
+    infoFiltered: "(Disaring dari _MAX_ data)",
+    emptyTable: "Tidak ada data yang ditemukan",
+    zeroRecords:  "Tidak ada data yang ditemukan",
+},
+drawCallback: function()
+{
+    feather.replace();
+},

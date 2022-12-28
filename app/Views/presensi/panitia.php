@@ -1,4 +1,5 @@
 <?= $this->extend("layout/master-presensi") ?>
+<?php if(isset($data)): ?>
 
 <?= $this->section("title") ?>
 Kehadiran Acara HMSI
@@ -67,7 +68,7 @@ Kehadiran Acara HMSI
                 </tr>
             </table>
             <br>
-            <span>Keterangan:</span>
+            <span><label for="keterangan">Keterangan:</label></span>
             <textarea id="keterangan" name="keterangan" class="form-control" rows="1" type="text" placeholder="tidak wajib diisi"></textarea>
             <input type="hidden" id="form_kode" name="form_kode" value="<?= $data->kode_acara ?>">
             <input type="hidden" id="form_nrp" name="form_nrp">
@@ -89,60 +90,15 @@ Kehadiran Acara HMSI
 <?= $this->section("js") ?>
 
 <script>
-    $("#cek").click(function(e) {
-        e.preventDefault();
-        let div = $(".hasil_cek");
-        let error = $(".hasil_error");
-        let cek_nrp = $("#cek_nrp");
-        let cek_prodi = $("#cek_prodi");
-        let cek_nama = $("#cek_nama");
-        let cek_angkatan = $("#cek_angkatan");
-        let data_benar = $("#data_benar");
-        let nrp_salah = $("#nrp_salah");
-        let form_nrp = $("#form_nrp");
-        let form2_nrp = $("#form2_nrp");
-        let nrp = $("#nrp").val();
-
-        div.hide();
-        error.hide();
-
-        if(nrp.length === 10 || nrp.length === 14)
-        {
-            cek_nrp.empty();
-            cek_prodi.empty();
-            cek_nama.empty();
-            cek_angkatan.empty();
-            nrp_salah.empty();
-            data_benar.prop('checked',false);
-            $("#cek").prop('disabled',true);
-
-            $.ajax(
-                {
-                    type: "GET",
-                    url: "/ajax/cek_nrp/" + nrp,
-                    dataType: "json",
-
-                    success: function (data)
-                    {
-                        console.log(data);
-                        cek_nrp.append(data.nrp);
-                        cek_nama.append(data.nama);
-                        cek_prodi.append(data.prodi);
-                        cek_angkatan.append(data.angkatan);
-                        form_nrp.prop('value',data.nrp);
-                        div.show();
-                        $("#cek").prop('disabled',false);
-                    },
-                    error: function ()
-                    {
-                        nrp_salah.append(nrp);
-                        form2_nrp.prop('value',nrp);
-                        error.show();
-                        $("#cek").prop('disabled',false);
-                    }
-                });
-        }
-    });
+    <?= $this->include("layout/mahasiswa.js") ?>
 </script>
 
 <?= $this->endSection() ?>
+
+<?php else: ?>
+
+<?= $this->section("konten") ?>
+Mohon maaf, halaman ini sedang error. Hubungi Pengembang via LINE: hendry.naufal atau WhatsApp: 0853-3130-3015 (hendry). Terima kasih.
+<?= $this->endSection() ?>
+
+<?php endif; ?>

@@ -1,4 +1,5 @@
 <?= $this->extend("layout/master-admin") ?>
+<?php if(isset($data, $breadcrumbs)): ?>
 
 <?= $this->section("title") ?>
 Admin HMSI | Rapor | Dashboard
@@ -44,3 +45,4 @@ Daftar Nilai Rapor Fungsionaris
 
 <?= $this->endSection() ?>
 
+<?php endif; ?>

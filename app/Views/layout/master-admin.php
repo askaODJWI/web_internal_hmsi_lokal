@@ -272,7 +272,7 @@
 <script src="<?= base_url("main/assets/js/dashforge.js") ?>"></script>
 <script src="<?= base_url("main/assets/js/dashforge.aside.js") ?>"></script>
 
-<script>
+<script type="text/javascript">
     function deleteConfirm(url){
         $("#btn-delete").attr("href", url);
         $("#modal_hapus").modal();
@@ -287,10 +287,10 @@
         success: function (data)
         {
             console.log(data);
-            $("#nama_user").append(data.nama);
-            $("#nama_departemen").append(data.nama_departemen);
-            $("#jabatan").append(data.jabatan);
-            if (data.nama_panggilan === "" || data.id_line === "" || data.no_wa === "")
+            $("#nama_user").append(data["nama"]);
+            $("#nama_departemen").append(data["nama_departemen"]);
+            $("#jabatan").append(data["jabatan"]);
+            if (data["nama_panggilan"] === "" || data["id_line"] === "" || data["no_wa"] === "")
             {
                 profil.append("baru");
                 profil.addClass("animated flash infinite");
@@ -309,7 +309,7 @@
         {
             const akhir = data.length-1;
             $.each(data, function (index, value){
-                info.append(value.detail_info);
+                info.append(value["detail_info"]);
                 (index !== akhir) ? info.append(jarak) : null;
             });
 
@@ -325,5 +325,10 @@
 </script>
 
 <?php echo $this->renderSection("js") ?>
+
+<script type="text/javascript">
+    $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+    $(".select2-container").addClass("tx-12");
+</script>
 </body>
 </html>

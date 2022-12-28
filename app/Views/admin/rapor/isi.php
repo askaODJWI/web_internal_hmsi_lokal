@@ -1,4 +1,5 @@
 <?= $this->extend("layout/master-admin") ?>
+<?php if(isset($data, $breadcrumbs)): ?>
 
 <?= $this->section("title") ?>
 Admin HMSI | Rapor | Isi
@@ -47,7 +48,7 @@ Isi Nilai Rapor Fungsionaris
             </td>
             <td class="align-middle tx-center">
                 <a href="<?= base_url("admin/rapor/isi/detail") . "/" . $data[$i]->id_pengurus ?>"
-                   class="btn btn-primary btn-xs"><i data-feather="edit-2"></i> Lakukan Penilaian</a>
+                   class="btn btn-primary btn-xs"><i data-feather="edit-2"></i> Isi Penilaian</a>
             </td>
         </tr>
     <?php endfor; ?>
@@ -60,29 +61,10 @@ Isi Nilai Rapor Fungsionaris
 
 <script>
     $('#daftar-isi-rapor').DataTable({
-        language: {
-            searchPlaceholder: "Cari...",
-            search: "",
-            lengthMenu: "Lihat _MENU_ data per halaman",
-            paginate: {
-                next: "Berikutnya",
-                previous: "Sebelumnya"
-            },
-            info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
-            infoEmpty: "Menampilkan 0 data",
-            infoFiltered: "(Disaring dari _MAX_ data)",
-            emptyTable: "Tidak ada data yang ditemukan",
-            zeroRecords:  "Tidak ada data yang ditemukan",
-        },
-        drawCallback: function() {
-            feather.replace();
-        }
+        <?= $this->include("layout/datatable.txt") ?>
     });
-
-    $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
-    $(".select2-container").addClass("tx-12");
 </script>
 
 <?= $this->endSection() ?>
 
-
+<?php endif; ?>

@@ -1,4 +1,5 @@
 <?= $this->extend("layout/master-admin") ?>
+<?php if(isset($data, $data1, $data2, $breadcrumbs)): ?>
 
 <?= $this->section("title") ?>
 Admin HMSI | Rapor | Hasil
@@ -21,7 +22,7 @@ Hasil Penilaian Rapor Fungsionaris
 <?= $this->section("konten") ?>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    @import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
     div.card.hasil {
         page-break-after:always;
     }
@@ -115,7 +116,7 @@ Hasil Penilaian Rapor Fungsionaris
 
         <div class="tx-center tx-14" style="color: #2C427A;">Ketua Himpunan Mahasiswa Sistem Informasi</div>
         <div class="tx-center" style="margin-top: -30px; margin-bottom: -20px;">
-            <img src="<?= base_url("pic/ttd-agym.svg") ?>">
+            <img src="<?= base_url("pic/ttd-agym.svg") ?>" alt="tanda tangan agym">
         </div>
         <div class="tx-center tx-14 tx-bold" style="color: #2C427A;">Abdullah Gymnastiar Abdoerrani</div>
         <div class="tx-center tx-14" style="color: #2C427A;">NRP. 05211940000030</div>
@@ -125,3 +126,5 @@ Hasil Penilaian Rapor Fungsionaris
 <?php endfor; ?>
 
 <?= $this->endSection() ?>
+
+<?php endif; ?>
