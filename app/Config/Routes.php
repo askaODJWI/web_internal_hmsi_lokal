@@ -53,6 +53,7 @@ $routes->group("/", function ($routes)
         $routes->get("p/(:num)", [Presensi::class, "acara_panitia"]);
     });
 
+    $routes->get("/s/(:num)", [SurveiControl::class, "index_publik"]);
     $routes->get("/(:num)", [Presensi::class, "acara"]);
     $routes->get("/(:segment)",[Admin::class, "tautan_alih"]);
 });
@@ -118,6 +119,8 @@ $routes->group("admin", ['filter' => 'auth'] ,function ($routes)
     {
         $routes->get("dashboard",[SurveiControl::class, "index"]);
         $routes->get("detail/(:num)",[SurveiControl::class, "detail"]);
+        $routes->get("tambah",[SurveiControl::class, "tambah"]);
+        $routes->post("tambah",[SurveiControl::class, "tambah_kirim"]);
     });
 
     $routes->group("sekre", function ($routes){
