@@ -212,7 +212,7 @@
 
             <footer class="content-footer tx-9 mb-3">
                 <div class="order-sm-1 order-lg-1">
-                    <span>Copyright &copy; 2022 by <a href="https://arek.its.ac.id/hmsi" class="tx-bold" target="_blank">HMSI ITS</a></span>
+                    <span>Copyright &copy; 2022 - <?= date("Y") ?> by <a href="https://arek.its.ac.id/hmsi" class="tx-bold" target="_blank">HMSI ITS</a></span>
                 </div>
                 <div class="order-sm-3 order-lg-2">
                     <span>Halaman dimuat dalam <b>{elapsed_time}</b> detik</span>
