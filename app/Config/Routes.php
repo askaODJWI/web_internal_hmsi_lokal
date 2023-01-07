@@ -53,7 +53,7 @@ $routes->group("/", function ($routes)
         $routes->get("p/(:num)", [Presensi::class, "acara_panitia"]);
     });
 
-    $routes->get("/s/(:num)", [SurveiControl::class, "index_publik"]);
+    $routes->get("/s/(:num)", [Admin::class, "survei_alih"]);
     $routes->get("/(:num)", [Presensi::class, "acara"]);
     $routes->get("/(:segment)",[Admin::class, "tautan_alih"]);
 });
