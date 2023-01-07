@@ -6,6 +6,7 @@ use App\Models\Acara;
 use App\Models\Mhs;
 use App\Models\Nilai;
 use App\Models\Pengurus;
+use App\Models\Survei;
 use App\Models\Tautan;
 use App\Modules\Breadcrumbs\Breadcrumbs;
 use CodeIgniter\HTTP\RedirectResponse;
@@ -233,5 +234,15 @@ class Admin extends BaseController
             return redirect()->to($query1->panjang);
         }
         return view("errors/404");
+    }
+
+    public function survei_alih($id_survei)
+    {
+        $survei = new Survei();
+        $query1 = $survei->where("id_survei",$id_survei)
+            ->join("departemen", "survei.id_departemen = departemen.id_departemen")
+            ->first();
+
+        return view("survei/index", ["data" => $query1]);
     }
 }

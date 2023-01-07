@@ -115,13 +115,4 @@ class SurveiControl extends BaseController
         return redirect()->to(base_url("admin/survei/tambah"))
             ->with("error","Tautan survei harus mengandung bidang <b>'id-survei' dan 'nrp' </b>");
     }
-
-    public function index_publik($id_survei): string
-    {
-        $query1 = $this->survei->where("id_survei",$id_survei)
-            ->join("departemen", "survei.id_departemen = departemen.id_departemen")
-            ->first();
-
-        return view("survei/index", ["data" => $query1]);
-    }
 }

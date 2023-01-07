@@ -78,7 +78,8 @@ Pengisian Survei HMSI
     $("#ambil_link").click(function(e) {
         e.preventDefault();
         let nrp = $("#nrp").val();
-        let id_survei = this.href.substring(this.href.lastIndexOf('/') + 1);
+        let alamat = window.location.pathname;
+        let id_survei = alamat.toString().replace("/s/","");
         let tautan = "<?= $data->tautan ?>";
 
         window.location = tautan.replace("nrp", nrp).replace("id-pengurus", 0).replace("id-survei", id_survei);
