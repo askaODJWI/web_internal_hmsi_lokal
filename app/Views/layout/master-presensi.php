@@ -6,7 +6,7 @@
 
     <title><?php $this->renderSection("title") ?></title>
 
-    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url("pic/saturasi-logo.png") ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url("pic/spasi-logo.png") ?>">
 
     <link href="<?= base_url("main/lib/@fortawesome/fontawesome-free/css/all.min.css") ?>" rel="stylesheet">
     <link href="<?= base_url("main/lib/animate.css/animate.min.css") ?>" rel="stylesheet">

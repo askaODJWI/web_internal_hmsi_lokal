@@ -1,5 +1,6 @@
 <?= $this->extend("layout/master-admin") ?>
-<?php if(isset($data, $data1, $data2, $breadcrumbs)): ?>
+ <!-- <php if(isset($data, $data1, $data2, $breadcrumbs)): ?> -->
+<?php if(isset($breadcrumbs)): ?>
 
 <?= $this->section("title") ?>
 Admin HMSI | Rapor | Hasil

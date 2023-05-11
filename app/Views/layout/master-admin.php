@@ -6,7 +6,7 @@
 
     <title><?= $this->renderSection("title") ?></title>
 
-    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url("pic/saturasi-logo.png") ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url("pic/spasi-logo.png") ?>">
 
     <link href="<?= base_url("main/lib/@fortawesome/fontawesome-free/css/all.min.css") ?>" rel="stylesheet">
 
@@ -50,7 +50,7 @@
         <div class="d-flex">
             <a href="<?= base_url("/admin/beranda") ?>" class="aside-logo">
                 <img src="<?= base_url("pic/hmsi-mini.jpg") ?>" height="45" alt="" class="aside-logo">
-                <img src="<?= base_url("pic/saturasi-mini.jpg") ?>" height="45" alt="" class="aside-logo">
+                <img src="<?= base_url("pic/spasi-logo.png") ?>" height="45" alt="" class="aside-logo">
             </a>
         </div>
         <a href="" class="aside-menu-link">
