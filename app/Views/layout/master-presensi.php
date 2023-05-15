@@ -15,7 +15,19 @@
 </head>
 <body class="tx-lexend">
 
+<header>
+        <nav class="navbar navbar-light bg-white">
+            <a href="<?= base_url("/admin/beranda") ?>" class="navbar-brand">
+                <img src="<?= base_url("pic/hmsi-mini.jpg") ?>" height="45" alt="" class="aside-logo">
+                <img src="<?= base_url("pic/spasi-logo.png") ?>" height="45" alt="" class="aside-logo">
+            </a>
+
+            <a href="<?= base_url("/admin/login") ?>" class="mg-l-auto">Login Fungsionaris</a>
+        </nav>
+</header>
+
 <div class="container mt-3 col-md-6 col-lg-4 col-xl-3">
+
     <h3>Kehadiran Acara HMSI</h3>
     <p class="tx-gray-700 tx-12">Silakan melakukan registrasi acara hari ini</p>
 

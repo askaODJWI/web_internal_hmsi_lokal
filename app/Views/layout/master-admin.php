@@ -292,7 +292,7 @@
             $("#jabatan").append(data["jabatan"]);
             if (data["nama_panggilan"] === "" || data["id_line"] === "" || data["no_wa"] === "")
             {
-                profil.append("baru");
+                profil.append("baru!");
                 profil.addClass("animated flash infinite");
             }
         }
