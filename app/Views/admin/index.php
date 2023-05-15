@@ -6,7 +6,7 @@ Admin HMSI | Beranda
 <?= $this->endSection() ?>
 
 <?= $this->section("halaman") ?>
-Selamat Datang <span class="tx-primary">Generasi Pionir ✨</span>
+Selamat Datang <span class="tx-primary">Katalis Perubahan ✨</span>
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>
