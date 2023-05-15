@@ -162,7 +162,7 @@ class HadirControl extends BaseController
             ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
             ->setForegroundColor(new Color(0, 0, 0))
             ->setBackgroundColor(new Color(255, 255, 255));
-        $logo = Logo::create( FCPATH .'pic/spasi-mini.jpg')
+        $logo = Logo::create( FCPATH .'pic/spasi-mini.png')
             ->setResizeToWidth(100);
 
         $hasil = $writer->write($qr_code, $logo);
