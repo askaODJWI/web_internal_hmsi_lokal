@@ -52,7 +52,7 @@ class Admin extends BaseController
             return redirect()->to(base_url("/admin/beranda"));
         }
         return redirect()->to(base_url("admin/login"))
-            ->with("error","Nama Pengguna atau Kata Sandi <b>SALAH</b>");
+            ->with("error","NRP atau Kata Sandi <b>SALAH</b>");
     }
 
     public function logout(): RedirectResponse

@@ -21,8 +21,8 @@
 
     <form action="<?= base_url("admin/login") ?>" method="post" data-parsley-validate class="animated fadeInUp">
         <div class="form-group">
-            <label for="username" class="tx-bold">Nama Pengguna <span class="tx-danger">*</span></label>
-            <input id="username" name="username" type="text" class="form-control" placeholder="Masukkan username" required data-parsley-required-message="Nama Pengguna wajib diisi!">
+            <label for="username" class="tx-bold">NRP <span class="tx-danger">*</span></label>
+            <input id="username" name="username" type="text" class="form-control" placeholder="Masukkan username" required data-parsley-required-message="NRP wajib diisi!">
         </div>
         <div class="form-group">
             <label for="password" class="tx-bold">Kata Sandi <span class="tx-danger">*</span></label>
