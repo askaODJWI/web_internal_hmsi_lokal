@@ -76,7 +76,7 @@ Detail Tautan Kehadiran Acara
                 <div class="input-group">
                     <label for="tautan"></label>
                     <input type="text" class="form-control tx-center tx-bold tx-20"
-                           name="tautan" id="tautan" value="hmsi.tekan.id/<?= $data->kode_acara ?>" readonly>
+                           name="tautan" id="tautan" value="hmsi-its.my.id/<?= $data->kode_acara ?>" readonly>
                     <div class="input-group-append">
                         <button type="button" onclick="copyLink('<?= base_url("/$data->kode_acara") ?>')" class="btn btn-primary"
                                 data-container="body" data-toggle="popover" data-placement="bottom"
