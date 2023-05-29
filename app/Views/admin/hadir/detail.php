@@ -76,17 +76,17 @@ Detail Tautan Kehadiran Acara
                 <div class="input-group">
                     <label for="tautan"></label>
                     <input type="text" class="form-control tx-center tx-bold tx-20"
-                           name="tautan" id="tautan" value="hmsi-its.my.id/<?= $data->kode_acara ?>" readonly>
+                        name="tautan" id="tautan" value="hmsi-its.my.id/<?= $data->kode_acara ?>" readonly>
                     <div class="input-group-append">
-                            <button type="button" class="btn btn-primary" 
-                                onclick="copyLink('<?php echo base_url($data->kode_acara); ?>')" 
+                        <button type="button" class="btn btn-primary" 
+                                onclick="copyLink('<?= base_url($data->kode_acara); ?>')" 
                                 data-container="body" 
                                 data-toggle="popover" 
                                 data-placement="bottom"
                                 title="Tautan berhasil disalin ke clipboard!" 
                                 data-trigger="focus">
-                                <i data-feather="clipboard" style="width: 16px; height: 16px;"></i> salin
-                            </button>
+                            <i data-feather="clipboard" style="width: 16px; height: 16px;"></i> salin
+                        </button>
                     </div>
                 </div>
             </div>
@@ -136,6 +136,14 @@ Detail Tautan Kehadiran Acara
     function copyLink(url)
     {
         navigator.clipboard.writeText(url);
+        .then(() => {
+                // Success message
+                console.log('Tautan berhasil disalin ke clipboard!');
+            })
+            .catch((error) => {
+                // Error message
+                console.log('Gagal menyalin tautan ke clipboard!');
+            });
     }
 </script>
 
