@@ -78,7 +78,7 @@ Detail Tautan Kehadiran Acara
                     <input type="text" class="form-control tx-center tx-bold tx-20"
                         name="tautan" id="tautan" value="hmsi-its.my.id/<?= $data->kode_acara ?>" readonly>
                     <div class="input-group-append">
-                    <button type="button" onclick="copyLink('<?= base_url("/$data->kode_acara") ?>')" class="btn btn-primary"
+                    <button type="button" onclick="copyLink()" class="btn btn-primary"
                                 data-container="body" data-toggle="popover" data-placement="bottom"
                                 title="Tautan berhasil disalin ke clipboard!" data-trigger="focus">
                             <i data-feather="clipboard" style="width: 16px; height: 16px;"></i> salin
@@ -129,9 +129,12 @@ Detail Tautan Kehadiran Acara
         $("#modal_panitia").modal();
     }
 
-    function copyLink(url)
+    function copyLink()
     {
-        navigator.clipboard.writeText(url);
+        var copyText = document.getElementById("tautan");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
     }
 </script>
 
