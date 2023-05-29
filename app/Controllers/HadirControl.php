@@ -110,7 +110,8 @@ class HadirControl extends BaseController
             ->orderBy("kode_acara","DESC")
             ->first();
 
-        $nomor = (int)substr($query2->kode_acara, 2, 2);
+        // $nomor = (int)substr($query2->kode_acara, 2, 2);
+        $nomor = 0;
         $kode_acara = (($id_departemen <= 9) ? "0" . $id_departemen : $id_departemen) . (($nomor + 1 <= 9) ? "0" . ($nomor + 1) : ($nomor + 1));
 
         $data = [
