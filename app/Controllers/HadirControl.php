@@ -42,7 +42,7 @@ class HadirControl extends BaseController
         $query1 = $this->pengurus->where("id_pengurus",$this->id_pengurus)
             ->first();
 
-        if($this->id_pengurus < 2000)
+        if($this->id_pengurus < 20000)
         {
             $query2 = $this->acara->select("(SELECT COUNT(kode_acara) FROM hadir WHERE acara.kode_acara = hadir.kode_acara GROUP BY kode_acara) as jumlah")
                 ->select(["acara.kode_acara","nama_acara","tanggal","nama_departemen","lokasi","nama","jabatan","status"])
@@ -248,7 +248,7 @@ class HadirControl extends BaseController
         $query1 = $this->pengurus->where("id_pengurus",$this->id_pengurus)
             ->first();
 
-        if($this->id_pengurus < 2000)
+        if($this->id_pengurus < 20000)
         {
             $query2 = $this->acara->select(["nama","jabatan","nama_departemen","nama_acara","acara.kode_acara","tanggal","lokasi","COUNT(hadir.kode_acara) as peserta"])
                 ->join("hadir","acara.kode_acara = hadir.kode_acara")

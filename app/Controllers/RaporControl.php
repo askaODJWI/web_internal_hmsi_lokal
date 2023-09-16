@@ -41,7 +41,7 @@ class RaporControl extends BaseController
         $query1 = $this->pengurus->where("id_pengurus",$this->id_pengurus)
             ->first();
 
-        if($this->id_pengurus < 2000)
+        if($this->id_pengurus < 20000)
         {
             $query2 = $this->nilai->select(["nilai.id_pengurus","nama","jabatan","nama_departemen","nilai.id_bulan","jenis","CAST(AVG(nilai) AS DOUBLE) AS nilai"])
                 ->join("indikator","nilai.id_indikator = indikator.id_indikator")
@@ -61,7 +61,7 @@ class RaporControl extends BaseController
                 ["data" => $query2, "breadcrumbs" => $breadcrumbs]);
         }
 
-        if($this->id_pengurus < 4000)
+        if($this->id_pengurus < 40000)
         {
             $query3 = $this->nilai->select(["nilai.id_pengurus","nama","jabatan","nama_departemen","nilai.id_bulan","jenis","CAST(AVG(nilai) AS DOUBLE) AS nilai"])
                 ->where("pengurus.id_departemen",$query1->id_departemen)
@@ -93,7 +93,7 @@ class RaporControl extends BaseController
         $query1 = $this->pengurus->where("id_pengurus",$this->id_pengurus)
             ->first();
 
-        if($this->id_pengurus < 2000)
+        if($this->id_pengurus < 20000)
         {
             $query2 = $this->nilai->select(["nama", "nilai.id_pengurus", "nama_departemen", "nilai.id_indikator", "nilai.id_bulan", "nilai"])
                 ->join("indikator", "nilai.id_indikator = indikator.id_indikator")
@@ -110,7 +110,7 @@ class RaporControl extends BaseController
                 ["data" => $query2, "breadcrumbs" => $breadcrumbs]);
         }
 
-        if($this->id_pengurus < 4000)
+        if($this->id_pengurus < 40000)
         {
             $query3 = $this->nilai->select(["nama", "nilai.id_pengurus", "nama_departemen", "nilai.id_indikator", "nilai.id_bulan", "nilai"])
                 ->where("pengurus.id_departemen",$query1->id_departemen)
