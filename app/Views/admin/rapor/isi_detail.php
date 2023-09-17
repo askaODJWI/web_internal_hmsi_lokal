@@ -29,9 +29,9 @@
 
         <h4 class="accordion-title tx-bold tx-20">
             <?php switch($data[$i]->id_bulan){
-                        case(1): echo "APRIL"; break;
-                        case(2): echo "JULI"; break;
-                        case(3): echo "OKTOBER"; break;
+                        case(1): echo "SEPTEMBER"; break;
+                        case(2): echo "OKTOBER"; break;
+                        case(3): echo "NOVEMBER"; break;
             } ?>
         </h4>
 
@@ -184,9 +184,9 @@
                                 <td class="wd-70p align-middle">
                                     <label for="submit" class="tx-danger">
                                         Apakah pengisian nilai rapor bulan <b><?php switch($data[$i]->id_bulan){
-                                                case(1): echo "APRIL"; break;
-                                                case(2): echo "JULI"; break;
-                                                case(3): echo "OKTOBER"; break;}
+                                                case(1): echo "SEPTEMBER"; break;
+                                                case(2): echo "OKTOBER"; break;
+                                                case(3): echo "NOVEMBER"; break;}
                                             ?></b> sudah benar?
                                     </label>
                                 </td>
@@ -212,7 +212,7 @@
     $('#accordion').accordion({
         heightStyle: 'content',
         collapsible: true,
-        active: 2, // 0 -> april, 1 -> juli, 2 -> oktober
+        active: 2, // 0 -> september, 1 -> oktober, 2 -> november
     });
 </script>
 
