@@ -95,12 +95,12 @@ class Admin extends BaseController
         ];
 
         $sekarang = new DateTime("now");
-        $bulan1_awal = new DateTime("2022-01-01 00:00:00");
-        $bulan1_akhir = new DateTime("2022-07-24 23:59:59");
-        $bulan2_awal = new DateTime("2022-07-25 00:00:00");
-        $bulan2_akhir = new DateTime("2022-10-24 23:59:59");
-        $bulan3_awal = new DateTime("2022-10-25 00:00:00");
-        $bulan3_akhir = new DateTime("2022-12-31 23:59:59");
+        $bulan1_awal = new DateTime("2023-01-01 00:00:00");
+        $bulan1_akhir = new DateTime("2023-07-24 23:59:59");
+        $bulan2_awal = new DateTime("2023-07-25 00:00:00");
+        $bulan2_akhir = new DateTime("2023-10-24 23:59:59");
+        $bulan3_awal = new DateTime("2023-10-25 00:00:00");
+        $bulan3_akhir = new DateTime("2023-12-31 23:59:59");
 
         $id_bulan = 0;
         if($sekarang >= $bulan1_awal && $sekarang <= $bulan1_akhir)

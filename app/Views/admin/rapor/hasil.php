@@ -1,6 +1,7 @@
 <?= $this->extend("layout/master-admin") ?>
- <!-- <php if(isset($data, $data1, $data2, $breadcrumbs)): ?> -->
-<?php if(isset($breadcrumbs)): ?>
+<?php if(isset($data, $data2, $breadcrumbs)): ?>
+
+<!-- <php if(isset($breadcrumbs)): ?> -->
 
 <?= $this->section("title") ?>
 Admin HMSI | Rapor | Hasil
@@ -14,7 +15,7 @@ Admin HMSI | Rapor | Hasil
 Hasil Penilaian Rapor Fungsionaris
 <?= $this->endSection() ?>
 
-<?php if(session("id_pengurus") < 4000): ?>
+<?php if(session("id_pengurus") < 40000): ?>
 <?= $this->section("tambah") ?>
 <a href="<?= base_url("admin/rapor/dashboard") ?>" class="btn btn-secondary btn-sm"><i data-feather="arrow-left"></i> Kembali</a>
 <?= $this->endSection() ?>
@@ -41,7 +42,7 @@ Hasil Penilaian Rapor Fungsionaris
                 case(1): echo "April"; break;
                 case(2): echo "Juli"; break;
                 case(3): echo "Oktober"; break;}
-            ?> 2022
+            ?> 2023
         </div>
 
         <div class="mg-t-30"></div>

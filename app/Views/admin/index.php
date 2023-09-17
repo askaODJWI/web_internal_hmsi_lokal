@@ -1,6 +1,5 @@
 <?= $this->extend("layout/master-admin") ?>
 <?php if(isset($data, $data1, $data2, $data3, $data4, $data5)): ?>
-
 <?= $this->section("title") ?>
 Admin HMSI | Beranda
 <?= $this->endSection() ?>

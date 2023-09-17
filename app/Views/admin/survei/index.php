@@ -56,7 +56,7 @@
 
             <?php
             $id = $d->id_survei;
-            if($d->id_departemen === $data2->id_departemen || session()->get("id_pengurus") < 2000):
+            if($d->id_departemen === $data2->id_departemen || session()->get("id_pengurus") < 20000):
             ?>
                 <a href="<?= base_url("s/$d->id_survei") ?>" class="btn btn-light btn-xs btn-block" target="_blank">
                     <i data-feather="link"></i> Salin Tautan Survei

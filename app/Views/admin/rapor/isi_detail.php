@@ -23,7 +23,7 @@
 <div id="accordion" class="accordion">
     <?php
     $total = array_key_last($data);
-    $cek = (session()->get("id_pengurus") <= 2000) ? "" : "readonly";
+    $cek = (session()->get("id_pengurus") <= 20000) ? "" : "readonly";
 
     for($i = 0 ; $i <= $total ; $i+=5 ): ?>
 
@@ -78,7 +78,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="align-middle"><label for="indikator1" class="tx-bold">Indikator 1 <span class="tx-danger">*</span></label></td>
+                                <td class="align-middle"><label for="indikator1" class="tx-bold">Indikator 1 <span class="tx-danger">*</span> <span class="tx-10 tx-normal tx-gray-600">Fill this!</span></label></td>
                                 <td><input id="indikator1a" name="indikator1a" type="number" value="<?= $data[$i]->nilai_a ?>" class="form-control form-control-sm" placeholder="Masukkan nilai" maxlength="3" required data-parsley-required-message="Bagian ini wajib diisi!"></td>
                                 <td><input id="indikator1b" name="indikator1b" type="number" value="<?= $data[$i]->nilai_b ?>" class="form-control form-control-sm" placeholder="Masukkan nilai" maxlength="3" required data-parsley-required-message="Bagian ini wajib diisi!"></td>
                             </tr>
@@ -118,7 +118,7 @@
                             </tr>
                             <tr>
                                 <td class="align-middle"><label for="indikator3" class="tx-bold">Indikator 3 <span class="tx-danger">*</span>
-                                    <span class="tx-10 tx-normal tx-gray-600">Auto-graded</span></label></td>
+                                    <span class="tx-10 tx-normal tx-gray-600">Auto-graded </span></label></td>
                                 <td><input id="indikator3a" name="indikator3a" type="number" value="<?= $data[$i+2]->nilai_a ?>" class="form-control form-control-sm" placeholder="Masukkan nilai" maxlength="3" required data-parsley-required-message="Bagian ini wajib diisi!" <?= $cek ?>></td>
                                 <td><input id="indikator3b" name="indikator3b" type="number" value="<?= $data[$i+2]->nilai_b ?>" class="form-control form-control-sm" placeholder="Masukkan nilai" maxlength="3" required data-parsley-required-message="Bagian ini wajib diisi!" <?= $cek ?>></td>
                             </tr>
@@ -173,7 +173,7 @@
                             </tr>
                             <tr>
                                 <td><label for="umpan_balik" class="tx-bold">Pesan <span class="tx-danger">*</span></label></td>
-                                <td><textarea id="umpan_balik" name="umpan_balik" type="text" rows="3" class="form-control form-control-sm" placeholder="Masukkan umpan balik untuk perkembangan staf" required data-parsley-required-message="Bagian ini wajib diisi!"><?= $data2[$i / 5]->umpan_balik ?></textarea></td>
+                                <td><textarea id="umpan_balik" name="umpan_balik" type="text" rows="3" class="form-control form-control-sm" placeholder="Masukkan umpan balik untuk perkembangan staf" required data-parsley-required-message="Bagian ini wajib diisi!"><?= $data2[$i / 5]->umpan_balik != null ? $data2[$i / 5]->umpan_balik : " " ?></textarea></td>
                             </tr>
                         </table>
                     </div>

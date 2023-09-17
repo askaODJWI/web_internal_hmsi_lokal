@@ -16,6 +16,7 @@ Daftar Nilai Rapor Fungsionaris
 <?= $this->section("konten") ?>
 
 <?php $total = array_key_last($data); ?>
+<!-- <php dd($total)?> -->
 <?php for($i = 0 ; $i <= $total ; $i+=6): ?>
 <div class="row mt-3">
     <?php for($j = $i ; $j < $i+6 ; $j+=2): ?>

@@ -81,7 +81,7 @@
             </li>
 
             <li class="nav-label mg-t-20">Rapor Fungsionaris</li>
-            <?php if(session()->get("id_pengurus") < 4000): ?>
+            <?php if(session()->get("id_pengurus") < 40000): ?>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "rapor") &&
             ((current_url(true)->getSegment(4)) === "dashboard") ? "active" : "" ?>">
                 <a href="<?= base_url("/admin/rapor/dashboard") ?>" class="nav-link">
@@ -93,7 +93,7 @@
                     <i data-feather="edit"></i> <span>Isi Penilaian</span></a>
             </li>
             <?php endif; ?>
-            <?php if(session()->get("id_pengurus") >= 4000): ?>
+            <?php if(session()->get("id_pengurus") >= 40000): ?>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "rapor") &&
             ((current_url(true)->getSegment(4)) === "hasil") ? "active" : "" ?>">
                 <a href="<?= base_url("/admin/rapor/hasil") ?>" class="nav-link">
@@ -114,7 +114,7 @@
                 <a href="<?= base_url("/admin/sekre/piket/riwayat") ?>" class="nav-link">
                     <i data-feather="clock"></i> <span>Riwayat Piket</span></a>
             </li>
-            <?php if(session()->get("id_pengurus") < 2000): ?>
+            <?php if(session()->get("id_pengurus") < 20000): ?>
             <li class="nav-item <?= ((current_url(true)->getSegment(3)) === "sekre") &&
             ((current_url(true)->getSegment(4)) === "piket") &&
             ((current_url(true)->getSegment(5)) === "kontrol") ? "active" : "" ?>">
@@ -212,7 +212,7 @@
 
             <footer class="content-footer tx-9 mb-3">
                 <div class="order-sm-1 order-lg-1">
-                    <span>Copyright &copy; 2022 - <?= date("Y") ?> by <a href="https://arek.its.ac.id/hmsi" class="tx-bold" target="_blank">HMSI ITS</a></span>
+                    <span>Copyright &copy; 2023 - <?= date("Y") ?> by <a href="https://arek.its.ac.id/hmsi" class="tx-bold" target="_blank">HMSI ITS</a></span>
                 </div>
                 <div class="order-sm-3 order-lg-2">
                     <span>Halaman dimuat dalam <b>{elapsed_time}</b> detik</span>

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Controllers\BaseController;
 use App\Models\Acara;
 use App\Models\Hadir;
 use App\Models\Nilai;
@@ -32,6 +33,65 @@ class RaporControl extends BaseController
         $this->id_pengurus = session("id_pengurus");
     }
 
+    public function generate_data_nilai() 
+    {
+        // Menggunakan model Pengurus
+        $model = new \App\Models\Pengurus();
+
+        // Mengambil semua data pengurus dari tabel
+        $semuaPengurus = $model->findAll();
+
+        // Mengambil setiap id dari data pengurus
+        $semuaIdPengurus = array_column($semuaPengurus, 'id_pengurus');
+
+        // dd($semuaIdPengurus); // Debug (optional
+
+        foreach ($semuaIdPengurus as $pengurus) {
+            // Generate data for 3 bulan
+            for ($id_bulan = 1; $id_bulan <= 3; $id_bulan++) {
+                // Generate 5 indikator setiap bulan
+                for ($id_indikator = 1; $id_indikator <= 5; $id_indikator++) {
+                    $query = $this->nilai->insert([
+                        "id_bulan" => $id_bulan,
+                        "id_pengurus" => $pengurus,
+                        "id_indikator" => $id_indikator,
+                        "nilai" => 0,
+                        "nilai_a" => 0,
+                        "nilai_b" => 0,
+                    ]);
+                }
+            }
+        }
+        return ;
+    }
+
+    public function generate_data_rapor() 
+    {
+        // Menggunakan model Pengurus
+        $model = new \App\Models\Pengurus();
+
+        // Mengambil semua data pengurus dari tabel
+        $semuaPengurus = $model->findAll();
+
+        // Mengambil setiap id dari data pengurus
+        $semuaIdPengurus = array_column($semuaPengurus, 'id_pengurus');
+
+        //dd($semuaIdPengurus); // Debug (optional
+
+        foreach ($semuaIdPengurus as $pengurus) {
+            // Generate data for 3 bulan
+            for ($id_bulan = 1; $id_bulan <= 3; $id_bulan++) {
+                // Isi kosongan rapor setiap bulan
+                    $query = $this->rapor->insert([
+                        "id_pengurus" => $pengurus,
+                        "id_bulan" => $id_bulan,
+                        "umpan_balik" => " ",
+                    ]);
+            }
+        }
+        return ;
+    }
+
     public function index(): string
     {
         $this->breadcrumbs->add("Beranda", "/admin/beranda");
@@ -40,7 +100,7 @@ class RaporControl extends BaseController
 
         $query1 = $this->pengurus->where("id_pengurus",$this->id_pengurus)
             ->first();
-
+        // dd($this->id_pengurus < 40000);
         if($this->id_pengurus < 20000)
         {
             $query2 = $this->nilai->select(["nilai.id_pengurus","nama","jabatan","nama_departemen","nilai.id_bulan","jenis","CAST(AVG(nilai) AS DOUBLE) AS nilai"])
@@ -57,6 +117,13 @@ class RaporControl extends BaseController
                 ->orderBy("jenis")
                 ->get()
                 ->getResult();
+            
+            if($query2 == null){
+                $generate_data = $this->generate_data_nilai();
+                return view("admin/rapor/index",
+                ["data" => $query2, "breadcrumbs" => $breadcrumbs]);
+            }
+                
             return view("admin/rapor/index",
                 ["data" => $query2, "breadcrumbs" => $breadcrumbs]);
         }
@@ -78,6 +145,12 @@ class RaporControl extends BaseController
                 ->orderBy("jenis")
                 ->get()
                 ->getResult();
+
+                if($query3 == null){
+                    $generate_data = $this->generate_data_nilai();
+                    return view("admin/rapor/index",
+                    ["data" => $query3, "breadcrumbs" => $breadcrumbs]);
+                }   
             return view("admin/rapor/index",
                 ["data" => $query3, "breadcrumbs" => $breadcrumbs]);
         }
@@ -142,14 +215,14 @@ class RaporControl extends BaseController
         switch($id_bulan)
         {
             case(1):
-                $awal = (new DateTime("2022-02-01 00:00:00"))->format("y-m-d H:i:s");
-                $akhir = (new DateTime("2022-05-31 23:59:59"))->format("y-m-d H:i:s"); break;
+                $awal = (new DateTime("2023-02-01 00:00:00"))->format("y-m-d H:i:s");
+                $akhir = (new DateTime("2023-05-31 23:59:59"))->format("y-m-d H:i:s"); break;
             case(2):
-                $awal = (new DateTime("2022-06-01 00:00:00"))->format("y-m-d H:i:s");
-                $akhir = (new DateTime("2022-07-31 23:59:59"))->format("y-m-d H:i:s"); break;
+                $awal = (new DateTime("2023-06-01 00:00:00"))->format("y-m-d H:i:s");
+                $akhir = (new DateTime("2023-07-31 23:59:59"))->format("y-m-d H:i:s"); break;
             case(3):
-                $awal = (new DateTime("2022-08-01 00:00:00"))->format("y-m-d H:i:s");
-                $akhir = (new DateTime("2022-10-31 23:59:59"))->format("y-m-d H:i:s"); break;
+                $awal = (new DateTime("2023-08-01 00:00:00"))->format("y-m-d H:i:s");
+                $akhir = (new DateTime("2023-10-31 23:59:59"))->format("y-m-d H:i:s"); break;
         }
         $nilai2a = $this->hadir->where("nrp",$query1->nrp)
             ->where("tipe","1")
@@ -286,6 +359,9 @@ class RaporControl extends BaseController
             ->get()
             ->getResult();
 
+        if($query2 == null) {
+            $generate_data = $this->generate_data_rapor();
+        }    
         return view("admin/rapor/isi_detail",
             ["data" => $query1, "data2" => $query2, "breadcrumbs" => $breadcrumbs]);
     }
@@ -445,7 +521,7 @@ class RaporControl extends BaseController
             case(4):case(5):case(6):case(7):case(8):
             $query3 = $this->nilai->select(["nama","nilai.id_pengurus","nilai.id_indikator","nilai.id_bulan","nilai","deskripsi","nama_departemen","jabatan"])
                 ->where("nilai.id_pengurus",$this->id_pengurus)
-                ->where("nilai.id_bulan",1)
+                ->where("nilai.id_bulan",2)
                 ->join("indikator","nilai.id_indikator = indikator.id_indikator")
                 ->join("pengurus","nilai.id_pengurus = pengurus.id_pengurus")
                 ->join("departemen","pengurus.id_departemen = departemen.id_departemen")
@@ -525,4 +601,7 @@ class RaporControl extends BaseController
         return view("admin/rapor/hasil",
             ["data" => $query2, "data2" => $query1, "breadcrumbs" => $breadcrumbs]);
     }
+
+
+
 }

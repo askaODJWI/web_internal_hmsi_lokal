@@ -1,6 +1,5 @@
 <?= $this->extend("layout/master-admin") ?>
 <?php if(isset($data, $breadcrumbs)): ?>
-
 <?= $this->section("title") ?>
 Admin HMSI | Rapor | Isi
 <?= $this->endSection() ?>
