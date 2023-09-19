@@ -118,10 +118,10 @@ Hasil Penilaian Rapor Fungsionaris
 
         <div class="tx-center tx-14" style="color: #2C427A;">Ketua Himpunan Mahasiswa Sistem Informasi</div>
         <div class="tx-center" style="margin-top: -30px; margin-bottom: -20px;">
-            <img src="<?= base_url("pic/ttd-agym.svg") ?>" alt="tanda tangan agym">
+            <img src="<?= base_url("pic/ttd-hanan.svg") ?>" alt="tanda tangan ketua hmsi">
         </div>
-        <div class="tx-center tx-14 tx-bold" style="color: #2C427A;">Abdullah Gymnastiar Abdoerrani</div>
-        <div class="tx-center tx-14" style="color: #2C427A;">NRP. 05211940000030</div>
+        <div class="tx-center tx-14 tx-bold" style="color: #2C427A;">Mas Abdurrachman Hanan</div>
+        <div class="tx-center tx-14" style="color: #2C427A;">NRP. 5026201147</div>
     </div>
 </div>
 <div class="mg-t-50"></div>
