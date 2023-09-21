@@ -215,14 +215,14 @@ class RaporControl extends BaseController
         switch($id_bulan)
         {
             case(1):
-                $awal = (new DateTime("2023-02-01 00:00:00"))->format("y-m-d H:i:s");
-                $akhir = (new DateTime("2023-05-31 23:59:59"))->format("y-m-d H:i:s"); break;
+                $awal = (new DateTime("2023-09-01 00:00:00"))->format("y-m-d H:i:s");
+                $akhir = (new DateTime("2023-09-30 23:59:59"))->format("y-m-d H:i:s"); break;
             case(2):
-                $awal = (new DateTime("2023-06-01 00:00:00"))->format("y-m-d H:i:s");
-                $akhir = (new DateTime("2023-07-31 23:59:59"))->format("y-m-d H:i:s"); break;
-            case(3):
-                $awal = (new DateTime("2023-08-01 00:00:00"))->format("y-m-d H:i:s");
+                $awal = (new DateTime("2023-10-01 00:00:00"))->format("y-m-d H:i:s");
                 $akhir = (new DateTime("2023-10-31 23:59:59"))->format("y-m-d H:i:s"); break;
+            case(3):
+                $awal = (new DateTime("2023-11-01 00:00:00"))->format("y-m-d H:i:s");
+                $akhir = (new DateTime("2023-11-30 23:59:59"))->format("y-m-d H:i:s"); break;
         }
         $nilai2a = $this->hadir->where("nrp",$query1->nrp)
             ->where("tipe","1")
