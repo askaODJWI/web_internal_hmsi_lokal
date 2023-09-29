@@ -100,7 +100,7 @@ class RaporControl extends BaseController
 
         $query1 = $this->pengurus->where("id_pengurus",$this->id_pengurus)
             ->first();
-        // dd($this->id_pengurus < 40000);
+        // dd($query1->id_departemen);
         if($this->id_pengurus < 20000)
         {
             $query2 = $this->nilai->select(["nilai.id_pengurus","nama","jabatan","nama_departemen","nilai.id_bulan","jenis","CAST(AVG(nilai) AS DOUBLE) AS nilai"])
@@ -265,7 +265,7 @@ class RaporControl extends BaseController
                 ->where("waktu <=",$akhir)
                 ->first();
 
-            $waktu_telat = date("H:i", strtotime('+15 minutes', strtotime($pertama->waktu)));
+            $waktu_telat = date("H:i", strtotime('+45 minutes', strtotime($pertama->waktu)));
             $waktu_asli = date("H:i", strtotime($h->waktu));
 
             if($waktu_asli > $waktu_telat)
