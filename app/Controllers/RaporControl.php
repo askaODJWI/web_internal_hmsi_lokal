@@ -382,15 +382,16 @@ class RaporControl extends BaseController
         $indikator5b = $this->request->getPost("indikator5b");
         $umpan_balik = $this->request->getPost("umpan_balik");
 
-        switch($indikator1a)
-        {
-            case(0):
-                $nilai1 = 50; break;
-            case(1):
-                $nilai1 = 75; break;
-            default:
-                $nilai1 = 100; break;
-        }
+        // switch($indikator1a)
+        // {
+        //     case(0):
+        //         $nilai1 = 50; break;
+        //     case(1):
+        //         $nilai1 = 75; break;
+        //     default:
+        //         $nilai1 = 100; break;
+        // }
+        $nilai1 = ($indikator1a === "0") ?  50 : min(max(ceil(($indikator1a / $indikator1b) * 100), 50), 100);
         switch($indikator2a)
         {
             case(0):
