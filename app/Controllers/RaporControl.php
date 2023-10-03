@@ -402,7 +402,7 @@ class RaporControl extends BaseController
             default:
                 $nilai2 = 100; break;
         }
-        $nilai3 = ($indikator3b === "0") ?  50 : max((ceil(($indikator3a / $indikator3b) * 100)),50);
+        $nilai3 = ($indikator3b === "0") ?  50 : min(max(ceil(($indikator3a / $indikator3b) * 100), 50), 100);
         switch($indikator4a)
         {
             case(0):
