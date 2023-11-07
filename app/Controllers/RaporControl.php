@@ -224,6 +224,12 @@ class RaporControl extends BaseController
                 $awal = (new DateTime("2023-11-01 00:00:00"))->format("y-m-d H:i:s");
                 $akhir = (new DateTime("2023-11-30 23:59:59"))->format("y-m-d H:i:s"); break;
         }
+        $nilai1b = $this->acara->where("id_departemen",$query1->id_departemen)
+            ->where("tipe !=",3)
+            ->where("tanggal >=",$awal)
+            ->where("tanggal <=",$akhir)
+            ->countAllResults();
+
         $nilai2a = $this->hadir->where("nrp",$query1->nrp)
             ->where("tipe","1")
             ->where("tanggal >=",$awal)
@@ -286,6 +292,16 @@ class RaporControl extends BaseController
             ->where("tanggal <=",$akhir)
             ->countAllResults();
 
+        $data1 = [
+            "nilai_b" => $nilai1b,
+        ];
+
+        $query_indikator_1 = $this->nilai->set($data1)
+            ->where("id_indikator",1)
+            ->where("id_bulan",$id_bulan)
+            ->where("id_pengurus",$id_pengurus)
+            ->update();
+
         $data2 = [
             "nilai_a" => $nilai2a,
             "nilai_b" => $nilai2b,
@@ -326,7 +342,7 @@ class RaporControl extends BaseController
             ->where("id_pengurus",$id_pengurus)
             ->update();
 
-        if($query2 > 0 && $query3 > 0 && $query4 > 0 && $query5 > 0)
+        if($query_indikator_1 > 0 && $query2 > 0 && $query3 > 0 && $query4 > 0 && $query5 > 0)
         {
             return redirect()->to(base_url("admin/rapor/isi/detail/$id_pengurus"))
                 ->with("berhasil","Penilaian secara auto-grading berhasil dilakukan");
@@ -396,7 +412,7 @@ class RaporControl extends BaseController
             ->where("pengurus.id_pengurus",$id_pengurus)
             ->countAllResults();
         
-        $nilai1 = ($indikator1a === "0" && $cek_acara_internal != 0) ?  50 : min(max(ceil(($indikator1a / $indikator1b) * 100), 50), 100);        
+        $nilai1 = ($indikator1a === "0" && $cek_acara_internal != 0) ?  50 : min(max(ceil(($indikator1a / $indikator1b) * 100), 50 + ceil(($indikator1a / $indikator1b) * 100)), 100);        
         switch($indikator2a)
         {
             case(0):
