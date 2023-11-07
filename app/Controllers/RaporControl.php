@@ -391,7 +391,12 @@ class RaporControl extends BaseController
         //     default:
         //         $nilai1 = 100; break;
         // }
-        $nilai1 = ($indikator1a === "0") ?  50 : min(max(ceil(($indikator1a / $indikator1b) * 100), 50), 100);
+        $cek_acara_internal = $this->acara->where("acara.tipe !=","3")
+            ->join("pengurus", "acara.id_departemen = pengurus.id_departemen")            
+            ->where("pengurus.id_pengurus",$id_pengurus)
+            ->countAllResults();
+        
+        $nilai1 = ($indikator1a === "0" && $cek_acara_internal != 0) ?  50 : min(max(ceil(($indikator1a / $indikator1b) * 100), 50), 100);        
         switch($indikator2a)
         {
             case(0):
