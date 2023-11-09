@@ -80,7 +80,7 @@
                             <tr>
                                 <td class="align-middle"><label for="indikator1" class="tx-bold">Indikator 1 <span class="tx-danger">*</span> <span class="tx-10 tx-normal tx-gray-600">Fill this!</span></label></td>
                                 <td><input id="indikator1a" name="indikator1a" type="number" value="<?= $data[$i]->nilai_a ?>" class="form-control form-control-sm" placeholder="Masukkan nilai" maxlength="3" required data-parsley-required-message="Bagian ini wajib diisi!"></td>
-                                <td><input id="indikator1b" name="indikator1b" type="number" value="<?= $data[$i]->nilai_b ?>" class="form-control form-control-sm" placeholder="Masukkan nilai" maxlength="3" required data-parsley-required-message="Bagian ini wajib diisi!" readonly></td>
+                                <td><input id="indikator1b" name="indikator1b" type="number" value="<?= $data[$i]->nilai_b ?>" class="form-control form-control-sm" placeholder="Masukkan nilai" maxlength="3" required data-parsley-required-message="Bagian ini wajib diisi!"></td>
                             </tr>
                         </table>
                     </div>

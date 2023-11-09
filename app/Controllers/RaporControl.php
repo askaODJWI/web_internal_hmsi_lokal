@@ -412,7 +412,14 @@ class RaporControl extends BaseController
             ->where("pengurus.id_pengurus",$id_pengurus)
             ->countAllResults();
         
-        $nilai1 = ($indikator1a === "0" && $cek_acara_internal != 0) ?  50 : min(max(ceil(($indikator1a / $indikator1b) * 100), 50 + ceil(($indikator1a / $indikator1b) * 100)), 100);        
+        switch($indikator1b)
+        {
+            case(0):
+                $nilai1 = 100; break;
+            default:
+                $nilai1 = ($indikator1a === "0" && $cek_acara_internal != 0) ?  50 : min(max(ceil(($indikator1a / $indikator1b) * 100), 50 + ceil(($indikator1a / $indikator1b) * 100)), 100); break;
+        }       
+     
         switch($indikator2a)
         {
             case(0):
