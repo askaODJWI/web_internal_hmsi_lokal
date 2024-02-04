@@ -38,7 +38,7 @@ Buat Tautan Kehadiran Acara Baru
         <div class="col-lg-7">
             <div class="form-group">
                 <label for="lokasi" class="tx-bold">Lokasi <span class="tx-danger">*</span></label>
-                <input id="lokasi" name="lokasi" type="text" class="form-control" placeholder="Masukkan lokasi acara (dapat berupa link online meet atau lokasi offline)" required data-parsley-required-message="Lokasi Acara wajib diisi!">
+                <input id="lokasi" name="lokasi" type="text" class="form-control" placeholder="Masukkan lokasi acara (dapat berupa link online meet seperti link zoom atau lokasi offline)" required data-parsley-required-message="Lokasi Acara wajib diisi!">
             </div>
         </div>
         <div class="col-lg-5">
