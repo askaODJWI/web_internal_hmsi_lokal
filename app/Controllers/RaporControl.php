@@ -417,7 +417,7 @@ class RaporControl extends BaseController
             case(0):
                 $nilai1 = 100; break;
             default:
-                $nilai1 = ($indikator1a === "0" && $cek_acara_internal != 0) ?  50 : min(max(ceil(($indikator1a / $indikator1b) * 100), 50 + ceil(($indikator1a / $indikator1b) * 100)), 100); break;
+                $nilai1 = ($indikator1a === "0" && $cek_acara_internal != 0) ?  75 : min(max(ceil(($indikator1a / $indikator1b) * 100), 75 + ceil(($indikator1a / $indikator1b) * 100)), 100); break;
         }       
      
         switch($indikator2a)
@@ -431,7 +431,7 @@ class RaporControl extends BaseController
             default:
                 $nilai2 = 100; break;
         }
-        $nilai3 = ($indikator3b === "0") ?  50 : min(max(ceil(($indikator3a / $indikator3b) * 100), 50), 100);
+        $nilai3 = ($indikator3b === "0") ?  75 : min(max(ceil(($indikator3a / $indikator3b) * 100), 75), 100);
         switch($indikator4a)
         {
             case(0):
