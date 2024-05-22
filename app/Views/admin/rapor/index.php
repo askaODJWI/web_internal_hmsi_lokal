@@ -27,9 +27,9 @@ Daftar Nilai Rapor Fungsionaris
                 <a href="#" onclick="document.getElementById('hasil<?= $j ?>').submit();">
                 <div class="card card-body btn-outline-<?= ($data[$j]->nilai === "0" || $data[$j+1]->nilai === "0") ? "danger" : "primary" ?>" style="min-height: 100px">
                     <span class="tx-10"><b><?php switch($data[$j]->id_bulan){
-                                case(1): echo "SEPTEMBER"; break;
-                                case(2): echo "OKTOBER"; break;
-                                case(3): echo "NOVEMBER"; break;}
+                                case(1): echo "JUNI"; break;
+                                case(2): echo "JULI"; break;
+                                case(3): echo "AGUSTUS"; break;}
                             ?></b>
                     </span>
                     <div class="marker pos-absolute t-20 r-20 tx-10" style="text-transform: capitalize">Inisiatif: <?= round($data[$j]->nilai,2) ?></div>

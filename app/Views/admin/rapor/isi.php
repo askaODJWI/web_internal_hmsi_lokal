@@ -20,9 +20,9 @@ Isi Nilai Rapor Fungsionaris
         <th class="wd-5p">No.</th>
         <th class="wd-30p">Nama</th>
         <th class="wd-30p">Departemen</th>
-        <th class="wd-5p">September</th>
-        <th class="wd-5p">Oktober</th>
-        <th class="wd-5p">November</th>
+        <th class="wd-5p">Juni</th>
+        <th class="wd-5p">Juli</th>
+        <th class="wd-5p">Agustus</th>
         <th class="wd-20p">Aksi</th>
     </tr>
     </thead>

@@ -44,7 +44,7 @@
 
     <footer class="content-footer tx-9 mb-3">
         <div>
-            <span>Copyright &copy; 2023 by <a href="https://arek.its.ac.id/hmsi" target="_blank"><b>HMSI ITS</b></a></span>
+            <span>Copyright &copy; 2024 by <a href="https://arek.its.ac.id/hmsi" target="_blank"><b>HMSI ITS</b></a></span>
         </div>
         <div>
             <span>Support by <a href="https://www.tekan.id" target="_blank"><b>Tekan.ID</b></a></span><br>

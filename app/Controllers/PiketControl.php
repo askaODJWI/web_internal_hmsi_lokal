@@ -83,7 +83,7 @@ class PiketControl extends BaseController
             ->orderBy("pengurus.id_departemen")
             ->orderBy("jadwal_wajib")
             ->orderBy("nama")
-            ->where("jadwal_wajib >","2023-01-01")
+            ->where("jadwal_wajib >","2024-01-01")
             ->get()
             ->getResult();
 

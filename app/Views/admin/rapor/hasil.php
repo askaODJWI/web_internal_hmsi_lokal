@@ -39,10 +39,10 @@ Hasil Penilaian Rapor Fungsionaris
         </div>
         <div class="tx-center tx-14 mg-t-1" style="color: #2C427A;">
             Periode <?php switch($data[$i]->id_bulan){
-                case(1): echo "September"; break;
-                case(2): echo "Oktober"; break;
-                case(3): echo "November"; break;}
-            ?> 2023
+                case(1): echo "Juni"; break;
+                case(2): echo "Juli"; break;
+                case(3): echo "Agustus"; break;}
+            ?> 2024
         </div>
 
         <div class="mg-t-30"></div>
@@ -117,11 +117,11 @@ Hasil Penilaian Rapor Fungsionaris
         <div class="mg-t-50"></div>
 
         <div class="tx-center tx-14" style="color: #2C427A;">Ketua Himpunan Mahasiswa Sistem Informasi</div>
-        <div class="tx-center" style="margin-top: -30px; margin-bottom: -20px;">
-            <img src="<?= base_url("pic/ttd-hanan.svg") ?>" alt="tanda tangan ketua hmsi">
+        <div class="tx-center" style="margin-top: -14px; margin-bottom: -10px;">
+            <img src="<?= base_url("pic/ttd-ken.png") ?>" style="max-width:18%" alt="tanda tangan ketua hmsi">
         </div>
-        <div class="tx-center tx-14 tx-bold" style="color: #2C427A;">Mas Abdurrachman Hanan</div>
-        <div class="tx-center tx-14" style="color: #2C427A;">NRP. 5026201147</div>
+        <div class="tx-center tx-14 tx-bold" style="color: #2C427A;">Kentaro Mas'ud Mizoguchi</div>
+        <div class="tx-center tx-14" style="color: #2C427A;">NRP. 5026211007</div>
     </div>
 </div>
 <div class="mg-t-50"></div>
