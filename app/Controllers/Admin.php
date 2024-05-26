@@ -95,7 +95,7 @@ class Admin extends BaseController
         ];
 
         $sekarang = new DateTime("now");
-        $bulan1_awal = new DateTime("2024-06-01 00:00:00");
+        $bulan1_awal = new DateTime("2024-04-25 00:00:00");
         $bulan1_akhir = new DateTime("2024-06-30 23:59:59");
         $bulan2_awal = new DateTime("2024-07-01 00:00:00");
         $bulan2_akhir = new DateTime("2024-07-31 23:59:59");

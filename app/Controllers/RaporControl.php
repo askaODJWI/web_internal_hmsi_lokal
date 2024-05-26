@@ -215,7 +215,7 @@ class RaporControl extends BaseController
         switch($id_bulan)
         {
             case(1):
-                $awal = (new DateTime("2024-06-01 00:00:00"))->format("y-m-d H:i:s");
+                $awal = (new DateTime("2024-04-25 00:00:00"))->format("y-m-d H:i:s");
                 $akhir = (new DateTime("2024-06-30 23:59:59"))->format("y-m-d H:i:s"); break;
             case(2):
                 $awal = (new DateTime("2024-07-01 00:00:00"))->format("y-m-d H:i:s");

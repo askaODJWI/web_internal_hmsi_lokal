@@ -77,7 +77,7 @@ Buat Tautan Kehadiran Acara Baru
         <div class="col-lg-7">
             <label class="tx-danger tx-bold">Catatan Penting: </label>
             <label class="tx-danger">PASTIKAN KAMU SUDAH MEMBACA PANDUAN PEMBUATAN ACARA DI
-                <a href="https://tekan.id/panduan-web-hmsi" target="_blank">https://tekan.id/panduan-web-hmsi</a></label>
+                <a href="https://its.id/m/panduan-web-hmsi-inovasi" target="_blank">https://its.id/m/panduan-web-hmsi-inovasi</a></label>
         </div>
         <div class="col-lg-3 mt-auto">
             <div class="form-group">
