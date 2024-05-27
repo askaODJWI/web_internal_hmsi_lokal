@@ -5,7 +5,7 @@ Admin HMSI | Beranda
 <?= $this->endSection() ?>
 
 <?= $this->section("halaman") ?>
-Selamat Datang <span class="tx-primary">Katalis Perubahan ✨</span>
+Selamat Datang <span class="tx-primary">Sobat Inovasi ✨</span>
 <?= $this->endSection() ?>
 
 <?= $this->section("konten") ?>

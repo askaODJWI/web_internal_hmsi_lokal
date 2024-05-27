@@ -22,7 +22,7 @@
     <form action="<?= base_url("admin/login") ?>" method="post" data-parsley-validate class="animated fadeInUp">
         <div class="form-group">
             <label for="username" class="tx-bold">NRP <span class="tx-danger">*</span></label>
-            <input id="username" name="username" type="text" class="form-control" placeholder="Masukkan username" required data-parsley-required-message="NRP wajib diisi!">
+            <input id="username" name="username" type="text" class="form-control" placeholder="Masukkan NRP" required data-parsley-required-message="NRP wajib diisi!">
         </div>
         <div class="form-group">
             <label for="password" class="tx-bold">Kata Sandi <span class="tx-danger">*</span></label>
@@ -44,8 +44,8 @@
 
     <footer class="content-footer tx-9 mb-3">
         <div>
-            <span>Copyright &copy; 2024 by <a href="https://arek.its.ac.id/hmsi" target="_blank"><b>HMSI ITS</b></a></span>
-        </div>
+            <span>Copyright &copy; 2023 - <?= date("Y") ?> by <a href="https://arek.its.ac.id/hmsi" target="_blank"><b>HMSI ITS</b></a></span>
+        </div>        
         <div>
             <span>Support by <a href="https://www.tekan.id" target="_blank"><b>Tekan.ID</b></a></span><br>
         </div>
