@@ -122,7 +122,7 @@ Selamat Datang <span class="tx-primary">Sobat Inovasi ✨</span>
                         <div class="row mg-t-30">
                             <div class="col-6">
                                 <div class="d-flex align-items-center justify-content-between mg-b-5">
-                                    <h6 class="tx-10 tx-color-02 tx-semibold mg-b-0">Rerata Inisiatif</h6>
+                                    <h6 class="tx-10 tx-color-02 tx-semibold mg-b-0">Rerata Kekeluargaan</h6>
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between mg-b-5">
                                     <h5 class="tx-normal tx-rubik lh-2 mg-b-0 tx-20" id="rerata_inisiatif" style="color: #5C86F2;">
@@ -137,7 +137,7 @@ Selamat Datang <span class="tx-primary">Sobat Inovasi ✨</span>
                             </div>
                             <div class="col-6">
                                 <div class="d-flex align-items-center justify-content-between mg-b-5">
-                                    <h6 class="tx-10 tx-color-02 tx-semibold mg-b-0">Rerata Integritas</h6>
+                                    <h6 class="tx-10 tx-color-02 tx-semibold mg-b-0">Rerata Keprofesian</h6>
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between mg-b-5">
                                     <h5 class="tx-normal tx-rubik lh-2 mg-b-0 tx-20" id="rerata_integritas" style="color: #45BCA8;">

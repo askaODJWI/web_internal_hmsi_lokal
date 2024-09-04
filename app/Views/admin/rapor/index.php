@@ -32,8 +32,8 @@ Daftar Nilai Rapor Fungsionaris
                                 case(3): echo "AGUSTUS"; break;}
                             ?></b>
                     </span>
-                    <div class="marker pos-absolute t-20 r-20 tx-10" style="text-transform: capitalize">Inisiatif: <?= round($data[$j]->nilai,2) ?></div>
-                    <div class="marker pos-absolute b-20 r-20 tx-10" style="text-transform: capitalize">Integritas: <?= round($data[$j+1]->nilai,2) ?></div>
+                    <div class="marker pos-absolute t-20 r-20 tx-10" style="text-transform: capitalize">Kekeluargaan: <?= round($data[$j]->nilai,2) ?></div>
+                    <div class="marker pos-absolute b-20 r-20 tx-10" style="text-transform: capitalize">Keprofesian: <?= round($data[$j+1]->nilai,2) ?></div>
                     <span class="tx-bold mg-r-100 tx-14"><?= $data[$j]->nama ?></span>
                     <span class="mg-b-0 mg-t-0 mg-r-100 tx-10"><?= $data[$j]->jabatan . " " . $data[$j]->nama_departemen ?></span>
                 </div>

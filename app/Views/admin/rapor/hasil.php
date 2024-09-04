@@ -77,7 +77,7 @@ Hasil Penilaian Rapor Fungsionaris
                     <td class="wd-10p tx-bold tx-center">Rata-rata</td>
                 </tr>
                 <tr>
-                    <td class="tx-bold align-middle tx-center" rowspan="2">Inisiatif</td>
+                    <td class="tx-bold align-middle tx-center" rowspan="2">Kekeluargaan</td>
                     <td class=""><?= $data[$i]->deskripsi ?></td>
                     <td class="tx-center align-middle"><?= $data[$i]->nilai ?></td>
                     <td class="tx-center align-middle" rowspan="2"><?= $inisiatif ?></td>
@@ -87,7 +87,7 @@ Hasil Penilaian Rapor Fungsionaris
                     <td class="tx-center align-middle"><?= $data[$i+1]->nilai ?></td>
                 </tr>
                 <tr>
-                    <td class="tx-bold align-middle tx-center" rowspan="3">Integritas</td>
+                    <td class="tx-bold align-middle tx-center" rowspan="3">Keprofesian</td>
                     <td class=""><?= $data[$i+2]->deskripsi ?></td>
                     <td class="tx-center align-middle"><?= $data[$i+2]->nilai ?></td>
                     <td class="tx-center align-middle" rowspan="3"><?= $integritas ?></td>
