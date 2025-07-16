@@ -238,7 +238,7 @@ Selamat Datang <span class="tx-primary">Arek Niskalarasi ✨</span>
         new Chart(ctx1, {
             type: 'bar',
             data: {
-                labels: ["ES","EA","HRD","IM","IA","RTA","SocDev","SWF","TechDev"],
+                labels: ["ES","EA","HRD","IM","IA","RND","SocDev","SWF"],
                 datasets: [{
                     data: [
                         <?php
