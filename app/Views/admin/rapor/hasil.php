@@ -39,9 +39,11 @@ Hasil Penilaian Rapor Fungsionaris
         </div>
         <div class="tx-center tx-14 mg-t-1" style="color: #2C427A;">
             Periode <?php switch($data[$i]->id_bulan){
-                case(1): echo "Juni"; break;
-                case(2): echo "Juli"; break;
-                case(3): echo "Agustus"; break;}
+                case(1): echo "April"; break;
+                case(2): echo "Mei"; break;
+                case(3): echo "Juni"; break;
+                case(4): echo "Juli"; break;
+                case(5): echo "Agustus"; break;}
             ?> 2024
         </div>
 
